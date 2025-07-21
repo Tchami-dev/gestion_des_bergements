@@ -32,7 +32,7 @@ header, .div__header{
 }
 
 .div__navigation--liens{
-    width: 125px;
+    width: auto;
     height: 50%;
     padding-top: 10%;
     text-align: center;
@@ -42,13 +42,13 @@ header, .div__header{
    display: flex;
     float: right;
     height: 90%;
-    width: 20%;
+    width: auto;
 }
 
 nav ul{
     display:inline-flex;
     flex-direction: row;
-    gap: 20%;
+    gap: 7%;
 
 }
 
@@ -582,15 +582,12 @@ h3, .p-info{
 
 /*********** mobiles  *******/
 
-/*@media screen and (max-width:600px){
+@media screen and (max-width:600px){
 
     *{
         padding:0px;
         margin: 0px;
         align-items: center;
-        /* justify-content: center; */
-
-        /* width: fit-content; *//*
     }
     
     
@@ -638,7 +635,7 @@ h3, .p-info{
        height: 30px;
     }
 
-    /* -------- *//*
+    /* -------- */
         
 
     .section__principale--hebergement,.div__principale--hebergement{
@@ -725,5 +722,5 @@ h3, .p-info{
 
 }
 
-         */
+
 

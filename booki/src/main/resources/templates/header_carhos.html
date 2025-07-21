@@ -1,9 +1,8 @@
 <!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="fr">
 
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/css/booking.css}">
-
     <title>header_carhos</title>
 </head>
 <body>
@@ -21,6 +20,7 @@
             <ul>
                 <div class="div__navigation--liens"> <li> <a href="#héberg" >Hébergements</a>  </li> </div>
                 <div class="div__navigation--liens"> <li> <a href="#actif">Activités</a>  </li> </div>
+                <div class="div__navigation--liens"> <li> <a th:href="@{/daschboard_carhos}">Dashboard</a>  </li> </div>
             </ul>
         </nav>
     </div>

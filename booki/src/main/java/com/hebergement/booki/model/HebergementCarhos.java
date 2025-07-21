@@ -2,9 +2,7 @@ package com.hebergement.booki.model;
 
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 
@@ -18,24 +16,19 @@ public class HebergementCarhos {
 
        private Long id;
 
-       @Enumerated(EnumType.STRING)
-       @NotBlank(message="hebergement non figuré pour l'instant")
-       private HebergementCarhosType hebergementCarhosType;
-
-       @NotBlank(message="localisation non identifier")                  //ne peut pas être soumis vide
-       private String localisation;
-
        @NotBlank(message="veillez donner un nom à votre hébergement")   //ne peut pas être soumis à zéro
        private String nom;
 
-       @NotBlank(message="standing non renseigner")
-       private String standing;
-
-       @NotBlank(message="etat d'occupation doit être renseigné")
-       private String etat;
 
        @NotNull(message="tarif est non null")
        @Positive
-       private int tarif;
+       private double prix;
+
+       @NotBlank(message = "votre image doit être de bonne qualité" )
+       private String image;
+
+       @Min(1)
+       @Max(5)
+    private int nbreEtoile;
 
 }

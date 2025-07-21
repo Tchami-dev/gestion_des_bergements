@@ -3,27 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>hebergement_carhos</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">    <!-- pour otenir un css par défaut-->
+   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">   <!-- pour otenir un css par défaut-->
 </head>
 
 <body>
 <div class="contenair">
 
-<h2>Listes de nos hébergements </h2><br>
+<h2>Gestion des hébergements </h2><br>
 
-<a href="/hebergementCarhos/nouveau" class="btn btn-primary">Ajouter un hébergement</a><br>
+<a href="/hebergementCarhos/nouveau" class="btn btn-primary">Add accomodation</a><br>
 
 
  <table class="table nt-3">
     <thead>
       <tr>
           <th>Id</th>
-          <th>Type</th>
-          <th>Localisation</th>
           <th>Nom</th>
-          <th>Standing</th>
-          <th>Etat</th>
-          <th>Tarif</th>
+          <th>Prix</th>
+          <th>Image</th>
+          <th>Nombre Etoile</th>
+          <th>Actions</th>
       </tr>
     </thead>
 
@@ -31,13 +30,14 @@
         <tr th:each="hebergementCarhos, status:${hebergementsCarhos}">                <!--bourcle thymleay, qui parcour une liste d'object et affiche dynamiquement le contenu-->
 
             <td th:text="${status.count}"></td>
-            <td th:text="${hebergementCarhos.hebergementCarhosType}"></td>
-            <td th:text="${hebergementCarhos.localisation}"></td>
             <td th:text="${hebergementCarhos.nom}"></td>
-            <td th:text="${hebergementCarhos.standing}"></td>
-            <td th:text="${hebergementCarhos.etat}"></td>
-            <td th:text="${hebergementCarhos.tarif}"></td>
+            <td th:text="${hebergementCarhos.prix}"></td>
+
+            <td th:text="${hebergementCarhos.image}"></td>
+            <td th:text="${hebergementCarhos.nombreEtoile}"></td>
+
             <td>
+                <a th:href="@{/hebergementCarhos/détail/{id}(id=${hebergementCarhos.id})}" class="btn btn-secondary">Détail</a>
                 <a th:href="@{/hebergementCarhos/edit/{id}(id=${hebergementCarhos.id})}" class="btn btn-primary">Modifier</a>
                 <a th:href="@{/hebergementCarhos/delete/{id}(id=${hebergementCarhos.id})}" class="btn btn-danger">Supprimer</a>
             </td>

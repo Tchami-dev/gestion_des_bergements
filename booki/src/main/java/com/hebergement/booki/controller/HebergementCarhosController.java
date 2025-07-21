@@ -26,6 +26,7 @@ public class HebergementCarhosController {
         return "index";
       }
 
+
     @GetMapping("/hebergementCarhos/nouveau")
        public String nouveauHebergementCarhos(Model model){
             model.addAttribute("hebergementCarhos", new HebergementCarhos());
