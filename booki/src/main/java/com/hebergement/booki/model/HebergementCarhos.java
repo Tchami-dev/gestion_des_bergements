@@ -9,6 +9,7 @@ import lombok.Data;
 
 
 @Entity
+@Table(name = "hebergement_carhos")
 @Data
 public class HebergementCarhos {
 
