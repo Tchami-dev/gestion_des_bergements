@@ -15,20 +15,20 @@ import java.io.File;
 
 @Controller
 @RequiredArgsConstructor
-
 public class HebergementCarhosController {
 
     private final HebergementCarhosRepository hebergementCarhosRepository;
 
     /******* listing des hébergements **********/
     @GetMapping("/")
-      public String index(Model model){
+    public String index(Model model){
         model.addAttribute("hebergementsCarhos", hebergementCarhosRepository.findAll());
         return "index";
-      }
+    }
 
 /************ création d'un hébergement ******/
     @GetMapping("/hebergementCarhos/nouveau")
+<<<<<<< HEAD
        public String nouveauHebergementCarhos(Model model){
             model.addAttribute("hebergementCarhos", new HebergementCarhos());
             return "formulaire_enregistrement_hebergement_carhos";
@@ -54,6 +54,23 @@ public class HebergementCarhosController {
         if (bindingResult.hasErrors()) {
             return "formulaire_enregistrement_hebergement_carhos";
         }
+=======
+    public String nouveauHebergementCarhos(Model model){
+        model.addAttribute("hebergementCarhos", new HebergementCarhos());
+        model.addAttribute("type", HebergementCarhosType.values());
+        return "enregistrement_hebergement";
+    }
+
+    @PostMapping("/hebergementBooki")
+    public String saveHebergementBooki(@Valid @ModelAttribute("hebergementBooki") HebergementCarhos hebergementBookiModel, BindingResult bindingResult){
+        //bindingResult permet de gérer les erreurs
+        if (bindingResult.hasErrors()){
+            return "enregistrement_hebergement";
+        }
+        hebergementCarhosRepository.save(hebergementBookiModel);
+        return "redirect:/";
+    }
+>>>>>>> e3c414a432cc58551cb5da374a62d1b2614d50e9
 
         // Gestion du fichier image uploadé
         if (!imageFile.isEmpty()) {
