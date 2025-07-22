@@ -20,11 +20,11 @@ public class HebergementCarhos {
        private String nom;
 
 
-       @NotNull(message="tarif est non null")
+       @NotNull(message="le prix est non null")
        @Positive
        private double prix;
 
-       @NotBlank(message = "votre image doit être de bonne qualité" )
+
        private String image;
 
        @Min(1)

@@ -1,0 +1,59 @@
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container-custom {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    margin-top: 50px;
+}
+
+h2 {
+    text-align: center;
+    color: #343a40;
+    font-weight: bold;
+}
+
+.btn-primary, .btn-secondary, .btn-danger {
+    border-radius: 30px;
+}
+
+.btn-primary:hover {
+    background-color: #0d6efd;
+    opacity: 0.85;
+}
+
+.btn-secondary:hover {
+    background-color: #6c757d;
+    opacity: 0.85;
+}
+
+.btn-danger:hover {
+    background-color: #dc3545;
+    opacity: 0.85;
+}
+
+table th {
+    background-color: #343a40;
+    color: #fff;
+    text-align: center;
+}
+
+table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.header-btn {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.header-btn a {
+    width: 200px;
+    font-weight: bold;
+}
