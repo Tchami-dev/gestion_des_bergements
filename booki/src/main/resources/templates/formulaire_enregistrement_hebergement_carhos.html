@@ -22,6 +22,15 @@
         <input type="hidden" th:field="*{id}"/>
 
         <div class="mb-3">
+            <label for="hebergementCarhosType" class="form-label">Classe de l'hébergement</label>
+            <select class="form-select" id="hebergementCarhosType" th:field="*{hebergementCarhosType}" required>
+                <option value="" disabled> Sélectionnez la classe de votre hébergement</option>
+                <option th:each="type : ${type}" th:value="${type}" th:text="${type}">Type</option>
+            </select>
+            <div th:if="${#fields.hasErrors('hebergementCarhosType')}" th:errors="*{hebergementCarhosType}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
             <label for="nom" class="form-label">Nom de l'hébergement</label>
             <input type="text" class="form-control" id="nom" th:field="*{nom}" required>
             <div th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="text-danger"></div>
@@ -35,7 +44,7 @@
 
         <div class="mb-3">
             <label for="image" class="form-label">Image de l'hébergement</label>
-            <input type="file" name="imageFile" class="form-control" id="image">
+            <input type="file" name="fichier_image" class="form-control" id="image">
             <small class="form-text text-muted">Laissez vide si vous ne souhaitez pas changer l'image.</small>
         </div>
 

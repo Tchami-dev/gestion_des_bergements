@@ -13,7 +13,7 @@
 <body>
 
   <!-- en-tete-de-la-page -->
-    <header th:insert="header_carhos::en_tete">
+    <header th:insert="~{header_carhos::en_tete}">
 
     </header>
 
@@ -103,15 +103,15 @@
 
                         <h3>Hébergements à Marseille</h3>
 
-                        <a href="">
+                        <a href="" th:each="hebergementCarhos, status:${hebergementsCarhos}">
                             <article class="article_hebergement-gauche">
                                 <div class="div-article_hebergement-gauche">
                                     <div class="d-imag">
-                                        <img th:src="@{/images/images relatives aux hébergements/images des hebergements/chambres/p1.jpg}" alt="Auberge la cannebière" class="imag"/>
+                                        <img th:src="@{'/images_upload/' + ${hebergementCarhos.image}}" class="imag" alt="hébergemnt carhos"/>
                                     </div>
                                     <div class="d-info">
-                                        <h3> Auberge La Cannebière</h3>
-                                        <p class="p-info"> Nuit à partie de 25<i class="fa fa-eur"></i></p>
+                                        <h3 th:text="${hebergementCarhos.nom}"></h3>
+                                        <p class="p-info"> Nuit à partie de <span th:text="${hebergementCarhos.prix}"></span><i class="fa fa-eur"></i></p>
                                         <div class="d-inf">
                                             <i class="fa fa-star et"></i>
                                             <i class="fa fa-star et"></i>
@@ -124,113 +124,6 @@
                             </article>
                         </a>
 
-                        <a href="">
-                            <article class="article_hebergement-gauche">
-                                <div class="div-article_hebergement-gauche">
-                                    <div class="d-imag">
-                                        <img th:src="@{/images/images relatives aux hébergements/images des hebergements/chambres/p2.jpg}" alt="hotel du port" class="imag"/>
-                                    </div>
-                                    <div class="d-info">
-                                        <h3> Hôtel  du port</h3>
-                                        <p class="p-info"> Nuit à partie de 52<i class="fa fa-eur"></i></p>
-                                        <div class="d-inf">
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                        </a>
-
-                        <a href="">
-                            <article class="article_hebergement-gauche">
-                                <div class="div-article_hebergement-gauche">
-                                    <div class="d-imag">
-                                        <img th:src="@{/images/images relatives aux hébergements/images des hebergements/chambres/p3.jpg}" alt=" Hôtel les mouettes " class="imag"/>
-                                    </div>
-                                    <div class="d-info">
-                                        <h3> Hôtel Les Mouettes</h3>
-                                        <p class="p-info"> Nuit à partie de 76<i class="fa fa-eur"></i></p>
-                                        <div class="d-inf">
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et-c"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                        </a>
-
-
-                        <a href="">
-                            <article class="article_hebergement-gauche">
-                                <div class="div-article_hebergement-gauche">
-                                    <div class="d-imag">
-                                        <img th:src="@{/images/images relatives aux hébergements/images des hebergements/chambres/p6.jpg}" alt="hôtel de la mer" class="imag"/>
-                                    </div>
-                                    <div class="d-info">
-                                        <h3> Hôtel de la mer</h3>
-                                        <p class="p-info"> Nuit à partie de 96<i class="fa fa-eur"></i></p>
-                                        <div class="d-inf">
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et-q"></i>
-                                            <i class="fa fa-star et-c"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                        </a>
-
-
-                        <a href="">
-                            <article class="article_hebergement-gauche">
-                                <div class="div-article_hebergement-gauche">
-                                    <div class="d-imag">
-                                        <img th:src="@{/images/images relatives aux hébergements/images des hebergements/chambres/p5.jpg}" alt="Auberge le panier" class="imag"/>
-                                    </div>
-                                    <div class="d-info">
-                                        <h3> Auberge Le Panier</h3>
-                                        <p class="p-info"> Nuit à partie de 23<i class="fa fa-eur"></i></p>
-                                        <div class="d-inf">
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et-q"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                        </a>
-
-
-                        <a href="">
-                            <article class="article_hebergement-gauche">
-                                <div class="div-article_hebergement-gauche">
-                                    <div class="d-imag">
-                                        <img th:src="@{/images/images relatives aux hébergements/images des hebergements/chambres/p4.jpg}" alt="hôtelde chez Amina" class="imag"/>
-                                    </div>
-                                    <div class="d-info">
-                                        <h3>Hôtel chez Amina</h3>
-                                        <p class="p-info"> Nuit à partie de 96<i class="fa fa-eur"></i></p>
-                                        <div class="d-inf">
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                        </a>
                         <h3>Afficher plus</h3><br>
 
                     </div>

@@ -10,7 +10,7 @@ a{
     color: #000;
 }
 
- /*header,*/main{
+ header,main{
     padding-left: 1%;
     padding-right: 1%;
 }
@@ -22,7 +22,7 @@ a{
  /****************************** css lié au header *********************************************/
 header, .div__header{
      height: 100px; 
-     width:100%;
+     width:98%;
     background-color: #fff;
 }
 
@@ -305,8 +305,8 @@ footer{
     border-top-right-radius: 20px;
     margin: 0px;
     padding: 0px;
-    padding-top: 2px; 
-    padding-left: 2px; 
+    padding-top: 2px;
+    padding-left: 2px;
     display: inline;
     
 

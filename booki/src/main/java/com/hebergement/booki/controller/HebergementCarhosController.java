@@ -1,6 +1,7 @@
 package com.hebergement.booki.controller;
 
 import com.hebergement.booki.model.HebergementCarhos;
+import com.hebergement.booki.model.HebergementCarhosType;
 import com.hebergement.booki.repository.HebergementCarhosRepository;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
@@ -19,6 +20,11 @@ public class HebergementCarhosController {
 
     private final HebergementCarhosRepository hebergementCarhosRepository;
 
+    /**** lien vers la page d'accueil****/
+    @GetMapping("/index")
+public String accueil(){
+        return "redirect:/";
+}
     /******* listing des hébergements **********/
     @GetMapping("/")
     public String index(Model model){
@@ -28,9 +34,9 @@ public class HebergementCarhosController {
 
 /************ création d'un hébergement ******/
     @GetMapping("/hebergementCarhos/nouveau")
-<<<<<<< HEAD
        public String nouveauHebergementCarhos(Model model){
             model.addAttribute("hebergementCarhos", new HebergementCarhos());
+            model.addAttribute("type", HebergementCarhosType.values());
             return "formulaire_enregistrement_hebergement_carhos";
        }
 
@@ -45,47 +51,32 @@ public class HebergementCarhosController {
 
     /******** soumission d'enregistrement d'un hébergement***/
     @PostMapping("/hebergementCarhos")
-    public String enregistrementHebergementCarhos(
-            @Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos,
-            BindingResult bindingResult,
-            @RequestParam("imageFile") MultipartFile imageFile) {
+    public String enregistrementHebergementCarhos(@Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos,
+                                                  BindingResult bindingResult, Model model, @RequestParam("fichier_image") MultipartFile fichier_image) {
 
         // Gestion des erreurs de validation
         if (bindingResult.hasErrors()) {
+
+            model.addAttribute("type", HebergementCarhosType.values());
             return "formulaire_enregistrement_hebergement_carhos";
         }
-=======
-    public String nouveauHebergementCarhos(Model model){
-        model.addAttribute("hebergementCarhos", new HebergementCarhos());
-        model.addAttribute("type", HebergementCarhosType.values());
-        return "enregistrement_hebergement";
-    }
 
-    @PostMapping("/hebergementBooki")
-    public String saveHebergementBooki(@Valid @ModelAttribute("hebergementBooki") HebergementCarhos hebergementBookiModel, BindingResult bindingResult){
-        //bindingResult permet de gérer les erreurs
-        if (bindingResult.hasErrors()){
-            return "enregistrement_hebergement";
-        }
-        hebergementCarhosRepository.save(hebergementBookiModel);
-        return "redirect:/";
-    }
->>>>>>> e3c414a432cc58551cb5da374a62d1b2614d50e9
 
         // Gestion du fichier image uploadé
-        if (!imageFile.isEmpty()) {
+        if (!fichier_image.isEmpty()) {
+            /*vérification et enregistrement de l'image*/
             try {
-                String fileName = imageFile.getOriginalFilename();
-                String uploadDir = new File("src/main/resources/static/images").getAbsolutePath();
+                String fileName = fichier_image.getOriginalFilename();    /*récupération du nom originel du fichier*/
+                String uploadDir = new File("src/main/resources/static/images_upload").getAbsolutePath(); /* création d'un chemin vers le dossier images_upload du dd*/
 
-                File saveFile = new File(uploadDir, fileName);
-                imageFile.transferTo(saveFile);
+                File saveFile = new File(uploadDir, fileName);  /*création d'une reférence à l'endroit du fichier stocké*/
+                fichier_image.transferTo(saveFile); /*enregistrement définitive de l'image à l'endroit définit */
 
                 // Enregistre le nom de fichier dans l'objet
-                hebergementCarhos.setImage(fileName);
-            } catch (Exception e) {
+                hebergementCarhos.setImage(fileName); /*stockage du nom du fichier*/
+            } catch (Exception e) /*gestion des erreures*/{
                 e.printStackTrace();
-                // Tu peux ajouter une gestion des erreurs plus propre ici
+                // ajout d'une gestion des erreurs plus propre ici
             }
         }
 
@@ -96,10 +87,30 @@ public class HebergementCarhosController {
     /***** mise à jour des informations des hébergements ****/
 
     @GetMapping("/hebergementCarhos/edit/{id}")
-    public String supprimerHebergementCarhos(@PathVariable long id, Model model){
-        HebergementCarhos hebergementCarhos = hebergementCarhosRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("l'hébergement repondant à l'id: "+ id+ "est non identifier"));
+    public String infoHebergementCarhos(@PathVariable long id, Model model){
+        HebergementCarhos hebergementCarhos = hebergementCarhosRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("l'hébergement repondant à l'id: "+ id+ "est introuvable"));
         model.addAttribute("hebergementCarhos", hebergementCarhos);
+        model.addAttribute("type", HebergementCarhosType.values()) ;
+        return "formulaire_enregistrement_hebergement_carhos";
+    }
+
+    @PostMapping("/hebergementCarhos/{id}")
+    public String actualiserHebergementCarhos(@PathVariable long id, @Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos, BindingResult bindingResult, Model model){
+
+        // Gestion des erreurs de validation
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("type", HebergementCarhosType.values());
+            return "formulaire_enregistrement_hebergement_carhos";
+        }
+        hebergementCarhosRepository.save(hebergementCarhos);
+        return "redirect:/";
+    }
+
+    @GetMapping("/hebergementCarhos/delete/{id}")
+    public String supprimerHebergementCarhos(@PathVariable Long id, Model model){
+        hebergementCarhosRepository.deleteById(id);
         return "redirect:/daschboard_carhos";
     }
+
 
 }

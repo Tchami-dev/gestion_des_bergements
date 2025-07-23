@@ -16,13 +16,18 @@ public class HebergementCarhos {
 
        private Long id;
 
-       @NotBlank(message="veillez donner un nom à votre hébergement")   //ne peut pas être soumis à zéro
+   @Enumerated(EnumType.STRING)
+   @NotNull(message = "Merci de renseigner la classe de votre hébergement")
+   private  HebergementCarhosType hebergementCarhosType;
+
+       @NotBlank(message="veillez donner un nom à votre hébergement s'il vous plaît")   //ne peut pas être soumis à zéro
        private String nom;
 
 
-       @NotNull(message="le prix est non null")
+       @NotNull(message="le prix de votre hébergement n'est pas raisonnable")
        @Positive
        private double prix;
+
 
 
        private String image;
