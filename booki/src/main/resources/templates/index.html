@@ -104,13 +104,13 @@
 
                 <!-- hebergements-de-la-gauche -->
 
-
                 <section class="section__hebergement--gauche">
                     <div class="div__hebergement--gauche">
 
                         <h3>Hébergements à Marseille</h3>
 
-                        <a href="" th:each="hebergementCarhos, status:${hebergementsCarhos}">
+                        <a href="" th:each="hebergementCarhos, status:${hebergementsCarhos}"
+                           th:if="${hebergementCarhos.hebergementCarhosType.name() != 'VIP' or hebergementCarhos.nbreEtoile < 4}">
                             <article class="article_hebergement-gauche">
                                 <div class="div-article_hebergement-gauche">
                                     <div class="d-imag">
@@ -119,13 +119,13 @@
                                     <div class="d-info">
                                         <h3 th:text="${hebergementCarhos.nom}"></h3>
                                         <p class="p-info"> Nuit à partie de <span th:text="${hebergementCarhos.prix}"></span><i class="fa fa-eur"></i></p>
+                                        <!-- boucle de gestion des étoile -->
                                         <div class="d-inf">
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et-c"></i>
+                                            <span th:each="etoile : ${#numbers.sequence(1, 5)}">
+                                                <i class="fa fa-star" th:classappend="${etoile <= hebergementCarhos.nbreEtoile} ? 'et' : 'et-c'"></i>
+                                            </span>
                                         </div>
+
                                     </div>
                                 </div>
                             </article>
@@ -137,74 +137,32 @@
                 </section>
 
                 <!-- section-des-hébergements-de-la-droite -->
-
                 <section class="section_hebergement--droite">
                     <div class="div_hebergement--droite" >
 
                         <h3>Les plus populaires <i class="fa fa-star eu"></i></h3>
 
-                        <a href="">
+                        <a href="" th:each="hebergementCarhos, status:${hebergementsCarhos}"
+                           th:if="${hebergementCarhos.hebergementCarhosType.name() == 'VIP' and hebergementCarhos.nbreEtoile >= 4}"><!-- gestion des hébergements en fonction du type ainsi que concepts des boucles-->
                             <article class="ahd">
                                 <div class="d-ahd">
                                     <div class="d-imad">
-                                        <img th:src="@{/images/images relatives aux hébergements/images des hebergements/chambres/d1.jpg}" alt="hôtelde le soleil du matin" class="imad"/>
+                                        <img th:src="@{'/images_upload/' + ${hebergementCarhos.image}}" alt="hôtelde cinq étoile de carhos" class="imad"/>
                                     </div>
                                     <div class="d-infod">
-                                        <h3>Hôtel Le soleil du matin</h3>
-                                        <p class="p-infd"> Nuit à partie de 128<i class="fa fa-eur"></i></p>
+                                        <h3 th:text="${hebergementCarhos.nom}"></h3>
+                                        <p class="p-infd"> Nuit à partie de <span th:text="${hebergementCarhos.prix}"> </span><i class="fa fa-eur"></i></p>
+                                        <!-- boucle de gestion des étoile -->
                                         <div class="d-infd">
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
+                                            <span th:each="etoile : ${#numbers.sequence(1, 5)}">
+                                                <i class="fa fa-star" th:classappend="${etoile <= hebergementCarhos.nbreEtoile} ? 'et' : 'et-c'"></i>
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
                             </article>
                         </a>
 
-                        <a href="">
-                            <article class="ahd">
-                                <div class="d-ahd">
-                                    <div class="d-imad">
-                                        <img th:src="@{/images/images relatives aux hébergements/images des hebergements/chambres/d2.jpg}" alt="chambrees d'hôtel" class="imad"/>
-                                    </div>
-                                    <div class="d-infod">
-                                        <h3>Au cœur de l'eau<br> Chambres d'hôtels</h3>
-                                        <p class="p-infd"> Nuit à partie de 71<i class="fa fa-eur"></i></p> <br>
-                                        <div class="d-infd">
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et-q"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                        </a>
-
-                        <a href="">
-                            <article class="ahd">
-                                <div class="d-ahd">
-                                    <div class="d-imad">
-                                        <img th:src="@{/images/images relatives aux hébergements/images des hebergements/chambres/d3.jpg}" alt="hôtelde bleu-blanc" class="imad"/>
-                                    </div>
-                                    <div class="d-infod">
-                                        <h3>Hôtel tout bleu et blanc</h3>
-                                        <p class="p-infd"> Nuit à partie de 68<i class="fa fa-eur"></i></p> <br>
-                                        <div class="d-infd">
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et"></i>
-                                            <i class="fa fa-star et-q"></i>
-                                        </div>
-                                    </div>
-                                </div>
-                            </article>
-                        </a>
                         <br>
 
                     </div>
@@ -315,8 +273,7 @@
 
       <!--------------------- pied-de-page -------------------->
 
-    <footer th:insert="footer_carhos::footer">
-
+    <footer th:insert="~{footer_carhos::footer}">
     </footer>
 
 </body>

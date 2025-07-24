@@ -120,6 +120,8 @@ public String accueil(){
 
     /***** mise à jour des informations des hébergements ****/
 
+    /*préchargement du formulaire */
+
     @GetMapping("/hebergementCarhos/edit/{id}")
     public String infoHebergementCarhos(@PathVariable long id, Model model){
         HebergementCarhos hebergementCarhos = hebergementCarhosRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("l'hébergement repondant à l'id: "+ id+ "est introuvable"));
@@ -128,6 +130,7 @@ public String accueil(){
         return "formulaire_enregistrement_hebergement_carhos";
     }
 
+    /*mise à jour*/
     @PostMapping("/hebergementCarhos/{id}")
     public String actualiserHebergementCarhos(@PathVariable long id, @Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos, BindingResult bindingResult, Model model){
 
@@ -140,11 +143,29 @@ public String accueil(){
         return "redirect:/";
     }
 
+
+    /*********** supprimer un hébergement ******/
     @GetMapping("/hebergementCarhos/delete/{id}")
     public String supprimerHebergementCarhos(@PathVariable Long id, Model model){
         hebergementCarhosRepository.deleteById(id);
         return "redirect:/daschboard_carhos";
     }
+
+
+    /********* informations détaillées  sur un hébergement ********/
+@GetMapping("/hebergementCarhos/détail/{id}")
+    public String detailHebergementCarhos(@PathVariable("id") Long id, Model model){
+    // Récupération de l'hébergement par son ID
+    HebergementCarhos hebergementCarhos = hebergementCarhosRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("l' hébergement introuvable avec l'ID : " + id));
+
+    // Passage de l'objet à la vue
+    model.addAttribute("hebergementCarhos", hebergementCarhos);
+    return "detail_hebergement_carhos";
+
+}
+
+//Model model permet de transporter un object, du controller vers la vue
 
 
 }

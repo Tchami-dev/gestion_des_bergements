@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Configuration //  Indique que cette classe contient la configuration Spring
 public class HebergementCarhosRessource implements WebMvcConfigurer {
 
-    //  Injection de la valeur définie dans application.properties :
+    //  Injection de la valeur  de l'url définie dans application.properties :
     // Exemple : upload.path=T:/IUS/projet-de-soutenace-bts/images_upload
     @Value("${upload.path}")
     private String uploadPath;
