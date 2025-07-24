@@ -2,20 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<!--    <link rel="stylesheet" th:href="@{/css/carhos.css}">-->
+    <link rel="stylesheet" th:href="@{/css/style_detail_hebergement_carhos.css}">
+
     <title>infos_plus</title>
 
 </head>
 <body>
 <header th:insert="~{header_carhos::en_tete}"></header>
+<link rel="stylesheet" th:href="@{/css/carhos.css}">
 
-<h1 th:text="${hebergementCarhos.nom}"></h1>
-<img th:src="@{'/images_upload/' + ${hebergementCarhos.image}}" alt="Image">
-<p>Prix: <span th:text="${hebergementCarhos.prix}"></span></p>
-<!--<p>Description: <span th:text="${hebergementCarhos.description}"></span></p>-->
+<main>
+    <div class="contenair-principal">
 
+       <section class="contenair-image">
+<!--          <div class="contenair-image">-->
+            <img th:src="@{'/images_upload/' + ${hebergementCarhos.image}}" alt="Image" class="image">
+<!--          </div>-->
+       </section>
+
+
+       <section class="detail">
+<!--          <div class="detail">-->
+             <h1 th:text="${hebergementCarhos.nom}"></h1>
+             <!--<p>Description: <span th:text="${hebergementCarhos.description}"></span></p>-->
+              <p>Prix: <span th:text="${hebergementCarhos.prix}"></span></p>
+<!--          </div>-->
+       </section>
+
+    </div>
+</main>
+<br>
 
 <footer th:insert="~{footer_carhos::footer}"></footer>
-
 
 </body>
 </html>
