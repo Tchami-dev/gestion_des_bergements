@@ -28,21 +28,26 @@
                 <p>En plein centre ville ou en pleine nature</p> <br>
 
                 <!-- barre-de-recherche -->
-                <div class="div__barre-de-recherche">
+                <form th:action="@{/}" method="get" class="div__barre-de-recherche">
+
                     <div class="pointeur">
                         <i class="fa fa-map-marker icone-pointeur"></i>
                     </div>
 
-
                     <div class="adresse">
-                        <input type="text"  placeholder="Marseille, France" class="saisie-adresse">
+                        <input
+                                type="text"
+                                name="keyword"
+                                th:value="${keyword}"
+                                placeholder="Marseille, France"
+                                class="saisie-adresse">
                     </div>
-
 
                     <div class="recherche">
-                        <p class="saisie-recherche">Recherche</p>
+                        <button type="submit" class="saisie-recherche">Recherche</button>
                     </div>
-                </div>
+                </form>
+
                 <br><br>
 
                 <!-- zone-des-filtres -->

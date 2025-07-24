@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.util.List;
 
 
 @Controller
@@ -31,13 +32,34 @@ public String accueil(){
         return "redirect:/";
 }
     /******* listing des hébergements **********/
+    //Méthode qui gère les requêtes GET vers la page d'accueil "/"
     @GetMapping("/")
-    public String index(Model model){
-        model.addAttribute("hebergementsCarhos", hebergementCarhosRepository.findAll());
+    public String index(@RequestParam(value = "keyword", required = false) String keyword, Model model) {
+
+        //Déclaration de la liste des hébergements à afficher
+        List<HebergementCarhos> hebergementCarhos;
+
+        //Si un mot-clé est fourni et n'est pas vide, on filtre les hébergements dont le nom contient ce mot-clé
+        if (keyword != null && !keyword.isEmpty()) {
+            hebergementCarhos = hebergementCarhosRepository.findByNomContainingIgnoreCase(keyword);
+        }
+        //Sinon, on affiche tous les hébergements
+        else {
+            hebergementCarhos = hebergementCarhosRepository.findAll();
+        }
+
+        //On envoie la liste des hébergements filtrée (ou complète) à la vue (index.html)
+        model.addAttribute("hebergementsCarhos", hebergementCarhos);
+
+        //On renvoie aussi le mot-clé pour le réafficher dans le champ de recherche (utile pour l'expérience utilisateur)
+        model.addAttribute("keyword", keyword);
+
+        // Retour de la vue "index.html"
         return "index";
     }
 
-/************ création d'un hébergement ******/
+
+    /************ création d'un hébergement ******/
     @GetMapping("/hebergementCarhos/nouveau")
        public String nouveauHebergementCarhos(Model model){
             model.addAttribute("hebergementCarhos", new HebergementCarhos());

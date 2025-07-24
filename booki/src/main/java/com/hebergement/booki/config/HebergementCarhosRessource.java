@@ -17,7 +17,7 @@ public class HebergementCarhosRessource implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
 
-        //L'URL /images_upload/** (ex: /images_upload/photo.jpg) sera reliée
+        //L'URL /images_upload/** (ex: /images_upload/nom_photo.jpg) sera reliée
         //     au dossier situé physiquement dans uploadPath (ex: T:/IUS/projet.../images_upload/)
         registry.addResourceHandler("/images_upload/**") // chemin virtuel dans l'URL
                 .addResourceLocations("file:///" + uploadPath + "/"); // chemin réel sur ton disque

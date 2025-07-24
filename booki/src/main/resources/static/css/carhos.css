@@ -141,6 +141,10 @@ nav a:hover{
 .saisie-recherche{
     font-weight: bolder;
     font-size: 1em;
+    border: none;
+    cursor: pointer;
+    background-color: #0065fc;
+    color: #fff;
 }
 
 /* zone-des-filtres */
