@@ -4,6 +4,7 @@ import com.hebergement.booki.model.HebergementCarhos;
 import com.hebergement.booki.model.HebergementCarhosType;
 import com.hebergement.booki.repository.HebergementCarhosRepository;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
@@ -16,9 +17,13 @@ import java.io.File;
 
 @Controller
 @RequiredArgsConstructor
+
 public class HebergementCarhosController {
 
     private final HebergementCarhosRepository hebergementCarhosRepository;
+
+    @Value("${upload.path}")
+    private String uploadDir;
 
     /**** lien vers la page d'accueil****/
     @GetMapping("/index")
@@ -50,6 +55,7 @@ public String accueil(){
 
 
     /******** soumission d'enregistrement d'un hébergement***/
+
     @PostMapping("/hebergementCarhos")
     public String enregistrementHebergementCarhos(@Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos,
                                                   BindingResult bindingResult, Model model, @RequestParam("fichier_image") MultipartFile fichier_image) {
@@ -64,19 +70,25 @@ public String accueil(){
 
         // Gestion du fichier image uploadé
         if (!fichier_image.isEmpty()) {
-            /*vérification et enregistrement de l'image*/
             try {
-                String fileName = fichier_image.getOriginalFilename();    /*récupération du nom originel du fichier*/
-                String uploadDir = new File("src/main/resources/static/images_upload").getAbsolutePath(); /* création d'un chemin vers le dossier images_upload du dd*/
+                String fileName = fichier_image.getOriginalFilename();
 
-                File saveFile = new File(uploadDir, fileName);  /*création d'une reférence à l'endroit du fichier stocké*/
-                fichier_image.transferTo(saveFile); /*enregistrement définitive de l'image à l'endroit définit */
+                // Créer le dossier s'il n'existe pas
+                File directory = new File(uploadDir);
+                if (!directory.exists()) {
+                    directory.mkdirs();
+                }
 
-                // Enregistre le nom de fichier dans l'objet
-                hebergementCarhos.setImage(fileName); /*stockage du nom du fichier*/
-            } catch (Exception e) /*gestion des erreures*/{
+                // Créer le fichier dans le dossier
+                File saveFile = new File(directory, fileName);
+                fichier_image.transferTo(saveFile);
+
+                // Enregistre le nom du fichier dans l’objet
+                hebergementCarhos.setImage(fileName);
+            } catch (Exception e) {
                 e.printStackTrace();
-                // ajout d'une gestion des erreurs plus propre ici
+                model.addAttribute("uploadError", "Échec du téléchargement de l'image.");
+                return "formulaire_enregistrement_hebergement_carhos";
             }
         }
 
