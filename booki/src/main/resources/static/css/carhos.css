@@ -5,11 +5,16 @@
     
 }
 
-input{
+.saisie-adresse{
     width: 100%;
     height: 100%;
     font-size: 1em;
     text-align: center;
+    border: none;
+}
+
+.saisie-adresse:focus{
+    outline: none;
     border: none;
 }
 
