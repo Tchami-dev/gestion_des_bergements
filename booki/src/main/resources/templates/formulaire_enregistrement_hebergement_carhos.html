@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr" xmlns:th="http://www.thymeleaf.org">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,6 +52,24 @@
             <label for="nbreEtoile" class="form-label">Nombre d'Etoile</label>
             <input type="number" class="form-control" id="nbreEtoile" th:field="*{nbreEtoile}" min="1" max="5" required>
             <div th:if="${#fields.hasErrors('nbreEtoile')}" th:errors="*{nbreEtoile}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="atouts" class="form-label">Atouts de l'hébergement</label>
+            <textarea  rows="4" cols="20" class="form-control" id="atouts" th:field="*{atouts}"
+                       placeholder="Exples :
+                                   - Deux Lit
+                                   - Parking
+                                   - Douche italienne"
+                       required>
+            </textarea>
+            <div th:if="${#fields.hasErrors('atouts')}" th:errors="*{atouts}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="detail" class="form-label">Détail de l'hébergement</label>
+            <textarea  rows="4" cols="20" class="form-control" id="detail" th:field="*{detail}" required></textarea>
+            <div th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}" class="text-danger"></div>
         </div>
 
         <div class="d-flex justify-content-between">

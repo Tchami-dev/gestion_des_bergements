@@ -4,6 +4,7 @@ package com.hebergement.booki.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
+import org.aspectj.bridge.IMessage;
 
 
 @Entity
@@ -35,5 +36,15 @@ public class HebergementCarhos {
        @Min(1)
        @Max(5)
     private int nbreEtoile;
+
+       @Lob
+       @Column(columnDefinition = "TEXT")
+       @NotBlank (message="Merci de donner des informations détail sur l'hébergemnt")
+       private String detail;
+
+    @Lob
+    @Column(columnDefinition = "TEXT")
+    @NotBlank (message="Merci de donner les atouts majeurs de l'hébergemnt")
+    private String atouts;
 
 }

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -26,13 +27,17 @@
 
 
        <section class="detail">
-<!--          <div class="detail">-->
-             <h1 th:text="${hebergementCarhos.nom}"></h1>
-             <!--<p>Description: <span th:text="${hebergementCarhos.description}"></span></p>-->
-              <p>Prix: <span th:text="${hebergementCarhos.prix}"></span></p>
-<!--          </div>-->
-       </section>
 
+             <h1 th:text="${hebergementCarhos.nom}"></h1><br>
+             <p><span th:text="${hebergementCarhos.detail}"></span> </p><br>
+
+           <ul>
+               <li th:each="atouts : ${hebergementCarhos.atouts}" th:text="${hebergementCarhos.atouts}"> </li>    <!-- #strings.split, pour découper du texte en tyhmeleaf avec saut de page--->
+           </ul>
+           <br>
+
+              <p>Prix: <span th:text="${hebergementCarhos.prix}"></span> <i class="fa fa-eur"></i> /Nuit</p>
+       </section>
     </div>
 </main>
 <br>
