@@ -1,6 +1,7 @@
 package com.hebergement.booki.repository;
 
 import com.hebergement.booki.model.HebergementCarhos;
+import com.hebergement.booki.model.HebergementCarhosType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -12,6 +13,5 @@ import java.util.List;
 public interface HebergementCarhosRepository extends JpaRepository<HebergementCarhos, Long> {
     List<HebergementCarhos> findByNomContainingIgnoreCase(String keyword);
 
-    @Override
-    Page<HebergementCarhos> findAll(Pageable pageable);
+//    Page<HebergementCarhos> findAll(Pageable pageable);
 }

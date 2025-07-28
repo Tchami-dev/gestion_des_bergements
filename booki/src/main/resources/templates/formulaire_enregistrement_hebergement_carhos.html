@@ -16,13 +16,13 @@
 
 <div class="form-container">
     <h2 th:text="${hebergementCarhos.id} != null ? 'Modifier l\'Hébergement' : 'Ajouter un Hébergement'"></h2>
-    <form th:action="@{/hebergementCarhos}" th:object="${hebergementCarhos}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/hebergement_carhos}" th:object="${hebergementCarhos}" method="post" enctype="multipart/form-data">
 
 
         <input type="hidden" th:field="*{id}"/>
 
         <div class="mb-3">
-            <label for="hebergementCarhosType" class="form-label">Classe de l'hébergement</label>
+            <label for="hebergementCarhosType" class="form-label">Classe de l'hébergement <span class="obligation">*</span> </label>
             <select class="form-select" id="hebergementCarhosType" th:field="*{hebergementCarhosType}" required>
                 <option value="" disabled> Sélectionnez la classe de votre hébergement</option>
                 <option th:each="type : ${type}" th:value="${type}" th:text="${type}">Type</option>
@@ -31,25 +31,25 @@
         </div>
 
         <div class="mb-3">
-            <label for="nom" class="form-label">Nom de l'hébergement</label>
+            <label for="nom" class="form-label">Nom de l'hébergement  <span class="obligation">*</span> </label>
             <input type="text" class="form-control" id="nom" th:field="*{nom}" required>
             <div th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="text-danger"></div>
         </div>
 
         <div class="mb-3">
-            <label for="prix" class="form-label">Prix de l'hébergement</label>
-            <input type="number" class="form-control" id="prix" th:field="*{prix}" min="20" required>
+            <label for="prix" class="form-label">Prix de l'hébergement  <span class="obligation">*</span> </label>
+            <input type="number" class="form-control" id="prix" th:field="*{prix}" min="10" required>
             <div th:if="${#fields.hasErrors('prix')}" th:errors="*{prix}" class="text-danger"></div>
         </div>
 
         <div class="mb-3">
-            <label for="image" class="form-label">Image de l'hébergement</label>
+            <label for="image" class="form-label">Image de l'hébergement  <span class="obligation">*</span></label>
             <input type="file" name="fichier_image" class="form-control" id="image">
             <small class="form-text text-muted">Laissez vide si vous ne souhaitez pas changer l'image.</small>
         </div>
 
         <div class="mb-3">
-            <label for="nbreEtoile" class="form-label">Nombre d'Etoile</label>
+            <label for="nbreEtoile" class="form-label">Nombre d'Etoile  <span class="obligation">*</span></label>
             <input type="number" class="form-control" id="nbreEtoile" th:field="*{nbreEtoile}" min="1" max="5" required>
             <div th:if="${#fields.hasErrors('nbreEtoile')}" th:errors="*{nbreEtoile}" class="text-danger"></div>
         </div>
@@ -67,7 +67,7 @@
         </div>
 
         <div class="mb-3">
-            <label for="detail" class="form-label">Détail de l'hébergement</label>
+            <label for="detail" class="form-label">Détail de l'hébergement  <span class="obligation">*</span></label>
             <textarea  rows="4" cols="20" class="form-control" id="detail" th:field="*{detail}" required></textarea>
             <div th:if="${#fields.hasErrors('detail')}" th:errors="*{detail}" class="text-danger"></div>
         </div>

@@ -5,6 +5,11 @@
     
 }
 
+.obligation{
+    color: #dc3545;
+    font-weight: bolder;
+}
+
 .saisie-adresse{
     width: 100%;
     height: 100%;
@@ -383,6 +388,7 @@ h3, .p-info{
     float: right;
     display: inline;
     padding-right: 50px;
+    color: #ffd700;
 }
 
 .section_hebergement--droite{

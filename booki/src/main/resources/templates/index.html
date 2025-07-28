@@ -108,7 +108,7 @@
 
                         <h3>Hébergements à Marseille</h3>
 
-                        <a th:href="@{/hebergementCarhos/détail/{id}(id=${hebergementCarhos.id})}" th:each="hebergementCarhos, status:${hebergementsCarhos}"
+                        <a th:href="@{/hebergement_carhos/détail/{id}(id=${hebergementCarhos.id})}" th:each="hebergementCarhos, status:${hebergementsCarhos}"
                            th:if="${hebergementCarhos.hebergementCarhosType.name() != 'VIP' or hebergementCarhos.nbreEtoile < 4}">
                             <article class="article_hebergement-gauche">
                                 <div class="div-article_hebergement-gauche">
@@ -139,9 +139,9 @@
                 <section class="section_hebergement--droite">
                     <div class="div_hebergement--droite" >
 
-                        <h3>Les plus populaires <i class="fa fa-star eu"></i></h3>
+                        <h3>Le haut Standing <i class="fa fa-star eu"></i></h3>
 
-                        <a th:href="@{/hebergementCarhos/détail/{id}(id=${hebergementCarhos.id})}" th:each="hebergementCarhos, status:${hebergementsCarhos}"
+                        <a th:href="@{/hebergement_carhos/détail/{id}(id=${hebergementCarhos.id})}" th:each="hebergementCarhos, status:${hebergementsCarhos}"
                            th:if="${hebergementCarhos.hebergementCarhosType.name() == 'VIP' and hebergementCarhos.nbreEtoile >= 4}"><!-- gestion des hébergements en fonction du type ainsi que concepts des boucles-->
                             <article class="ahd">
                                 <div class="d-ahd">
