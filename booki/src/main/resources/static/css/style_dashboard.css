@@ -49,8 +49,12 @@ table td {
 
 .header-btn {
     display: flex;
-    justify-content: center;
     margin-bottom: 20px;
+    justify-content: right;
+}
+
+.information_gestion{
+    justify-content: left;
 }
 
 .header-btn a {
