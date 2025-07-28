@@ -15,6 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.File;
 import java.util.List;
 
+import static com.hebergement.booki.utils.GeneralUtils.DOSSIER_DU_PROJET;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -96,7 +98,8 @@ public String accueil(){
                 String fileName = fichier_image.getOriginalFilename();
 
                 // Créer le dossier s'il n'existe pas
-                File directory = new File(uploadDir);
+               // File directory = new File(uploadDir);
+                File directory = new File(DOSSIER_DU_PROJET);
                 if (!directory.exists()) {
                     directory.mkdirs();
                 }
