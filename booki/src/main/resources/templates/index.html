@@ -102,33 +102,47 @@
             <div class="div__principale--hebergement">
 
                 <!-- hebergements-de-la-gauche -->
-
                 <section class="section__hebergement--gauche">
                     <div class="div__hebergement--gauche">
 
                         <h3>Hébergements à Marseille</h3>
 
-                        <a th:href="@{/hebergement_carhos/détail/{id}(id=${hebergementCarhos.id})}" th:each="hebergementCarhos, status:${hebergementsCarhos}"
-                           th:if="${hebergementCarhos.hebergementCarhosType.name() != 'VIP' or hebergementCarhos.nbreEtoile < 4}">
+                        <!-- Boucle sur les 6 hébergements de gauche -->
+                        <a th:each="hebergementCarhos : ${gauche}"
+                           th:href="@{/hebergement_carhos/détail/{id}(id=${hebergementCarhos.id})}">
                             <article class="article_hebergement-gauche">
                                 <div class="div-article_hebergement-gauche">
                                     <div class="d-imag">
-                                        <img th:src="@{'/images_upload/' + ${hebergementCarhos.image}}" class="imag" alt="hébergemnt carhos"/>
+                                        <img th:src="@{'/images_upload/' + ${hebergementCarhos.image}}" class="imag" alt="hébergement carhos"/>
                                     </div>
                                     <div class="d-info">
                                         <h3 th:text="${hebergementCarhos.nom}"></h3>
-                                        <p class="p-info"> Nuit à partie de <span th:text="${hebergementCarhos.prix}"></span><i class="fa fa-eur"></i></p>
-                                        <!-- boucle de gestion des étoile -->
+                                        <p class="p-info">Nuit à partir de <span th:text="${hebergementCarhos.prix}"></span><i class="fa fa-eur"></i></p>
                                         <div class="d-inf">
-                                            <span th:each="etoile : ${#numbers.sequence(1, 5)}">
-                                                <i class="fa fa-star" th:classappend="${etoile <= hebergementCarhos.nbreEtoile} ? 'et' : 'et-c'"></i>
-                                            </span>
+                            <span th:each="etoile : ${#numbers.sequence(1, 5)}">
+                                <i class="fa fa-star" th:classappend="${etoile <= hebergementCarhos.nbreEtoile} ? 'et' : 'et-c'"></i>
+                            </span>
                                         </div>
-
                                     </div>
                                 </div>
                             </article>
                         </a>
+
+                        <div class="pagination">
+            <span th:if="${currentPageGauche > 0}">
+                <a th:href="@{/(pageGauche=${currentPageGauche - 1}, pageDroite=${currentPageDroite}, keyword=${keyword})}">Précédent</a>
+            </span>
+
+                            <span th:each="i : ${#numbers.sequence(0, totalPagesGauche - 1)}">
+                <a th:href="@{/(pageGauche=${i}, pageDroite=${currentPageDroite}, keyword=${keyword})}"
+                   th:text="${i + 1}"
+                   th:class="${i == currentPageGauche} ? 'active' : ''"></a>
+            </span>
+
+                            <span th:if="${currentPageGauche < totalPagesGauche - 1}">
+                <a th:href="@{/(pageGauche=${currentPageGauche + 1}, pageDroite=${currentPageDroite}, keyword=${keyword})}">Suivant</a>
+            </span>
+                        </div>
 
                         <h3>Afficher plus</h3><br>
 
@@ -141,33 +155,46 @@
 
                         <h3>Le haut Standing <i class="fa fa-star eu"></i></h3>
 
-                        <a th:href="@{/hebergement_carhos/détail/{id}(id=${hebergementCarhos.id})}" th:each="hebergementCarhos, status:${hebergementsCarhos}"
-                           th:if="${hebergementCarhos.hebergementCarhosType.name() == 'VIP' and hebergementCarhos.nbreEtoile >= 4}"><!-- gestion des hébergements en fonction du type ainsi que concepts des boucles-->
+                        <!-- Boucle sur les 3 hébergements de droite -->
+                        <a th:each="hebergementCarhos : ${droite}"
+                           th:href="@{/hebergement_carhos/détail/{id}(id=${hebergementCarhos.id})}">
                             <article class="ahd">
                                 <div class="d-ahd">
                                     <div class="d-imad">
-                                        <img th:src="@{'/images_upload/' + ${hebergementCarhos.image}}" alt="hôtelde cinq étoile de carhos" class="imad"/>
+                                        <img th:src="@{'/images_upload/' + ${hebergementCarhos.image}}" alt="hôtel cinq étoiles carhos" class="imad"/>
                                     </div>
                                     <div class="d-infod">
                                         <h3 th:text="${hebergementCarhos.nom}"></h3>
-                                        <p class="p-infd"> Nuit à partie de <span th:text="${hebergementCarhos.prix}"> </span><i class="fa fa-eur"></i></p>
-                                        <!-- boucle de gestion des étoile -->
+                                        <p class="p-infd">Nuit à partir de <span th:text="${hebergementCarhos.prix}"></span><i class="fa fa-eur"></i></p>
                                         <div class="d-infd">
-                                            <span th:each="etoile : ${#numbers.sequence(1, 5)}">
-                                                <i class="fa fa-star" th:classappend="${etoile <= hebergementCarhos.nbreEtoile} ? 'et' : 'et-c'"></i>
-                                            </span>
+                            <span th:each="etoile : ${#numbers.sequence(1, 5)}">
+                                <i class="fa fa-star" th:classappend="${etoile <= hebergementCarhos.nbreEtoile} ? 'et' : 'et-c'"></i>
+                            </span>
                                         </div>
                                     </div>
                                 </div>
                             </article>
                         </a>
 
-                        <br>
+                        <div class="pagination">
+            <span th:if="${currentPageDroite > 0}">
+                <a th:href="@{/(pageGauche=${currentPageGauche}, pageDroite=${currentPageDroite - 1}, keyword=${keyword})}">Précédent</a>
+            </span>
 
+                            <span th:each="i : ${#numbers.sequence(0, totalPagesDroite - 1)}">
+                <a th:href="@{/(pageGauche=${currentPageGauche}, pageDroite=${i}, keyword=${keyword})}"
+                   th:text="${i + 1}"
+                   th:class="${i == currentPageDroite} ? 'active' : ''"></a>
+            </span>
+
+                            <span th:if="${currentPageDroite < totalPagesDroite - 1}">
+                <a th:href="@{/(pageGauche=${currentPageGauche}, pageDroite=${currentPageDroite + 1}, keyword=${keyword})}">Suivant</a>
+            </span>
+                        </div>
+
+                        <br>
                     </div>
                 </section>
-
-
 
             </div>
         </section>

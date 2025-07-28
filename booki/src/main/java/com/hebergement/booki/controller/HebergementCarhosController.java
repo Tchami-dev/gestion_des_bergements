@@ -5,6 +5,9 @@ import com.hebergement.booki.model.HebergementCarhosType;
 import com.hebergement.booki.repository.HebergementCarhosRepository;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.ui.Model;
@@ -34,32 +37,49 @@ public class HebergementCarhosController {
 public String accueil(){
         return "redirect:/";
 }
+
     /******* listing des hébergements **********/
     //Méthode qui gère les requêtes GET vers la page d'accueil "/"
     @GetMapping("/")
-    public String index(@RequestParam(value = "keyword", required = false) String keyword, Model model) {
+    public String index(
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "pageGauche", defaultValue = "0") int pageGauche,
+            @RequestParam(value = "pageDroite", defaultValue = "0") int pageDroite,
+            Model model) {
 
-        //Déclaration de la liste des hébergements à afficher
-        List<HebergementCarhos> hebergementCarhos;
+        int taillePageGauche = 6;
+        int taillePageDroite = 3;
 
-        //Si un mot-clé est fourni et n'est pas vide, on filtre les hébergements dont le nom contient ce mot-clé
+        Pageable pageableGauche = PageRequest.of(pageGauche, taillePageGauche);
+        Pageable pageableDroite = PageRequest.of(pageDroite, taillePageDroite);
+
+        Page<HebergementCarhos> pageGaucheResult;
+        Page<HebergementCarhos> pageDroiteResult;
+
         if (keyword != null && !keyword.isEmpty()) {
-            hebergementCarhos = hebergementCarhosRepository.findByNomContainingIgnoreCase(keyword);
-        }
-        //Sinon, on affiche tous les hébergements
-        else {
-            hebergementCarhos = hebergementCarhosRepository.findAll();
+            pageGaucheResult = hebergementCarhosRepository.findByNomContainingIgnoreCaseAndHebergementCarhosTypeNotVipOrNbreEtoileLessThan(
+                    keyword, pageableGauche);
+            pageDroiteResult = hebergementCarhosRepository.findByNomContainingIgnoreCaseAndHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual(
+                    keyword, pageableDroite);
+        } else {
+            pageGaucheResult = hebergementCarhosRepository.findByHebergementCarhosTypeNotVipOrNbreEtoileLessThan(pageableGauche);
+            pageDroiteResult = hebergementCarhosRepository.findByHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual(pageableDroite);
         }
 
-        //On envoie la liste des hébergements filtrée (ou complète) à la vue (index.html)
-        model.addAttribute("hebergementsCarhos", hebergementCarhos);
+        model.addAttribute("gauche", pageGaucheResult.getContent());
+        model.addAttribute("totalPagesGauche", pageGaucheResult.getTotalPages());
+        model.addAttribute("currentPageGauche", pageGauche);
 
-        //On renvoie aussi le mot-clé pour le réafficher dans le champ de recherche (utile pour l'expérience utilisateur)
+        model.addAttribute("droite", pageDroiteResult.getContent());
+        model.addAttribute("totalPagesDroite", pageDroiteResult.getTotalPages());
+        model.addAttribute("currentPageDroite", pageDroite);
+
         model.addAttribute("keyword", keyword);
 
-        // Retour de la vue "index.html"
         return "index";
     }
+
+
 
 
     /************ création d'un hébergement ******/
@@ -72,10 +92,18 @@ public String accueil(){
 
        /**** orientation du lien vers le dashbord, et visualisation des enregistrements******/
        @GetMapping("/daschboard_carhos")
-       public String afficherDashboard(Model model) {
-           model.addAttribute("hebergementsCarhos", hebergementCarhosRepository.findAll());
-           return "daschboard_carhos";
+       public String afficherDashboard(@RequestParam(defaultValue = "0") int page, Model model) {
+           int taillePage = 4; // Nombre d'hébergements par page
+
+           Page<HebergementCarhos> pageHebergements = hebergementCarhosRepository.findAll(PageRequest.of(page, taillePage));   //indication du numéro de la page et du nombre d'élément par page
+
+           model.addAttribute("hebergementsCarhos", pageHebergements.getContent()); // Liste actuelle (4 éléments) des hébergements de la page en cours
+           model.addAttribute("totalPages", pageHebergements.getTotalPages()); // Pour les liens de pagination
+           model.addAttribute("currentPage", page); // Page actuelle
+
+           return "daschboard_carhos"; // Nom du  fichier HTML de retour
        }
+
 
 
 
@@ -171,6 +199,27 @@ public String accueil(){
 }
 
 //Model model permet de transporter un object, du controller vers la vue
+
+
+
+    /** pagination de la section de gauche **/
+
+    /*@GetMapping("index")
+    public String paginationDeGauche(
+            @RequestParam(defaultValue = "0") int page,
+            Model model) {
+
+        int taillePage = 6; // 6 cartes par page
+
+        Page<HebergementCarhos> pageHebergements =
+                hebergementCarhosRepository.findAll(PageRequest.of(page, taillePage));
+
+        model.addAttribute("hebergements", pageHebergements.getContent());
+        model.addAttribute("totalPages", pageHebergements.getTotalPages());
+        model.addAttribute("currentPage", page);
+
+        return "index"; // ou le nom exact de ta vue
+    }*/
 
 
 }
