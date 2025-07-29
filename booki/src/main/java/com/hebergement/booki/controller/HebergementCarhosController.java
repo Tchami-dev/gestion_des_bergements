@@ -1,6 +1,7 @@
 package com.hebergement.booki.controller;
 
 import com.hebergement.booki.model.HebergementCarhos;
+import com.hebergement.booki.model.HebergementCarhosSpecificite;
 import com.hebergement.booki.model.HebergementCarhosType;
 import com.hebergement.booki.repository.HebergementCarhosRepository;
 import jakarta.validation.Valid;
@@ -17,7 +18,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.File;
-import java.util.List;
 
 import static com.hebergement.booki.utils.GeneralUtils.DOSSIER_DU_PROJET;
 
@@ -45,6 +45,7 @@ public String accueil(){
             @RequestParam(value = "keyword", required = false) String keyword,
             @RequestParam(value = "pageGauche", defaultValue = "0") int pageGauche,
             @RequestParam(value = "pageDroite", defaultValue = "0") int pageDroite,
+            @RequestParam(value = "filtre", required = false) HebergementCarhosSpecificite filtre,
             Model model) {
 
         int taillePageGauche = 6;
@@ -53,17 +54,43 @@ public String accueil(){
         Pageable pageableGauche = PageRequest.of(pageGauche, taillePageGauche);
         Pageable pageableDroite = PageRequest.of(pageDroite, taillePageDroite);
 
+
+
         Page<HebergementCarhos> pageGaucheResult;
         Page<HebergementCarhos> pageDroiteResult;
 
-        if (keyword != null && !keyword.isEmpty()) {
-            pageGaucheResult = hebergementCarhosRepository.findByNomContainingIgnoreCaseAndHebergementCarhosTypeNotVipOrNbreEtoileLessThan(
-                    keyword, pageableGauche);
-            pageDroiteResult = hebergementCarhosRepository.findByNomContainingIgnoreCaseAndHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual(
-                    keyword, pageableDroite);
-        } else {
-            pageGaucheResult = hebergementCarhosRepository.findByHebergementCarhosTypeNotVipOrNbreEtoileLessThan(pageableGauche);
-            pageDroiteResult = hebergementCarhosRepository.findByHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual(pageableDroite);
+        /** cas du filtre et du motclé**/
+        if ( filtre != null && keyword != null &&  !keyword.isEmpty()) {
+            pageGaucheResult = hebergementCarhosRepository.findByNomContainingIgnoreCaseAndHebergementCarhosTypeNotVipOrNbreEtoileLessThan( keyword, filtre, pageableGauche);
+            pageDroiteResult = hebergementCarhosRepository.findByNomContainingIgnoreCaseAndHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual( keyword, filtre, pageableDroite);
+
+
+            /** cas du filtre uniquement **/
+
+        }else if (filtre != null) {
+            pageGaucheResult = hebergementCarhosRepository
+                    .findByHebergementCarhosTypeNotVipOrNbreEtoileLessThan(
+                            filtre, pageableGauche);
+
+            pageDroiteResult = hebergementCarhosRepository
+                    .findByHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual(
+                            filtre, pageableDroite);
+
+        /*** cas du mot clé uniquement **/
+
+        }else if (keyword != null && !keyword.isEmpty()) {
+            pageGaucheResult = hebergementCarhosRepository
+                    .findByNomContainingIgnoreCaseAndHebergementCarhosTypeNotVipOrNbreEtoileLessThan(
+                            keyword, null, pageableGauche);
+
+            pageDroiteResult = hebergementCarhosRepository
+                    .findByNomContainingIgnoreCaseAndHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual(
+                            keyword, null, pageableDroite);
+            /** en aucun cas **/
+        }else {
+            pageGaucheResult = hebergementCarhosRepository.findByHebergementCarhosTypeNotVipOrNbreEtoileLessThan(null, pageableGauche);
+            pageDroiteResult = hebergementCarhosRepository.findByHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual(null, pageableDroite);
+
         }
 
         model.addAttribute("gauche", pageGaucheResult.getContent());
@@ -75,6 +102,8 @@ public String accueil(){
         model.addAttribute("currentPageDroite", pageDroite);
 
         model.addAttribute("keyword", keyword);
+        model.addAttribute("filtreActif", filtre);
+        model.addAttribute("hebergementCarhosSpecificite");
 
         return "index";
     }
@@ -87,10 +116,11 @@ public String accueil(){
        public String nouveauHebergementCarhos(Model model){
             model.addAttribute("hebergementCarhos", new HebergementCarhos());
             model.addAttribute("type", HebergementCarhosType.values());
+            model.addAttribute("specificite", HebergementCarhosSpecificite.values());
             return "formulaire_enregistrement_hebergement_carhos";
        }
 
-       /**** orientation du lien vers le dashbord, et visualisation des enregistrements******/
+       /**** orientation du lien vers le dashbord paginé, et visualisation des enregistrements******/
        @GetMapping("/daschboard_carhos")
        public String afficherDashboard(@RequestParam(defaultValue = "0") int page, Model model) {
            int taillePage = 4; // Nombre d'hébergements par page
@@ -117,6 +147,7 @@ public String accueil(){
         if (bindingResult.hasErrors()) {
 
             model.addAttribute("type", HebergementCarhosType.values());
+            model.addAttribute("specificite", HebergementCarhosSpecificite.values());
             return "formulaire_enregistrement_hebergement_carhos";
         }
 
@@ -159,6 +190,7 @@ public String accueil(){
         HebergementCarhos hebergementCarhos = hebergementCarhosRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("l'hébergement repondant à l'id: "+ id+ "est introuvable"));
         model.addAttribute("hebergementCarhos", hebergementCarhos);
         model.addAttribute("type", HebergementCarhosType.values()) ;
+        model.addAttribute("specificite", HebergementCarhosSpecificite.values());
         return "formulaire_enregistrement_hebergement_carhos";
     }
 
@@ -169,6 +201,7 @@ public String accueil(){
         // Gestion des erreurs de validation
         if (bindingResult.hasErrors()) {
             model.addAttribute("type", HebergementCarhosType.values());
+            model.addAttribute("specificite", HebergementCarhosSpecificite.values());
             return "formulaire_enregistrement_hebergement_carhos";
         }
         hebergementCarhosRepository.save(hebergementCarhos);
@@ -198,28 +231,7 @@ public String accueil(){
 
 }
 
+              /** zone des recherches **/
 //Model model permet de transporter un object, du controller vers la vue
-
-
-
-    /** pagination de la section de gauche **/
-
-    /*@GetMapping("index")
-    public String paginationDeGauche(
-            @RequestParam(defaultValue = "0") int page,
-            Model model) {
-
-        int taillePage = 6; // 6 cartes par page
-
-        Page<HebergementCarhos> pageHebergements =
-                hebergementCarhosRepository.findAll(PageRequest.of(page, taillePage));
-
-        model.addAttribute("hebergements", pageHebergements.getContent());
-        model.addAttribute("totalPages", pageHebergements.getTotalPages());
-        model.addAttribute("currentPage", page);
-
-        return "index"; // ou le nom exact de ta vue
-    }*/
-
 
 }

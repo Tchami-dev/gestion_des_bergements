@@ -4,7 +4,6 @@ package com.hebergement.booki.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
-import org.aspectj.bridge.IMessage;
 
 
 @Entity
@@ -19,6 +18,12 @@ public class HebergementCarhos {
    @Enumerated(EnumType.STRING)
    @NotNull(message = "Merci de renseigner la classe de votre hébergement")
    private  HebergementCarhosType hebergementCarhosType;
+
+   @Enumerated(EnumType.STRING)
+   @NotNull(message = "veillez renseigner la catégorie de l'hébergement")
+   private HebergementCarhosSpecificite hebergementCarhosSpecificite;
+
+
 
        @NotBlank(message="veillez donner un nom à votre hébergement s'il vous plaît")   //ne peut pas être soumis à zéro
        private String nom;

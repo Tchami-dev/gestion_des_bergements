@@ -31,6 +31,15 @@
         </div>
 
         <div class="mb-3">
+            <label for="hebergementCarhosSpecificite" class="form-label">Spécificité de l'hébergement <span class="obligation">*</span> </label>
+            <select class="form-select" id="hebergementCarhosSpecificite" th:field="*{hebergementCarhosSpecificite}" required>
+                <option value="" disabled> Sélectionnez l'aspect spécifique de votre hébergement</option>
+                <option th:each="specificite : ${specificite}" th:value="${specificite}" th:text="${specificite}"></option>
+            </select>
+            <div th:if="${#fields.hasErrors('hebergementCarhosSpecificite')}" th:errors="*{hebergementCarhosSpecificite}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
             <label for="nom" class="form-label">Nom de l'hébergement  <span class="obligation">*</span> </label>
             <input type="text" class="form-control" id="nom" th:field="*{nom}" required>
             <div th:if="${#fields.hasErrors('nom')}" th:errors="*{nom}" class="text-danger"></div>

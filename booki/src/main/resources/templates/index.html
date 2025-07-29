@@ -56,35 +56,54 @@
                         <p class="presentation__types--filtres">Filtres</p>
                     </div>
 
-                    <div class="types__filtres">
-                        <div class="representation__visuelle">
-                            <i class="fa fa-usd icone--filtre"></i>
+
+
+                        <div class="types__filtres">
+                            <div class="representation__visuelle">
+                                <i class="fa fa-usd icone--filtre"></i>
+                            </div>
+                            <a th:href="@{/(filtre='ECONOMIE')}"
+                               class="categories--filtres"
+                               th:classappend="${filtreActif == T(com.hebergement.booki.model.HebergementCarhosSpecificite).ECONOMIE} ? 'actif' : ''">
+                                <p class="categories--filtres"><pre>  Economique  </pre></p>
+                            </a>
                         </div>
-                        <p class="categories--filtres"><pre>  Economique  </pre></p>
+
+                        <div class="types__filtres">
+                            <div class="representation__visuelle">
+                                <i class="fa fa-child icone--filtre"></i>
+                            </div>
+                            <a th:href="@{/(filtre='FAMILIAL')}"
+                               class="categories--filtres"
+                               th:classappend="${filtreActif == T(com.hebergement.booki.model.HebergementCarhosSpecificite).FAMILIAL} ? 'actif' : ''">
+                                <p class="categories--filtres"><pre>  Familial  </pre></p>
+                            </a>
+                        </div>
+
+                        <div class="types__filtres">
+                            <div class="representation__visuelle">
+                                <i class="fa fa-heart icone--filtre"></i>
+                            </div>
+                            <a th:href="@{/(filtre='ROMANTIQUE')}"
+                               class="categories--filtres"
+                               th:classappend="${filtreActif == T(com.hebergement.booki.model.HebergementCarhosSpecificite).ROMANTIQUE} ? 'categories--filtres' : ''">
+                                <p><pre>  Romantique  </pre></p>
+                            </a>
+                        </div>
+
+                        <div class="types__filtres">
+                            <div class="representation__visuelle">
+                                <i class="fa fa-paw icone--filtre"></i>
+                            </div>
+                            <a th:href="@{/(filtre='ANIMAUX_AUTORISES')}"
+                               class="categories--filtres"
+                               th:classappend="${filtreActif == T(com.hebergement.booki.model.HebergementCarhosSpecificite).ANIMAUX_AUTORISES} ? 'actif' : ''">
+                                <p class="categories--filtres"><pre>  Animaux autorisés  </pre></p>
+                            </a>
+                        </div>
                     </div>
 
-                    <div class="types__filtres">
-                        <div class="representation__visuelle">
-                            <i class="fa fa-child icone--filtre"></i>
-                        </div>
-                        <p class="categories--filtres"><pre>  Familial  </pre></p>
-                    </div>
-
-                    <div class="types__filtres">
-                        <div class="representation__visuelle">
-                            <i class="fa fa-heart icone--filtre"></i>
-                        </div>
-                        <p class="categories--filtres"><pre>  Romantique  </pre></p>
-                    </div>
-
-                    <div class="types__filtres">
-                        <div class="representation__visuelle">
-                            <i class="fa fa-paw icone--filtre"></i>
-                        </div>
-                        <p class="categories--filtres"><pre>  Animaux autoriés  </pre></p>
-                    </div>
-                </div>
-                <br><br>
+                    <br><br>
 
                 <div class="pub">
                     <div class="div__icone--info">
