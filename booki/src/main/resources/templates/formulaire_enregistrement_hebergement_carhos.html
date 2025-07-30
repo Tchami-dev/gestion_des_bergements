@@ -65,14 +65,14 @@
 
         <div class="mb-3">
             <label for="atouts" class="form-label">Atouts de l'hébergement</label>
-            <textarea  rows="4" cols="20" class="form-control" id="atouts" th:field="*{atouts}"
+            <textarea  rows="4" cols="20" class="form-control" id="atouts" th:field="*{capacite}"
                        placeholder="Exples :
                                    - Deux Lit
                                    - Parking
                                    - Douche italienne"
                        required>
             </textarea>
-            <div th:if="${#fields.hasErrors('atouts')}" th:errors="*{atouts}" class="text-danger"></div>
+            <div th:if="${#fields.hasErrors('atouts')}" th:errors="*{capacite}" class="text-danger"></div>
         </div>
 
         <div class="mb-3">
