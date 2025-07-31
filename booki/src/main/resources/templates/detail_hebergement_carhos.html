@@ -28,10 +28,10 @@
        <section class="detail">
 
              <h1 th:text="${hebergementCarhos.nom}"></h1><br>
-             <p><span th:text="${hebergementCarhos.detail}"></span> </p><br>
+             <p><span th:text="${hebergementCarhos.description}"></span> </p><br>
 
            <ul>
-               <li th:each="atouts : ${hebergementCarhos.atouts}" th:text="${hebergementCarhos.atouts}"> </li>    <!-- #strings.split, pour découper du texte en tyhmeleaf avec saut de page--->
+               <li th:each="capacite : ${hebergementCarhos.capacite}" th:text="${hebergementCarhos.capacite}"> </li>    <!-- #strings.split, pour découper du texte en tyhmeleaf avec saut de page--->
            </ul>
            <br>
 

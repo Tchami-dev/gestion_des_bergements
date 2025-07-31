@@ -15,7 +15,6 @@ public class HebergementCarhos {
 
    @Id
    @GeneratedValue(strategy = GenerationType.IDENTITY)
-   @Column(name = "id_heberg")
        private Long id;
 
    @Enumerated(EnumType.STRING)
@@ -43,19 +42,19 @@ public class HebergementCarhos {
 
        @Lob   /** pour stocké des variables très longues de types string **/
        @Column(columnDefinition = "TEXT", name = "description_heberg")
-       @NotBlank (message="Merci de donner des informations détail sur l'hébergemnt")
-       private String detail;
+       @NotBlank (message="Merci de donner des informations détail sur l'hébergement")
+       private String description;
 
     @Lob
     @Column(columnDefinition = "TEXT", name = "capacite_heberg")
-    @NotBlank (message="Merci de donner les atouts majeurs de l'hébergemnt")
+    @NotBlank (message="Merci de donner les atouts majeurs de l'hébergement")
     private String capacite;
 
     @Column(name = "satut_heberg")
     @Enumerated(EnumType.STRING)
     private HebergementCarhosStatut hebergementCarhosStatut;
 
-    @Column(name = "localisation_heberg")
+     @Column(name = "localisation_heberg")
     private  String localisationHeberg;
 
     /********************* relation-de-multiplicité-entre-les-tables *************************/

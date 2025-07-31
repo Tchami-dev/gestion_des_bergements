@@ -5,6 +5,7 @@ import com.hebergement.booki.model.HebergementCarhosSpecificite;
 import com.hebergement.booki.model.HebergementCarhosType;
 import com.hebergement.booki.repository.HebergementCarhosRepository;
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -140,6 +141,7 @@ public String accueil(){
     /******** soumission d'enregistrement d'un hébergement***/
 
     @PostMapping("/hebergement_carhos")
+
     public String enregistrementHebergementCarhos(@Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos,
                                                   BindingResult bindingResult, Model model, @RequestParam("fichier_image") MultipartFile fichier_image) {
 
