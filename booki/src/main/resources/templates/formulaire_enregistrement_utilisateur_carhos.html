@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire_utilisateur_carhos </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/carhos.css}">
+    <link rel="stylesheet" th:href="@{/css/style_formulaire_carhos.css}">
+</head>
+<body>
+
+<!-- en-tete-de-la-page -->
+<header th:insert="header_carhos::en_tete">
+</header>
+
+<div class="form-container">
+    <h2 th:text="${utilisateur.idUtilisateur} != null ? 'Modifier l\'utilisateur' : 'Ajouter un nouveau utilisateur'"></h2>
+    <form th:action="@{/utilisateurs_carhos}" th:object="${utilisateur}" method="post" >
+
+
+        <input type="hidden" th:field="*{idUtilisateur}"/>
+
+        <div class="mb-3">
+            <label for="nomUtilisateur" class="form-label">Nom   <span class="obligation">*</span> </label>
+            <input type="text" class="form-control" id="nomUtilisateur" th:field="*{nomUtilisateur}" required>
+            <div th:if="${#fields.hasErrors('nomUtilisateur')}" th:errors="*{nomUtilisateur}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="prenomUtilisateur" class="form-label">Prénom   <span class="obligation">*</span> </label>
+            <input type="text" class="form-control" id="prenomUtilisateur" th:field="*{prenomUtilisateur}" required>
+            <div th:if="${#fields.hasErrors('prenomUtilisateur')}" th:errors="*{prenomUtilisateur}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="numtelutilisateur" class="form-label">Numéro de téléphone   <span class="obligation">*</span> </label>
+            <input type="tel" class="form-control" id="numTelUtilisateur" name="numTelUtilisateur"
+                   pattern="^\\+237[\\s\\-]?[0-9]{9}$" placeholder="+237 691 234 567" th:field="*{numTelUtilisateur}" required>
+            <div class="invalid-feedback">Numéro de téléphone invalide. Assurez-vous qu'il commence par +237 suivi de 9 chiffres.</div>
+            <div th:if="${#fields.hasErrors('numTelUtilisateur')}" th:errors="*{numTelUtilisateur}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="numCniPasseportUtilisateur" class="form-label">Numéro de la CNI ou du Passeport   <span class="obligation">*</span> </label>
+            <input type="text" class="form-control" id="numCniPasseportUtilisateur" th:field="*{numCniUtilisateur}" required>
+            <div th:if="${#fields.hasErrors('prenomUtilisateur')}" th:errors="*{numCniUtilisateur}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="emailUtilisateur" class="form-label">Boîte mail   <span class="obligation">*</span> </label>
+            <input type="email" class="form-control" id="emailUtilisateur" th:field="*{emailUtilisateur}" required>
+            <div th:if="${#fields.hasErrors('emailUtilisateur')}" th:errors="*{emailUtilisateur}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="motDePasseUtilisateur" class="form-label">Mot de passe   <span class="obligation">*</span> </label>
+            <input type="text" class="form-control" id="motDePasseUtilisateur" th:field="*{motDePasseUtilisateur}" required>
+            <div th:if="${#fields.hasErrors('motDePasseUtilisateur')}" th:errors="*{motDePasseUtilisateur}" class="text-danger"></div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary"
+                    th:text="${utilisateur.idUtilisateur} != null ? 'Mettre à jour' : 'Enregistrer'"></button>
+            <a href="/" class="btn btn-secondary">Retour à l'accueil</a>
+        </div>
+    </form>
+</div>
+
+<!--------------------- pied-de-page -------------------->
+
+<footer th:insert="footer_carhos::footer">
+
+</footer>
+
+</body>
+</html>

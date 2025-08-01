@@ -136,8 +136,6 @@ public String accueil(){
        }
 
 
-
-
     /******** soumission d'enregistrement d'un hébergement***/
 
     @PostMapping("/hebergement_carhos")
@@ -161,7 +159,7 @@ public String accueil(){
 
                 // Créer le dossier s'il n'existe pas
                // File directory = new File(uploadDir);
-                File directory = new File(DOSSIER_DU_PROJET);
+                File directory = new File("T:/IUS/projet-de-soutenace-bts/images_upload");
                 if (!directory.exists()) {
                     directory.mkdirs();
                 }

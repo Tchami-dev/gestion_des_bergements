@@ -25,6 +25,7 @@ public class RoleUtilisateurCarhos {
 
     /***************** relation-de-multiplicité-entre-les-tables **********************/
 
-    @OneToMany(mappedBy ="roleUtilisateurCarhos" )
-    private List<UtilisateurCarhos> utilisateurCarhos;
+   /* @OneToMany(mappedBy ="roleUtilisateurCarhos" )
+    private List<UtilisateurCarhos> utilisateurCarhos;*/
+
 }

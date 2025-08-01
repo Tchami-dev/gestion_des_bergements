@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="fr">
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>hébergement_carhos</title>
@@ -13,14 +13,33 @@
 
 <body>
 <!-- en-tete-de-la-page -->
-<header th:insert="header_carhos::en_tete">
+<header th:insert="~{header_carhos::en_tete}">
 
 </header>
 
+<main>
+
+<section class="section_gestions">
+    <div class="div_gestions">
+        <h2>Menu</h2>
+        <article class="article_lien">
+            <div class="div_lien">
+
+            </div>
+        </article>
+
+    </div>
+
+</section>
+
+
+<section class="section_container">
 <div class="container container-custom">
     <h2 class="information_gestion">Gestion des hébergements</h2>
 
     <div class="header-btn">
+        <a href="/daschboard_utilisateur_carhos" class="btn btn-secondary">Gestion des utilisateurs</a>
+        <a href="/" class="btn btn-secondary">Retour à l'accueil</a>
         <a href="/hebergement_carhos/nouveau" class="btn btn-success">Ajouter un hébergement</a>
     </div>
 
@@ -84,11 +103,14 @@
         </ul>
     </div>
 </div>
+</section>
+
+</main>
 
 <br><br>
 <!--------------------- pied-de-page -------------------->
 
-<footer th:insert="footer_carhos::footer">
+<footer th:insert="~{footer_carhos::footer}">
 
 </footer>
 

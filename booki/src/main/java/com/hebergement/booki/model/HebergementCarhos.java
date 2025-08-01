@@ -32,21 +32,20 @@ public class HebergementCarhos {
        @Positive
        private double prix;
 
-       @Column(name = "image_heberg")
+
        private String image;
 
        @Min(1)
        @Max(5)
-       @Column(name = "nbre_etoile")
        private int nbreEtoile;
 
        @Lob   /** pour stocké des variables très longues de types string **/
-       @Column(columnDefinition = "TEXT", name = "description_heberg")
+       @Column(columnDefinition = "TEXT")
        @NotBlank (message="Merci de donner des informations détail sur l'hébergement")
        private String description;
 
     @Lob
-    @Column(columnDefinition = "TEXT", name = "capacite_heberg")
+    @Column(columnDefinition = "TEXT")
     @NotBlank (message="Merci de donner les atouts majeurs de l'hébergement")
     private String capacite;
 
