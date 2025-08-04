@@ -21,7 +21,7 @@ public class UtilisateurCarhosController {
     private final UtilisateurCarhosRepository utilisateurCarhosRepository;
 
 
-    @GetMapping("/daschboard_utilisateur_carhos")
+    @GetMapping("/daschboard-utilisateur-carhos")
     public  String listingUtilisateur( @RequestParam(defaultValue = "0") int page, Model model){
 
         int nbreElements = 4;
@@ -34,13 +34,13 @@ public class UtilisateurCarhosController {
         return  "daschboard_utilisateur_carhos";
     }
 
-    @GetMapping("/utilisateurs_carhos/nouveau")
+    @GetMapping("/utilisateurs-carhos/nouveau")
     public  String creationUtilisateur(Model model){
         model.addAttribute("utilisateur", new UtilisateurCarhos());
         return  "formulaire_enregistrement_utilisateur_carhos";
     }
 
-    @PostMapping("/utilisateurs_carhos")
+    @PostMapping("/utilisateurs-carhos")
     public  String sauvegardeUtilisateur(@Valid
              @ModelAttribute("utilisateur") UtilisateurCarhos utilisateurCarhos, BindingResult bindingResult) {
 
@@ -51,7 +51,7 @@ public class UtilisateurCarhosController {
             return "redirect:/daschboard_utilisateur_carhos";
     }
 
-    @PostMapping("/utilisateurs_carhos/delete/{id}")
+    @PostMapping("/utilisateurs-carhos/delete/{id}")
     public String SupprimerUtilisateur(@PathVariable Long id,
            Model model, RedirectAttributes redirectAttributes){
         if (utilisateurCarhosRepository.existsById(id)) {
@@ -63,14 +63,14 @@ public class UtilisateurCarhosController {
         return "redirect:/daschboard_utilisateur_carhos";
     }
 
-    @GetMapping("/utilisateurs_carhos/edit/{id}")
+    @GetMapping("/utilisateurs-carhos/edit/{id}")
      public String prechargementUtilisateur(Model model, @PathVariable Long id){
         UtilisateurCarhos utilisateurCarhos= utilisateurCarhosRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("l'utilisateur repondant à l'id: "+ id+ "est introuvable"));
         model.addAttribute("utilisateur", utilisateurCarhos);
         return  "formulaire_enregistrement_utilisateur_carhos";
     }
 
-    @PostMapping("/utilisateurs_carhos/{id}")
+    @PostMapping("/utilisateurs-carhos/{id}")
     public  String modificationUtilisateur(Model model, @PathVariable Long id,
         @Valid @ModelAttribute("utilisateur") UtilisateurCarhos utilisateurCarhos, BindingResult bindingResult){
 

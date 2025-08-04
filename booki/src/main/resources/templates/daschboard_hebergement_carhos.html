@@ -33,7 +33,7 @@
 
     <div class="header-btn">
         <a href="/" class="btn btn-secondary">Retour à l'accueil</a>
-        <a href="/hebergement_carhos/nouveau" class="btn btn-success">Ajouter un hébergement</a>
+        <a href="/hebergement-carhos/nouveau" class="btn btn-success">Ajouter un hébergement</a>
     </div>
 
     <table class="table table-hover">
@@ -56,14 +56,14 @@
             <td th:text="${hebergementCarhos.image}"></td>
             <td th:text="${hebergementCarhos.nbreEtoile}"></td>
             <td>
-                <a th:href="@{/hebergement_carhos/détail/{id}(id=${hebergementCarhos.id})}" class="btn btn-secondary btn-sm" title="Détail">
+                <a th:href="@{/hebergement-carhos/détail/{id}(id=${hebergementCarhos.id})}" class="btn btn-secondary btn-sm" title="Détail">
                     <i class="fa fa-book" style="font-size:24px"></i>
                 </a>
-                <a th:href="@{/hebergement_carhos/edit/{id}(id=${hebergementCarhos.id})}" class="btn btn-primary btn-sm" title="Modifier">
+                <a th:href="@{/hebergement-carhos/edit/{id}(id=${hebergementCarhos.id})}" class="btn btn-primary btn-sm" title="Modifier">
                     <i class="fa fa-edit" style="font-size:24px"></i>
                 </a>
 
-                <form th:action="@{/hebergement_carhos/delete/{id}(id=${hebergementCarhos.id})}" method="post"
+                <form th:action="@{/hebergement-carhos/delete/{id}(id=${hebergementCarhos.id})}" method="post"
                       onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet hébergement ?');"
                       style="display:inline">
                     <input type="hidden" name="_method" value="delete"/>
@@ -80,18 +80,18 @@
     <div class="pagination" style="text-align:center; margin-top:20px;">
         <ul style="list-style:none; display:inline-flex; gap:10px; padding-left:0;">
             <li th:if="${currentPage > 0}">   <!---- currentPage permet de savoir où on est et d’afficher les bons liens---->
-                <a th:href="@{/daschboard_carhos(page=${currentPage - 1})}" class="btn btn-outline-secondary">Précédent</a>
+                <a th:href="@{/daschboard_hebergement_carhos(page=${currentPage - 1})}" class="btn btn-outline-secondary">Précédent</a>
             </li>
 
             <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">  <!--- gére la numérotation des pages --->
-                <a th:href="@{/daschboard_carhos(page=${i})}"
+                <a th:href="@{/daschboard_hebergement_carhos(page=${i})}"
                    th:text="${i + 1}"
                    th:classappend="${i == currentPage} ? 'btn btn-primary' : 'btn btn-outline-primary'">
                 </a>
             </li>
 
             <li th:if="${currentPage < totalPages - 1}">
-                <a th:href="@{/daschboard_carhos(page=${currentPage + 1})}" class="btn btn-outline-secondary">Suivant</a>
+                <a th:href="@{/daschboard_hebergement_carhos(page=${currentPage + 1})}" class="btn btn-outline-secondary">Suivant</a>
             </li>
         </ul>
     </div>

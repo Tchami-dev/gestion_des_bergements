@@ -121,7 +121,7 @@ public String accueil(){
        }
 
        /**** orientation du lien vers le dashbord paginé, et visualisation des enregistrements******/
-       @GetMapping("/daschboard_carhos")
+       @GetMapping("/daschboard_hebergement_carhos")
        public String afficherDashboard(@RequestParam(defaultValue = "0") int page, Model model) {
            int taillePage = 4; // Nombre d'hébergements par page
 
@@ -137,7 +137,7 @@ public String accueil(){
 
     /******** soumission d'enregistrement d'un hébergement***/
 
-    @PostMapping("/hebergement_carhos")
+    @PostMapping("/hebergement-carhos")
 
     public String enregistrementHebergementCarhos(@Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos,
                                                   BindingResult bindingResult, Model model, @RequestParam("fichier_image") MultipartFile fichier_image) {
@@ -177,14 +177,14 @@ public String accueil(){
         }
 
         hebergementCarhosRepository.save(hebergementCarhos);
-        return "redirect:/daschboard_carhos";
+        return "redirect:/daschboard_hebergement_carhos";
     }
 
     /***** mise à jour des informations des hébergements ****/
 
     /*préchargement du formulaire */
 
-    @GetMapping("/hebergement_carhos/edit/{id}")
+    @GetMapping("/hebergement-carhos/edit/{id}")
     public String infoHebergementCarhos(@PathVariable Long id, Model model){
         HebergementCarhos hebergementCarhos = hebergementCarhosRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("l'hébergement repondant à l'id: "+ id+ "est introuvable"));
         model.addAttribute("hebergementCarhos", hebergementCarhos);
@@ -195,7 +195,7 @@ public String accueil(){
 
 
     /*mise à jour*/
-    @PostMapping("/hebergement_carhos/{id}")
+    @PostMapping("/hebergement-carhos/{id}")
     public String actualiserHebergementCarhos(@PathVariable Long id, @Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos, BindingResult bindingResult, Model model){
 
         // Gestion des erreurs de validation
@@ -210,16 +210,16 @@ public String accueil(){
 
 
     /*********** supprimer un hébergement ******/
-    @PostMapping("/hebergement_carhos/delete/{id}")
+    @PostMapping("/hebergement-carhos/delete/{id}")
     public String supprimerHebergementCarhos(@PathVariable Long id, Model model, RedirectAttributes redirectAttributes){
         hebergementCarhosRepository.deleteById(id);
         redirectAttributes.addFlashAttribute("successMessage", "Hébergement supprimé avec succès.");
-        return "redirect:/daschboard_carhos";
+        return "redirect:/daschboard_hebergement_carhos";
     }
 
 
     /********* informations détaillées  sur un hébergement ********/
-@GetMapping("/hebergement_carhos/détail/{id}")
+@GetMapping("/hebergement-carhos/détail/{id}")
     public String detailHebergementCarhos(@PathVariable("id") Long id, Model model){
     // Récupération de l'hébergement par son ID
     HebergementCarhos hebergementCarhos = hebergementCarhosRepository.findById(id)

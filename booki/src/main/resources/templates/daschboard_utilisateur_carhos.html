@@ -23,7 +23,7 @@
         <h2 class="information_gestion">Gestion des utilisateurs</h2>
 
         <div class="header-btn">
-            <a href="/utilisateurs_carhos/nouveau" class="btn btn-success">Ajouter un utilisateurs</a>
+            <a href="/utilisateurs-carhos/nouveau" class="btn btn-success">Ajouter un utilisateurs</a>
         </div>
 
         <table class="table table-hover">
@@ -50,14 +50,14 @@
                 <td th:text="${utilisateur.emailUtilisateur}"></td>
                 <td th:text="${utilisateur.motDePasseUtilisateur}"></td>
                 <td>
-                    <a th:href="@{/utilisateurs_carhos/détail/{id}(id=${utilisateur.idUtilisateur})}" class="btn btn-secondary btn-sm" title="Détail">
+                    <a th:href="@{/utilisateurs-carhos/détail/{id}(id=${utilisateur.idUtilisateur})}" class="btn btn-secondary btn-sm" title="Détail">
                         <i class="fa fa-book" style="font-size:24px"></i>
                     </a>
-                    <a th:href="@{/utilisateurs_carhos/edit/{id}(id=${utilisateur.idUtilisateur})}" class="btn btn-primary btn-sm" title="Modifier">
+                    <a th:href="@{/utilisateurs-carhos/edit/{id}(id=${utilisateur.idUtilisateur})}" class="btn btn-primary btn-sm" title="Modifier">
                         <i class="fa fa-edit" style="font-size:24px"></i>
                     </a>
 
-                    <form th:action="@{/utilisateurs_carhos/delete/{id}(id=${utilisateur.idUtilisateur})}" method="post"
+                    <form th:action="@{/utilisateurs-carhos/delete/{id}(id=${utilisateur.idUtilisateur})}" method="post"
                           onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');"
                           style="display:inline">
                         <input type="hidden" name="_method" value="delete"/>
