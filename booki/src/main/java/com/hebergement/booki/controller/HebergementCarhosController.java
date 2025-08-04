@@ -45,50 +45,16 @@ public class HebergementCarhosController {
             @RequestParam(value = "filtre", required = false) HebergementCarhosSpecificite filtre,
             Model model) {
 
+
+
         int taillePageGauche = 6;
         int taillePageDroite = 3;
 
         Pageable pageableGauche = PageRequest.of(pageGauche, taillePageGauche);
         Pageable pageableDroite = PageRequest.of(pageDroite, taillePageDroite);
 
-
-
-        Page<HebergementCarhos> pageGaucheResult;
-        Page<HebergementCarhos> pageDroiteResult;
-
-        /** cas du filtre et du motclé**/
-        if ( filtre != null && keyword != null &&  !keyword.isEmpty()) {
-            pageGaucheResult = hebergementCarhosRepository.findByNomContainingIgnoreCaseAndHebergementCarhosTypeNotVipOrNbreEtoileLessThan( keyword, filtre, pageableGauche);
-            pageDroiteResult = hebergementCarhosRepository.findByNomContainingIgnoreCaseAndHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual( keyword, filtre, pageableDroite);
-
-
-            /** cas du filtre uniquement **/
-
-        }else if (filtre != null) {
-            pageGaucheResult = hebergementCarhosRepository
-                    .findByHebergementCarhosTypeNotVipOrNbreEtoileLessThan(
-                            filtre, pageableGauche);
-
-            pageDroiteResult = hebergementCarhosRepository
-                    .findByHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual(
-                            filtre, pageableDroite);
-
-            /*** cas du mot clé uniquement **/
-
-        }else if (keyword != null && !keyword.isEmpty()) {
-            pageGaucheResult = hebergementCarhosRepository
-                    .findByNomContainingIgnoreCaseAndHebergementCarhosTypeNotVipOrNbreEtoileLessThan(
-                            keyword, null, pageableGauche);
-
-            pageDroiteResult = hebergementCarhosRepository
-                    .findByNomContainingIgnoreCaseAndHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual(
-                            keyword, null, pageableDroite);
-            /** en aucun cas **/
-        } else {
-            pageGaucheResult = hebergementCarhosRepository.findByHebergementCarhosTypeNotVipOrNbreEtoileLessThan(null, pageableGauche);
-            pageDroiteResult = hebergementCarhosRepository.findByHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual(null, pageableDroite);
-
-        }
+        Page<HebergementCarhos> pageGaucheResult =  hebergementService.getPageHebergementGauche(keyword, filtre, pageableGauche);
+        Page<HebergementCarhos> pageDroiteResult =  hebergementService.getPageHebergementDroite(keyword, filtre, pageableDroite);
 
         model.addAttribute("gauche", pageGaucheResult.getContent());
         model.addAttribute("totalPagesGauche", pageGaucheResult.getTotalPages());
@@ -105,11 +71,8 @@ public class HebergementCarhosController {
         return "index";
     }
 
-
-
-
     /************ création d'un hébergement ******/
-    @GetMapping("/hebergement_carhos/nouveau")
+    @GetMapping("/hebergement-carhos/nouveau")
     public String nouveauHebergementCarhos(Model model){
         model.addAttribute("hebergementCarhos", new HebergementCarhos());
         model.addAttribute("type", HebergementCarhosType.values());
@@ -118,7 +81,7 @@ public class HebergementCarhosController {
     }
 
     /**** orientation du lien vers le dashbord paginé, et visualisation des enregistrements******/
-    @GetMapping("/daschboard_carhos")
+    @GetMapping("/daschboard_hebergement_carhos")
     public String afficherDashboard(@RequestParam(defaultValue = "0") int page, Model model) {
         int taillePage = 4; // Nombre d'hébergements par page
 
@@ -134,7 +97,7 @@ public class HebergementCarhosController {
 
     /******** soumission d'enregistrement d'un hébergement***/
 
-//    @PostMapping("/hebergement_carhos")
+//   @PostMapping("/hebergement_carhos")
 //    public String enregistrementHebergementCarhos(@Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos,
 //                                                  BindingResult bindingResult, Model model, @RequestParam("fichier_image") MultipartFile fichier_image) {
 //
@@ -176,7 +139,7 @@ public class HebergementCarhosController {
 //        return "redirect:/daschboard_carhos";
 //    }
 
-    @PostMapping("/hebergement_carhos")
+    @PostMapping("/hebergement-carhos")
     public String enregistrementHebergementCarhos(
             @Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos,
             BindingResult bindingResult,
@@ -198,7 +161,7 @@ public class HebergementCarhosController {
             return "formulaire_enregistrement_hebergement_carhos";
         }
 
-        return "redirect:/daschboard_carhos";
+        return "redirect:/daschboard_hebergement_carhos";
     }
 
 
@@ -233,17 +196,17 @@ public class HebergementCarhosController {
 
 
     /*********** supprimer un hébergement ******/
-    @PostMapping("/hebergement_carhos/delete/{id}")
+    @PostMapping("/hebergement-carhos/delete/{id}")
     public String supprimerHebergementCarhos(@PathVariable Long id, RedirectAttributes redirectAttributes) {
         hebergementService.supprimerHebergementCarhos(id);
         redirectAttributes.addFlashAttribute("successMessage", "Hébergement supprimé avec succès.");
-        return "redirect:/daschboard_carhos";
+        return "redirect:/daschboard_hebergement_carhos";
     }
 
 
 
     /********* informations détaillées  sur un hébergement ********/
-    @GetMapping("/hebergement_carhos/détail/{id}")
+    @GetMapping("/hebergement-carhos/détail/{id}")
     public String detailHebergementCarhos(@PathVariable("id") Long id, Model model){
 
         // Récupération de l'hébergement par son ID

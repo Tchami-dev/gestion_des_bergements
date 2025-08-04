@@ -1,8 +1,11 @@
 package com.hebergement.booki.services.impl;
 
 import com.hebergement.booki.model.HebergementCarhos;
+import com.hebergement.booki.model.HebergementCarhosSpecificite;
 import com.hebergement.booki.repository.HebergementCarhosRepository;
 import com.hebergement.booki.services.inter.HebergementService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,6 +28,12 @@ public class HebergementServiceImp implements HebergementService {
     public HebergementCarhos getHebergementCarhosById(Long id) {
         return hebergementCarhosRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Hébergement introuvable avec l'ID : " + id));
+    }
+
+
+    public void supprimerHebergementCarhos(Long id, String a) {
+
+
     }
 
     @Override
@@ -53,5 +62,60 @@ public class HebergementServiceImp implements HebergementService {
         }
 
         hebergementCarhosRepository.save(hebergementCarhos);
+    }
+
+    @Override
+    public Page<HebergementCarhos> getPageHebergementGauche(String keyword, HebergementCarhosSpecificite filtre, Pageable pageableGauche) {
+        Page<HebergementCarhos> pageGaucheResult;
+
+        if ( filtre != null && keyword != null &&  !keyword.isEmpty()) {
+            pageGaucheResult =  hebergementCarhosRepository.findByNomContainingIgnoreCaseAndHebergementCarhosTypeNotVipOrNbreEtoileLessThan( keyword, filtre, pageableGauche);
+
+        }else if (filtre != null) {
+            pageGaucheResult = hebergementCarhosRepository
+                    .findByHebergementCarhosTypeNotVipOrNbreEtoileLessThan(
+                            filtre, pageableGauche);
+
+            /*** cas du mot clé uniquement **/
+
+        }else if (keyword != null && !keyword.isEmpty()) {
+            pageGaucheResult = hebergementCarhosRepository
+                    .findByNomContainingIgnoreCaseAndHebergementCarhosTypeNotVipOrNbreEtoileLessThan(
+                            keyword, null, pageableGauche);
+
+            /** en aucun cas **/
+        } else {
+            pageGaucheResult = hebergementCarhosRepository.findByHebergementCarhosTypeNotVipOrNbreEtoileLessThan(null, pageableGauche);
+        }
+
+        return pageGaucheResult;
+    }
+
+    @Override
+    public Page<HebergementCarhos> getPageHebergementDroite(String keyword, HebergementCarhosSpecificite filtre, Pageable pageableDroite) {
+        Page<HebergementCarhos> pageDroiteResult;
+        /** cas du filtre et du motclé**/
+        if ( filtre != null && keyword != null &&  !keyword.isEmpty()) {
+            pageDroiteResult =   hebergementCarhosRepository.findByNomContainingIgnoreCaseAndHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual( keyword, filtre, pageableDroite);
+            /** cas du filtre uniquement **/
+
+        }else if (filtre != null) {
+
+            pageDroiteResult = hebergementCarhosRepository
+                    .findByHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual(
+                            filtre, pageableDroite);
+
+            /*** cas du mot clé uniquement **/
+
+        }else if (keyword != null && !keyword.isEmpty()) {
+
+            pageDroiteResult = hebergementCarhosRepository
+                    .findByNomContainingIgnoreCaseAndHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual(
+                            keyword, null, pageableDroite);
+            /** en aucun cas **/
+        } else {
+            pageDroiteResult = hebergementCarhosRepository.findByHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual(null, pageableDroite);
+        }
+        return pageDroiteResult;
     }
 }

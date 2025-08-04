@@ -21,7 +21,7 @@ public class UtilisateurCarhosController {
     private final UtilisateurCarhosRepository utilisateurCarhosRepository;
 
 
-    @GetMapping("/daschboard-utilisateur-carhos")
+    @GetMapping("/daschboard_utilisateur_carhos")
     public  String listingUtilisateur( @RequestParam(defaultValue = "0") int page, Model model){
 
         int nbreElements = 4;

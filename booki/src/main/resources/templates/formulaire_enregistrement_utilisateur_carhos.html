@@ -16,7 +16,7 @@
 
 <div class="form-container">
     <h2 th:text="${utilisateur.idUtilisateur} != null ? 'Modifier l\'utilisateur' : 'Ajouter un nouveau utilisateur'"></h2>
-    <form th:action="@{/utilisateurs_carhos}" th:object="${utilisateur}" method="post" >
+    <form th:action="@{/utilisateurs-carhos}" th:object="${utilisateur}" method="post" >
 
 
         <input type="hidden" th:field="*{idUtilisateur}"/>
