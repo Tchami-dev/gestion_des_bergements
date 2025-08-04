@@ -1,4 +1,4 @@
-package com.hebergement.booki.services.impl;
+package com.hebergement.booki.services.inter;
 
 import com.hebergement.booki.model.HebergementCarhos;
 import org.springframework.web.multipart.MultipartFile;
