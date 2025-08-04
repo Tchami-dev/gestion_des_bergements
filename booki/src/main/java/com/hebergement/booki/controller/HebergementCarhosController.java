@@ -84,7 +84,7 @@ public class HebergementCarhosController {
                     .findByNomContainingIgnoreCaseAndHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual(
                             keyword, null, pageableDroite);
             /** en aucun cas **/
-        }else {
+        } else {
             pageGaucheResult = hebergementCarhosRepository.findByHebergementCarhosTypeNotVipOrNbreEtoileLessThan(null, pageableGauche);
             pageDroiteResult = hebergementCarhosRepository.findByHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual(null, pageableDroite);
 
@@ -128,8 +128,8 @@ public class HebergementCarhosController {
         model.addAttribute("totalPages", pageHebergements.getTotalPages()); // Pour les liens de pagination
         model.addAttribute("currentPage", page); // Page actuelle
 
-        return "daschboard_carhos"; // Nom du  fichier HTML de retour
-    }
+           return "daschboard_hebergement_carhos"; // Nom du  fichier HTML de retour
+       }
 
 
     /******** soumission d'enregistrement d'un hébergement***/
@@ -207,7 +207,7 @@ public class HebergementCarhosController {
     /*préchargement du formulaire */
 
     @GetMapping("/hebergement_carhos/edit/{id}")
-    public String infoHebergementCarhos(@PathVariable long id, Model model){
+    public String infoHebergementCarhos(@PathVariable Long id, Model model){
         HebergementCarhos hebergementCarhos = hebergementCarhosRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("l'hébergement repondant à l'id: "+ id+ "est introuvable"));
         model.addAttribute("hebergementCarhos", hebergementCarhos);
         model.addAttribute("type", HebergementCarhosType.values()) ;
@@ -215,9 +215,10 @@ public class HebergementCarhosController {
         return "formulaire_enregistrement_hebergement_carhos";
     }
 
+
     /*mise à jour*/
     @PostMapping("/hebergement_carhos/{id}")
-    public String actualiserHebergementCarhos(@PathVariable long id, @Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos, BindingResult bindingResult, Model model){
+    public String actualiserHebergementCarhos(@PathVariable Long id, @Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos, BindingResult bindingResult, Model model){
 
         // Gestion des erreurs de validation
         if (bindingResult.hasErrors()) {
