@@ -112,7 +112,7 @@ public String accueil(){
 
 
     /************ création d'un hébergement ******/
-    @GetMapping("/hebergement_carhos/nouveau")
+    @GetMapping("/hebergement-carhos/nouveau")
        public String nouveauHebergementCarhos(Model model){
             model.addAttribute("hebergementCarhos", new HebergementCarhos());
             model.addAttribute("type", HebergementCarhosType.values());
