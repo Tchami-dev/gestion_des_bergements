@@ -36,12 +36,13 @@
                 <th>Numéro de la CNI/Passeport</th>
                 <th>Boîte Email</th>
                 <th>Mot de passe</th>
+                <th>Actions</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="utilisateur, status : ${utilisateurs}">   <!--- th:each, permet de définir le principe des boucle en thymeleaf--->
                 <!-- Compteur global tenant compte de la page -->
-                <td th:text="${status.count}"></td>    <!---numérotation des page et identification du nombre d'élément/page--->
+                <td th:text="${status.index + 1 + currentPage * 4}"></td>   <!---numérotation des page et identification du nombre d'élément/page--->
                 <td th:text="${utilisateur.nomUtilisateur}"></td>
                 <td th:text="${utilisateur.prenomUtilisateur}"></td>
                 <td th:text="${utilisateur.numTelUtilisateur}"></td>
@@ -68,6 +69,26 @@
             </tr>
             </tbody>
         </table>
+
+        <!-- Pagination -->
+        <div class="pagination" style="text-align:center; margin-top:20px;">
+            <ul style="list-style:none; display:inline-flex; gap:10px; padding-left:0;">
+                <li th:if="${currentPage > 0}">   <!---- currentPage permet de savoir où on est et d’afficher les bons liens---->
+                    <a th:href="@{/daschboard_utilisateur_carhos(page=${currentPage - 1})}" class="btn btn-outline-secondary">Précédent</a>
+                </li>
+
+                <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">  <!--- gére la numérotation des pages --->
+                    <a th:href="@{/daschboard_utilisateur_carhos(page=${i})}"
+                       th:text="${i + 1}"
+                       th:classappend="${i == currentPage} ? 'btn btn-primary' : 'btn btn-outline-primary'">
+                    </a>
+                </li>
+
+                <li th:if="${currentPage < totalPages - 1}">
+                    <a th:href="@{/daschboard_utilisateur_carhos(page=${currentPage + 1})}" class="btn btn-outline-secondary">Suivant</a>
+                </li>
+            </ul>
+        </div>
 
 
     </div>

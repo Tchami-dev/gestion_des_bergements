@@ -64,8 +64,7 @@ public class UtilisateurCarhos {
      private  List<LocationCarhos> locationCarhos ;
 
      @ManyToOne
-    @JoinColumn(name = "id_role", nullable = false)
-
+    @JoinColumn(name = "id_role", nullable = true)
     private  RoleUtilisateurCarhos roleUtilisateurCarhos;
 
 
