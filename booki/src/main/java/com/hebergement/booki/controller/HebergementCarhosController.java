@@ -101,7 +101,7 @@ public class HebergementCarhosController {
             @Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos,
             BindingResult bindingResult,
             Model model,
-            @RequestParam("fichier_image") MultipartFile fichier_image) {
+            @RequestParam("fichier_image") MultipartFile fichierImage) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("type", HebergementCarhosType.values());
@@ -110,14 +110,13 @@ public class HebergementCarhosController {
         }
 
         try {
-            hebergementService.enregistrerHebergement(hebergementCarhos, fichier_image);
+            hebergementService.enregistrerHebergement(hebergementCarhos, fichierImage);
         } catch (RuntimeException e) {
             model.addAttribute("uploadError", e.getMessage());
             model.addAttribute("type", HebergementCarhosType.values());
             model.addAttribute("specificite", HebergementCarhosSpecificite.values());
             return "formulaire_enregistrement_hebergement_carhos";
         }
-
         return "redirect:/daschboard_hebergement_carhos";
     }
 
@@ -146,7 +145,6 @@ public class HebergementCarhosController {
             model.addAttribute("specificite", HebergementCarhosSpecificite.values());
             return "formulaire_enregistrement_hebergement_carhos";
         }
-
         hebergementService.getHebergementCarhosById(id);
         return "redirect:/";
     }

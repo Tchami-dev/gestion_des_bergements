@@ -1,6 +1,7 @@
 package com.hebergement.booki.controller;
 
 
+import com.hebergement.booki.model.HebergementCarhos;
 import com.hebergement.booki.model.UtilisateurCarhos;
 import com.hebergement.booki.services.inter.UtilisateurService;
 import jakarta.validation.Valid;
@@ -76,6 +77,4 @@ public class UtilisateurCarhosController {
         utilisateurService.enregistrerUtilisateur(utilisateurCarhos);
         return "daschboard_utilisateur_carhos";
     }
-
-
 }

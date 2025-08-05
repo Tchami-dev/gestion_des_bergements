@@ -21,6 +21,10 @@ public class RoleUtilisateurCarhos {
     @Column (name = "nom_role")
     private  String nomRole;
 
+    @NotNull(message = "Merci de décrire les fonctions de ce statut")
+    @Column(name = "description_role")
+    private String descriptionRole;
+
 
     /** niveau d'accès par utilisateur ***/
 

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/carhos.css}">
+    <link rel="stylesheet" th:href="@{/css/style_detail_hebergement_carhos.css}">
+
+    <title>infos_plus</title>
+
+</head>
+<body>
+<header th:insert="~{header_carhos::en_tete}"></header>
+
+<main>
+    <div class="contenair-principal">
+
+        <section class="contenair-image">
+            <!--          <div class="contenair-image">-->
+            <img th:src="@{/images/pyramide.png}" alt="Image" class="image">
+            <!--          </div>-->
+        </section>
+
+
+        <section class="detail">
+
+            <h1 th:text="${role.nomRole}"></h1><br>
+            <p><span th:text="${role.descriptionRole}"></span> </p><br>
+
+        </section>
+    </div>
+</main>
+<br>
+
+<footer th:insert="~{footer_carhos::footer}"></footer>
+
+</body>
+</html>
