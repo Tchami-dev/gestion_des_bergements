@@ -23,7 +23,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequiredArgsConstructor
 public class HebergementCarhosController {
 
-    private final HebergementCarhosRepository hebergementCarhosRepository;
+//    private final HebergementCarhosRepository hebergementCarhosRepository;
     private final HebergementService hebergementService;
 
     @Value("${upload.path}")
@@ -85,7 +85,7 @@ public class HebergementCarhosController {
     public String afficherDashboard(@RequestParam(defaultValue = "0") int page, Model model) {
         int taillePage = 4; // Nombre d'hébergements par page
 
-        Page<HebergementCarhos> pageHebergements = hebergementCarhosRepository.findAll(PageRequest.of(page, taillePage));   //indication du numéro de la page et du nombre d'élément par page
+        Page<HebergementCarhos> pageHebergements = hebergementService.getHebergementDashboard(PageRequest.of(page, taillePage));   //indication du numéro de la page et du nombre d'élément par page
 
         model.addAttribute("hebergementsCarhos", pageHebergements.getContent()); // Liste actuelle (4 éléments) des hébergements de la page en cours
         model.addAttribute("totalPages", pageHebergements.getTotalPages()); // Pour les liens de pagination
@@ -94,50 +94,7 @@ public class HebergementCarhosController {
            return "daschboard_hebergement_carhos"; // Nom du  fichier HTML de retour
        }
 
-
     /******** soumission d'enregistrement d'un hébergement***/
-
-//   @PostMapping("/hebergement_carhos")
-//    public String enregistrementHebergementCarhos(@Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos,
-//                                                  BindingResult bindingResult, Model model, @RequestParam("fichier_image") MultipartFile fichier_image) {
-//
-//        // Gestion des erreurs de validation
-//        if (bindingResult.hasErrors()) {
-//
-//            model.addAttribute("type", HebergementCarhosType.values());
-//            model.addAttribute("specificite", HebergementCarhosSpecificite.values());
-//            return "formulaire_enregistrement_hebergement_carhos";
-//        }
-//
-//
-//        // Gestion du fichier image uploadé
-//        if (!fichier_image.isEmpty()) {
-//            try {
-//                String fileName = fichier_image.getOriginalFilename();
-//
-//                // Créer le dossier s'il n'existe pas
-//                // File directory = new File(uploadDir);
-//                File directory = new File("T:/IUS/projet-de-soutenace-bts/images_upload");
-//                if (!directory.exists()) {
-//                    directory.mkdirs();
-//                }
-//
-//                // Créer le fichier dans le dossier
-//                File saveFile = new File(directory, fileName);
-//                fichier_image.transferTo(saveFile);
-//
-//                // Enregistre le nom du fichier dans l’objet
-//                hebergementCarhos.setImage(fileName);
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//                model.addAttribute("uploadError", "Échec du téléchargement de l'image.");
-//                return "formulaire_enregistrement_hebergement_carhos";
-//            }
-//        }
-//
-//        hebergementCarhosRepository.save(hebergementCarhos);
-//        return "redirect:/daschboard_carhos";
-//    }
 
     @PostMapping("/hebergement-carhos")
     public String enregistrementHebergementCarhos(
@@ -171,7 +128,7 @@ public class HebergementCarhosController {
 
     @GetMapping("/hebergement-carhos/edit/{id}")
     public String infoHebergementCarhos(@PathVariable Long id, Model model){
-        HebergementCarhos hebergementCarhos = hebergementCarhosRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("l'hébergement repondant à l'id: "+ id+ "est introuvable"));
+        HebergementCarhos hebergementCarhos =hebergementService.getHebergementCarhosById(id);
         model.addAttribute("hebergementCarhos", hebergementCarhos);
         model.addAttribute("type", HebergementCarhosType.values()) ;
         model.addAttribute("specificite", HebergementCarhosSpecificite.values());
@@ -190,7 +147,7 @@ public class HebergementCarhosController {
             return "formulaire_enregistrement_hebergement_carhos";
         }
 
-        hebergementCarhosRepository.save(hebergementCarhos);
+        hebergementService.getHebergementCarhosById(id);
         return "redirect:/";
     }
 

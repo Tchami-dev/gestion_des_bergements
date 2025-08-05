@@ -4,6 +4,7 @@ import com.hebergement.booki.model.HebergementCarhos;
 import com.hebergement.booki.model.HebergementCarhosSpecificite;
 import com.hebergement.booki.repository.HebergementCarhosRepository;
 import com.hebergement.booki.services.inter.HebergementService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import static com.hebergement.booki.utils.GeneralUtils.DOSSIER_DU_PROJET;
 @Service
 public class HebergementServiceImp implements HebergementService {
 
+    @Autowired
     private final HebergementCarhosRepository hebergementCarhosRepository;
 
     public HebergementServiceImp(HebergementCarhosRepository hebergementCarhosRepository) {
@@ -28,12 +30,6 @@ public class HebergementServiceImp implements HebergementService {
     public HebergementCarhos getHebergementCarhosById(Long id) {
         return hebergementCarhosRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Hébergement introuvable avec l'ID : " + id));
-    }
-
-
-    public void supprimerHebergementCarhos(Long id, String a) {
-
-
     }
 
     @Override
@@ -117,5 +113,10 @@ public class HebergementServiceImp implements HebergementService {
             pageDroiteResult = hebergementCarhosRepository.findByHebergementCarhosTypeVipAndNbreEtoileGreaterOrEqual(null, pageableDroite);
         }
         return pageDroiteResult;
+    }
+
+    @Override
+    public Page<HebergementCarhos> getHebergementDashboard(Pageable page) {
+        return hebergementCarhosRepository.findAll(page);
     }
 }
