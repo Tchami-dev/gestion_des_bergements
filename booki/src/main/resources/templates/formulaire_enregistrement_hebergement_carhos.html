@@ -16,7 +16,7 @@
 
 <div class="form-container">
     <h2 th:text="${hebergementCarhos.id} != null ? 'Modifier l\'Hébergement' : 'Ajouter un Hébergement'"></h2>
-    <form th:action="@{/hebergement_carhos}" th:object="${hebergementCarhos}" method="post" enctype="multipart/form-data">
+    <form th:action="@{/hebergement-carhos}" th:object="${hebergementCarhos}" method="post" enctype="multipart/form-data">
 
 
         <input type="hidden" th:field="*{id}"/>

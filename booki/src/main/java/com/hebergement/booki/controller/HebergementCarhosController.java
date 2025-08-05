@@ -115,8 +115,11 @@ public class HebergementCarhosController {
             model.addAttribute("uploadError", e.getMessage());
             model.addAttribute("type", HebergementCarhosType.values());
             model.addAttribute("specificite", HebergementCarhosSpecificite.values());
+
+            e.printStackTrace();
             return "formulaire_enregistrement_hebergement_carhos";
         }
+//        hebergementService.enregistrerHebergement(hebergementCarhos, fichierImage);
         return "redirect:/daschboard_hebergement_carhos";
     }
 
