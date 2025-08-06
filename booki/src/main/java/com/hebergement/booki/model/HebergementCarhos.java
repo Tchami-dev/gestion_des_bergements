@@ -56,9 +56,9 @@ public class HebergementCarhos {
      @Column(name = "localisation_heberg")
     private  String localisationHeberg;
 
-    /********************* relation-de-multiplicité-entre-les-tables *************************/
+    /********************* relation-de-multiplicitée-entre-les-tables *************************/
 
-    @OneToMany (mappedBy = "hebergementCarhos") /***  idication de la multiplicite **/
+    @OneToMany (mappedBy = "hebergementCarhos") /**  indication de la multiplicitée **/
     private List<LocationCarhos> locationCarhos ;
 
     @ManyToOne

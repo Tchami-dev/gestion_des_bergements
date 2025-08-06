@@ -24,20 +24,30 @@
 <!--          </div>-->
        </section>
 
-
        <section class="detail">
-
              <h1 th:text="${hebergementCarhos.nom}"></h1><br>
-             <p><span th:text="${hebergementCarhos.description}"></span> </p><br>
-
+           <p th:text="${hebergementCarhos.nbreEtoile}"></p>
            <ul>
                <li th:each="capacite : ${hebergementCarhos.capacite}" th:text="${hebergementCarhos.capacite}"> </li>    <!-- #strings.split, pour découper du texte en tyhmeleaf avec saut de page--->
            </ul>
            <br>
+           <p>Prix: <span th:text="${hebergementCarhos.prix}"></span> <i class="fa fa-eur"></i> /Nuit</p>
 
-              <p>Prix: <span th:text="${hebergementCarhos.prix}"></span> <i class="fa fa-eur"></i> /Nuit</p>
+
+           <button class="btn"> <a href="/location-carhos/nouveau"> Réserver </a></button>
+
+
        </section>
+
+
+        <section class="description">
+            <div class="div_description">
+                <p><span th:text="${hebergementCarhos.description}"></span> </p><br>
+            </div>
+        </section>
+
     </div>
+
 </main>
 <br>
 

@@ -34,7 +34,7 @@ public class RoleUtilisateurImpl implements RoleUtilisateurService {
     @Override
     public void supprimerRoleUtilisateur(Long id) {
         RoleUtilisateurCarhos roleUtilisateurCarhos = roleUtilisateurRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Hébergement introuvable avec l'ID : " + id));
+                .orElseThrow(() -> new IllegalArgumentException("rôle introuvable avec l'ID : " + id));
         roleUtilisateurRepository.delete(roleUtilisateurCarhos);
 
     }

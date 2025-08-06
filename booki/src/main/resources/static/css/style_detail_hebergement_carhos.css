@@ -1,14 +1,17 @@
 *{
     margin: 0;
     padding: 0;
+    object-fit: cover;
 }
 
 /**** conditions générales aux sections et div principale*/
  .contenair-principal{
     width: 100%;
-     height: 500px;
+     height: auto;
      display: flex;
      gap: 3%;
+     flex-direction: row;
+     flex-wrap: wrap;
 }
 
 .contenair-image{
@@ -24,9 +27,21 @@
 
 .detail{
    height: 100%;
-    width: 40%;
+    width: 35%;
     font-size: 1.3em;
     padding: 0;
+}
+
+
+.description{
+    width: 100%;
+    height: auto;
+}
+
+.div_description{
+    height: auto;
+    width: 100%;
+    font-size: 1em;
 }
 
 h1{
@@ -38,4 +53,31 @@ h1{
 li{
     white-space: pre-line;   /*saut de page brusque*/
     list-style-type: none;
+}
+
+button{
+    float: right;
+    align-items: end;
+    justify-content: end;
+}
+
+.btn{
+
+    border-radius: 5px;
+    border: none;
+    justify-content: center;
+    background-color: #007bff;
+    font-size: 1em;
+    padding: 5px 10px;
+    transition: 0.5s;
+}
+
+a{
+    text-decoration: none;
+    color: #fff;
+}
+
+.btn:hover{
+    cursor: pointer;
+    box-shadow: 0 0 8px #6c757d;
 }
