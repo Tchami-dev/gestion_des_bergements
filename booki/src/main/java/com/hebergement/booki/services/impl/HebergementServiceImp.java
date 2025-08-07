@@ -5,6 +5,7 @@ import com.hebergement.booki.model.HebergementCarhosSpecificite;
 import com.hebergement.booki.repository.HebergementCarhosRepository;
 import com.hebergement.booki.services.inter.HebergementService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -18,7 +19,7 @@ import static com.hebergement.booki.utils.GeneralUtils.DOSSIER_DU_PROJET;
 @Service
 public class HebergementServiceImp implements HebergementService {
 
-    @Autowired
+
     private final HebergementCarhosRepository hebergementCarhosRepository;
 
     public HebergementServiceImp(HebergementCarhosRepository hebergementCarhosRepository) {

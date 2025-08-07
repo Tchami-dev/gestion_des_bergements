@@ -26,9 +26,6 @@ public class HebergementCarhosController {
 //    private final HebergementCarhosRepository hebergementCarhosRepository;
     private final HebergementService hebergementService;
 
-    @Value("${upload.path}")
-    private String uploadDir;
-
     /**** lien vers la page d'accueil****/
     @GetMapping("/index")
     public String accueil(){
@@ -119,7 +116,6 @@ public class HebergementCarhosController {
             e.printStackTrace();
             return "formulaire_enregistrement_hebergement_carhos";
         }
-//        hebergementService.enregistrerHebergement(hebergementCarhos, fichierImage);
         return "redirect:/daschboard_hebergement_carhos";
     }
 

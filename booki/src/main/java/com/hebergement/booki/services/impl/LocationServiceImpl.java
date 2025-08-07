@@ -2,10 +2,8 @@ package com.hebergement.booki.services.impl;
 
 import com.hebergement.booki.model.HebergementCarhos;
 import com.hebergement.booki.model.LocationCarhos;
-import com.hebergement.booki.model.UtilisateurCarhos;
 import com.hebergement.booki.repository.HebergementCarhosRepository;
 import com.hebergement.booki.repository.LocationCarhosRepository;
-import com.hebergement.booki.repository.UtilisateurCarhosRepository;
 import com.hebergement.booki.services.inter.LocationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -23,9 +21,6 @@ public class LocationServiceImpl implements LocationService {
 
     @Autowired
     private HebergementCarhosRepository hebergementCarhosRepository;
-
-    @Autowired
-    private UtilisateurCarhosRepository utilisateurCarhosRepository;
 
     public LocationServiceImpl(LocationCarhosRepository locationCarhosRepository) {
         this.locationCarhosRepository = locationCarhosRepository;
@@ -56,6 +51,8 @@ public class LocationServiceImpl implements LocationService {
 
     @Override
     public List<HebergementCarhos> getAllHebergement() {
-        return hebergementCarhosRepository.findAll();
+        return hebergementCarhosRepository.findAll()
+                /*.stream().map(HebergementCarhos::getNom)
+                .collect(Collectors.toList())*/ ; //pour obtenir uniquement les noms
     }
 }

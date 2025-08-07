@@ -84,7 +84,8 @@
                         <a th:href="@{/daschboard_location_carhos(page=${currentPage - 1})}" class="btn btn-outline-secondary">Précédent</a>
                     </li>
 
-                    <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">  <!--- gére la numérotation des pages --->
+                    <li th:if="${totalPages > 0}"
+                        th:each="i : ${#numbers.sequence(0, totalPages - 1)}">  <!--- gére la numérotation des pages --->
                         <a th:href="@{/daschboard_location_carhos(page=${i})}"
                            th:text="${i + 1}"
                            th:classappend="${i == currentPage} ? 'btn btn-primary' : 'btn btn-outline-primary'">

@@ -36,8 +36,7 @@ public class LocationCarhos {
     @NotBlank(message = "Merci de renseigner votre: Nom")
     private String nomClient;
 
-    @Column(name = "prenom_client")
-    @NotBlank(message = "Merci de renseigner votre: Prénom")
+    @Column(name = "prenom_client") @NotBlank(message = "Merci de renseigner votre: Prénom")
     private  String prenomClient;
 
     @Column(name = "num_tel_client")
@@ -52,7 +51,7 @@ public class LocationCarhos {
 
     @Column(name = "mot_de_passe_client")
     @NotBlank(message = "Merci de renseigner: votre mot de passe")
-    private  String motDePasseUtilisateur;
+    private  String motDePasseClient;
 
 
     @Column(name = "statut_hebergement")

@@ -55,7 +55,7 @@
 
         <div class="mb-3">
             <label for="motDePasseUtilisateur" class="form-label">Mot de passe   <span class="obligation">*</span> </label>
-            <input type="text" class="form-control" id="motDePasseUtilisateur" th:field="*{motDePasseUtilisateur}" required>
+            <input type="password" class="form-control" id="motDePasseUtilisateur" th:field="*{motDePasseUtilisateur}" required>
             <div th:if="${#fields.hasErrors('motDePasseUtilisateur')}" th:errors="*{motDePasseUtilisateur}" class="text-danger"></div>
         </div>
 

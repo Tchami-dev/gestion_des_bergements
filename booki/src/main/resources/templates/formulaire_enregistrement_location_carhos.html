@@ -60,12 +60,18 @@
         </div>
 
         <div class="mb-3">
+            <label for="motDePasseClient" class="form-label">Mot de passe   <span class="obligation">*</span> </label>
+            <input type="password" class="form-control" id="motDePasseClient" th:field="*{motDePasseClient}" required>
+            <div th:if="${#fields.hasErrors('motDePasseClient')}" th:errors="*{motDePasseClient}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
             <label for="hebergement" class="form-label">Nom de l'hébergement  <span class="obligation">*</span></label>
             <input list="hebergements" class="form-control" id="hebergement" th:field="*{hebergementCarhos.id}" required>
             <datalist id="hebergements">
                 <option th:each="home: ${listeHebergement}"
                         th:value="${home.id}"
-                        th:text="${home.id + ' ' + home.nom}">
+                        th:text="${home.id+ ' ' + home.nom}">
                 </option>
             </datalist>
             <div th:if="${#fields.hasErrors('hebergementCarhos')}" th:errors="*{hebergementCarhos}" class="text-danger"></div>
