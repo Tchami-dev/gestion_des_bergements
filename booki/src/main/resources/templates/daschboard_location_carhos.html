@@ -53,8 +53,8 @@
                     <td th:text="${status.index + 1 + currentPage * 4}"></td>    <!---numérotation des page et identification du nombre d'élément/page--->
                     <td th:text="${#temporals.format(location.dateDebut, 'dd/MM/yyyy')}"></td>
                     <td th:text="${#temporals.format(location.dateFin, 'dd/MM/yyyy')}"></td>
-                    <td th:text="${location.utilisateurCarhos}"></td>
-                    <td th:text="${location.hebergementCarhos}"></td>
+                    <td th:text="${location.utilisateurCarhos.nomUtilisateur + ' ' + location.utilisateurCarhos.prenomUtilisateur }"></td>
+                    <td th:text="${location.hebergementCarhos.nom}"></td>    <!--implementation des fonctions dans thymeleaf(exple:location.utilisateurCarhos.prenomUtilisateur <=> afficher dans location le prenom de l'utilisateur -->
                     <td th:text="${location.statutHebergement}"></td>
                     <td>
                         <a th:href="@{/locations-carhos/détail/{id}(id=${location.idLocation})}" class="btn btn-secondary btn-sm" title="Détail">
