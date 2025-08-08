@@ -34,47 +34,60 @@
 
         <div class="mb-3">
             <label for="nomClient" class="form-label">Nom   <span class="obligation">*</span> </label>
-            <input type="text" class="form-control" id="nomClient" th:field="*{nomClient}" required>
-            <div th:if="${#fields.hasErrors('nomClient')}" th:errors="*{nomClient}" class="text-danger"></div>
+            <input type="text" class="form-control" id="nomClient" th:field="*{utilisateurCarhos.nomUtilisateur}" required>
+            <div th:if="${#fields.hasErrors('utilisateurCarhos.nomUtilisateur')}" th:errors="*{utilisateurCarhos.nomUtilisateur}" class="text-danger"></div>
         </div>
 
         <div class="mb-3">
             <label for="prenomClient" class="form-label">Prénom   <span class="obligation">*</span> </label>
-            <input type="text" class="form-control" id="prenomClient" th:field="*{prenomClient}" required>
-            <div th:if="${#fields.hasErrors('prenomClient')}" th:errors="*{prenomClient}" class="text-danger"></div>
+            <input type="text" class="form-control" id="prenomClient" th:field="*{utilisateurCarhos.prenomUtilisateur}" required>
+            <div th:if="${#fields.hasErrors('utilisateurCarhos.prenomUtilisateur')}" th:errors="*{utilisateurCarhos.prenomUtilisateur}" class="text-danger"></div>
         </div>
 
         <div class="mb-3">
             <label for="numtelClient" class="form-label">Numéro de téléphone   <span class="obligation">*</span> </label>
             <input type="tel" class="form-control" id="numtelClient" name="numTelClient"
-                   pattern="^\\+237[\\s\\-]?[0-9]{9}$" placeholder="+237 691 234 567" th:field="*{numTelClient}" required>
+                   pattern="^\\+237[\\s\\-]?[0-9]{9}$" placeholder="+237 691 234 567" th:field="*{utilisateurCarhos.numTelUtilisateur}" required>
             <div class="invalid-feedback">Numéro de téléphone invalide. Assurez-vous qu'il commence par +237 suivi de 9 chiffres.</div>
-            <div th:if="${#fields.hasErrors('numTelClient')}" th:errors="*{numTelClient}" class="text-danger"></div>
+            <div th:if="${#fields.hasErrors('utilisateurCarhos.numTelUtilisateur')}" th:errors="*{utilisateurCarhos.numTelUtilisateur}" class="text-danger"></div>
         </div>
 
 
         <div class="mb-3">
             <label for="emailClient" class="form-label">Boîte mail   <span class="obligation">*</span> </label>
-            <input type="email" class="form-control" id="emailClient" th:field="*{emailClient}" required>
-            <div th:if="${#fields.hasErrors('emailClient')}" th:errors="*{emailClient}" class="text-danger"></div>
+            <input type="email" class="form-control" id="emailClient" th:field="*{utilisateurCarhos.emailUtilisateur}" required>
+            <div th:if="${#fields.hasErrors('utilisateurCarhos.emailUtilisateur')}" th:errors="*{utilisateurCarhos.emailUtilisateur}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="numCni-PasseportClient" class="form-label">Numéro de la CNI ou du Passeport   <span class="obligation">*</span> </label>
+            <input type="text" class="form-control" id="numCni-PasseportClient" th:field="*{utilisateurCarhos.numCniUtilisateur}" required>
+            <div th:if="${#fields.hasErrors('utilisateurCarhos.numCniUtilisateur')}" th:errors="*{utilisateurCarhos.numCniUtilisateur}" class="text-danger"></div>
         </div>
 
         <div class="mb-3">
             <label for="motDePasseClient" class="form-label">Mot de passe   <span class="obligation">*</span> </label>
-            <input type="password" class="form-control" id="motDePasseClient" th:field="*{motDePasseClient}" required>
-            <div th:if="${#fields.hasErrors('motDePasseClient')}" th:errors="*{motDePasseClient}" class="text-danger"></div>
+            <input type="password" class="form-control" id="motDePasseClient" th:field="*{utilisateurCarhos.motDePasseUtilisateur}" required>
+            <div th:if="${#fields.hasErrors('utilisateurCarhos.motDePasseUtilisateur')}" th:errors="*{utilisateurCarhos.motDePasseUtilisateur}" class="text-danger"></div>
         </div>
 
         <div class="mb-3">
-            <label for="hebergement" class="form-label">Nom de l'hébergement  <span class="obligation">*</span></label>
-            <input list="hebergements" class="form-control" id="hebergement" th:field="*{hebergementCarhos.id}" required>
-            <datalist id="hebergements">
-                <option th:each="home: ${listeHebergement}"
+            <label for="hebergement" class="form-label">
+                Nom de l'hébergement <span class="obligation">*</span>
+            </label>
+
+            <select class="form-control" id="hebergement" th:field="*{hebergementCarhos.id}" required>
+                <option value="">-- Sélectionner l'hôtel de l'hébergement --</option>
+                <option th:each="home : ${listeHebergement}"
                         th:value="${home.id}"
-                        th:text="${home.id+ ' ' + home.nom}">
+                        th:text="${home.nom}">
                 </option>
-            </datalist>
-            <div th:if="${#fields.hasErrors('hebergementCarhos')}" th:errors="*{hebergementCarhos}" class="text-danger"></div>
+            </select>
+
+            <div th:if="${#fields.hasErrors('hebergementCarhos')}"
+                 th:errors="*{hebergementCarhos}"
+                 class="text-danger">
+            </div>
         </div>
 
         <div class="mb-3">

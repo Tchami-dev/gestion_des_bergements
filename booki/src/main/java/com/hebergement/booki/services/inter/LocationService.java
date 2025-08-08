@@ -2,6 +2,7 @@ package com.hebergement.booki.services.inter;
 
 import com.hebergement.booki.model.HebergementCarhos;
 import com.hebergement.booki.model.LocationCarhos;
+import com.hebergement.booki.model.UtilisateurCarhos;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -18,4 +19,6 @@ public interface LocationService {
     Page<LocationCarhos> getPageLocation(Pageable page);
 
     List<HebergementCarhos> getAllHebergement();
+
+
 }

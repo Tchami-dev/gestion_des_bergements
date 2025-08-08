@@ -42,9 +42,9 @@
         </div>
 
         <div class="mb-3">
-            <label for="numCniPasseportUtilisateur" class="form-label">Numéro de la CNI ou du Passeport   <span class="obligation">*</span> </label>
-            <input type="text" class="form-control" id="numCniPasseportUtilisateur" th:field="*{numCniUtilisateur}" required>
-            <div th:if="${#fields.hasErrors('prenomUtilisateur')}" th:errors="*{numCniUtilisateur}" class="text-danger"></div>
+            <label for="numCni-PasseportUtilisateur" class="form-label">Numéro de la CNI ou du Passeport   <span class="obligation">*</span> </label>
+            <input type="text" class="form-control" id="numCni-PasseportUtilisateur" th:field="*{numCniUtilisateur}" required>
+            <div th:if="${#fields.hasErrors('numCniUtilisateur')}" th:errors="*{numCniUtilisateur}" class="text-danger"></div>
         </div>
 
         <div class="mb-3">

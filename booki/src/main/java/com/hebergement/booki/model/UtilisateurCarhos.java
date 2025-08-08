@@ -50,11 +50,9 @@ public class UtilisateurCarhos {
     private  String motDePasseUtilisateur;
 
     @Column(name = "create_time")
-//    @NotNull(message = "Merci de renseigner la date de création")
     private LocalDateTime createdAt;
 
     @Column(name = "update_time")
-//    @NotNull(message = "Merci de renseigner la date de mise à jour")
     private  LocalDateTime updateAt;
 
 /*************** relation-de-multiplicité-entre-les-tables *****************/

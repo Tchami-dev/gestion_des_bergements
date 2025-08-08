@@ -3,6 +3,7 @@ package com.hebergement.booki.controller;
 import com.hebergement.booki.model.HebergementCarhos;
 import com.hebergement.booki.model.LocationCarhos;
 import com.hebergement.booki.model.RoleUtilisateurCarhos;
+import com.hebergement.booki.model.UtilisateurCarhos;
 import com.hebergement.booki.repository.HebergementCarhosRepository;
 import com.hebergement.booki.services.inter.LocationService;
 import jakarta.validation.Valid;
