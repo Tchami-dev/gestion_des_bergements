@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test_dashboard_universel</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard_universel.css}">
+    <link rel="stylesheet" th:href="@{/css/carhos.css}">
+</head>
+<body>
+
+
+<main>
+
+    <h1>Système Global De Gestion </h1>
+    <section>
+
+        <article>
+            <div class="contenair">
+                <div class="image">
+                    🏠
+                </div>
+                <div class="information">
+                    <h2 th:text="${stats.hebergementTotal}">75</h2>
+                    <p>Hébergements disponibles</p>
+                </div>
+            </div>
+        </article>
+
+        <article>
+            <div class="contenair">
+                <div class="image">
+                    🔒
+                </div>
+                <div class="information">
+                    <h2 th:text="${stats.hebergementOccupe}">45</h2>
+                    <p>Hébergements occupés</p>
+                </div>
+            </div>
+        </article>
+
+        <article>
+            <div class="contenair">
+                <div class="image">
+                    ⏳
+                </div>
+                <div class="information">
+                    <h2 th:text="${stats.hebergementLibre}">20</h2>
+                    <p>Réservations en attente</p>
+                </div>
+            </div>
+        </article>
+
+    </section>
+</main>
+
+</body>
+</html>

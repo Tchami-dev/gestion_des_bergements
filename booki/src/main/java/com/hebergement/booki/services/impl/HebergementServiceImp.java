@@ -2,6 +2,7 @@ package com.hebergement.booki.services.impl;
 
 import com.hebergement.booki.model.HebergementCarhos;
 import com.hebergement.booki.model.HebergementCarhosSpecificite;
+import com.hebergement.booki.model.HebergementCarhosStatut;
 import com.hebergement.booki.repository.HebergementCarhosRepository;
 import com.hebergement.booki.services.inter.HebergementService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,4 +121,5 @@ public class HebergementServiceImp implements HebergementService {
     public Page<HebergementCarhos> getHebergementDashboard(Pageable page) {
         return hebergementCarhosRepository.findAll(page);
     }
+
 }

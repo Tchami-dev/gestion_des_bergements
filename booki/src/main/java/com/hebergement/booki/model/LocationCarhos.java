@@ -33,35 +33,6 @@ public class LocationCarhos {
     @Column(name = "date_fin")
     private LocalDate dateFin;
 
-//    @Column(name = "nom_client")
-//    @NotBlank(message = "Merci de renseigner votre: Nom")
-//    private String nomClient;
-//
-//    @Column(name = "prenom_client")
-//    @NotBlank(message = "Merci de renseigner votre: Prénom")
-//    private  String prenomClient;
-//
-//    @Column(name = "num_tel_client")
-//    @NotBlank(message = "Merci de renseigner votre: Numéro de Téléphone")
-//    @Pattern(regexp = "^\\+237[\\s\\-]?[0-9]{9}$",
-//            message = "Numéro de téléphone invalide. Il doit commencer par +237 suivi de 9 chiffres.")
-//    private String numTelClient;
-//
-//    @Column(name = "email_client")
-//    @NotBlank(message = "Merci de renseigner votre: boîte mail ")
-//    private  String emailClient;
-//
-//    @Column(name = "mot_de_passe_client")
-//    @NotBlank(message = "Merci de renseigner: votre mot de passe")
-//    private  String motDePasseClient;
-//
-//    @Column(name = "num_cni_client")
-//    @NotBlank(message = "veillez renseigner: le numéro de votre CNI ou de votre Passeport")
-//    private  String numCniClient;
-
-    @Column(name = "statut_hebergement")
-    private String statutHebergement;
-
 //    @Column(name = "create_time_reservation")
 ////    @NotNull(message = "Merci de renseigner la date de création")
 //    private LocalDateTime createdAtReservation;
@@ -84,7 +55,5 @@ public class LocationCarhos {
     private  List<PayementCarhos> payementCarhos;
 
 //@NotBlanck est utilisé uniquement sur les types String
-
-
 
 }

@@ -34,8 +34,20 @@
            <p>Prix: <span th:text="${hebergementCarhos.prix}"></span> <i class="fa fa-eur"></i> /Nuit</p>
 
 
-           <button class="btn"> <a href="/location-carhos/nouveau"> Réserver </a></button>
+           <div class="div-btn">
+               <!-- Cas LIBRE -->
+               <button class="btn" type="button"
+                       th:if="${hebergementCarhos.etatHebergement.name() == 'LIBRE'}"
+                       th:onclick="'window.location.href=\'/location-carhos/nouveau?id=' + ${hebergementCarhos.id} + '\''">
+                   Réserver
+               </button>
 
+               <!-- Cas OCCUPE -->
+               <button class="btn" type="button" disabled
+                       th:if="${hebergementCarhos.etatHebergement.name() == 'OCCUPE'}">
+                   Occupé
+               </button>
+           </div>
 
        </section>
 

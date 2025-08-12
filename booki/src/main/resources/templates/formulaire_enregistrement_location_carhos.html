@@ -53,6 +53,7 @@
         </div>
 
 
+
         <div class="mb-3">
             <label for="emailClient" class="form-label">Boîte mail   <span class="obligation">*</span> </label>
             <input type="email" class="form-control" id="emailClient" th:field="*{utilisateurCarhos.emailUtilisateur}" required>
@@ -88,12 +89,6 @@
                  th:errors="*{hebergementCarhos}"
                  class="text-danger">
             </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="statut" class="form-label">Statut de l'hébergement  <span class="obligation">*</span></label>
-            <input type="text" class="form-control" id="statut" th:field="*{statutHebergement}" required>
-            <div th:if="${#fields.hasErrors('statutHebergement')}" th:errors="*{statutHebergement}" class="text-danger"></div>
         </div>
 
         <div class="d-flex justify-content-between">

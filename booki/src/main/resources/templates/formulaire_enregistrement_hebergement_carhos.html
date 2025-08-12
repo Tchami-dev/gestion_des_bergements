@@ -63,6 +63,15 @@
         </div>
 
         <div class="mb-3">
+            <label for="hebergementCarhosStatut" class="form-label">Statut de l'hébergement <span class="obligation">*</span> </label>
+            <select class="form-select" id="hebergementCarhosStatut" th:field="*{hebergementCarhosStatut}" required>
+                <option value="" disabled> Sélectionnez le statut de  hébergement</option>
+                <option th:each="etat : ${etat}" th:value="${etat}" th:text="${etat}"></option>
+            </select>
+            <div th:if="${#fields.hasErrors('hebergementCarhosStatut')}" th:errors="*{hebergementCarhosStatut}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
             <label for="capacite" class="form-label">Atouts de l'hébergement</label>
             <textarea  rows="4" cols="20" class="form-control" id="capacite" th:field="*{capacite}"
                        placeholder="Exples :

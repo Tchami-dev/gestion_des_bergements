@@ -51,10 +51,19 @@ public class HebergementCarhos {
 
     @Column(name = "satut_heberg")
     @Enumerated(EnumType.STRING)
+    @NotNull(message = "Merci de renseigner l'état actuel de l'hébergement")
     private HebergementCarhosStatut hebergementCarhosStatut;
+
+    @Enumerated(EnumType.STRING)
+    private HebergementCarhosStatut etatHebergement = HebergementCarhosStatut.LIBRE
+            ;
+
+
 
      @Column(name = "localisation_heberg")
     private  String localisationHeberg;
+
+
 
     /********************* relation-de-multiplicitée-entre-les-tables *************************/
 

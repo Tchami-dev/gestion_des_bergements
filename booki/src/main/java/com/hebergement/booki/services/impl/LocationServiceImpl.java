@@ -1,6 +1,7 @@
 package com.hebergement.booki.services.impl;
 
 import com.hebergement.booki.model.HebergementCarhos;
+import com.hebergement.booki.model.HebergementCarhosStatut;
 import com.hebergement.booki.model.LocationCarhos;
 import com.hebergement.booki.model.UtilisateurCarhos;
 import com.hebergement.booki.repository.HebergementCarhosRepository;
@@ -49,13 +50,13 @@ public class LocationServiceImpl implements LocationService {
         // 1. Vérifier que l'utilisateur et son email sont bien fournis
         if (locationCarhos.getUtilisateurCarhos() == null ||
                 locationCarhos.getUtilisateurCarhos().getEmailUtilisateur() == null ||
-        locationCarhos.getUtilisateurCarhos().getEmailUtilisateur().trim().isEmpty()) {
+                locationCarhos.getUtilisateurCarhos().getEmailUtilisateur().trim().isEmpty()) {
             throw new IllegalArgumentException(
                     "L'email de l'utilisateur est obligatoire pour créer une location."
             );
         }
 
-        // 2. Normaliser l'email (supprimer espaces et mettre en minuscule)
+        // 2. Normaliser l'email
         String emailClient = locationCarhos.getUtilisateurCarhos()
                 .getEmailUtilisateur()
                 .trim()
@@ -68,10 +69,8 @@ public class LocationServiceImpl implements LocationService {
         UtilisateurCarhos utilisateurCarhos;
 
         if (utilisateurOpt.isPresent()) {
-            // Utilisateur déjà existant → on rattache la location à cet utilisateur
             utilisateurCarhos = utilisateurOpt.get();
         } else {
-            // Nouvel utilisateur → on met à jour l'email et on enregistre
             locationCarhos.getUtilisateurCarhos().setEmailUtilisateur(emailClient);
             utilisateurCarhos = utilisateurCarhosRepository.save(locationCarhos.getUtilisateurCarhos());
         }
@@ -79,7 +78,23 @@ public class LocationServiceImpl implements LocationService {
         // 4. Associer l'utilisateur à la location
         locationCarhos.setUtilisateurCarhos(utilisateurCarhos);
 
-        // 5. Sauvegarder la location
+        // 5. Récupérer l'hébergement complet depuis la base pour vérifier son état
+        HebergementCarhos hebergementCarhos = hebergementCarhosRepository.findById(locationCarhos.getHebergementCarhos().getId())
+                .orElseThrow(() -> new RuntimeException("Hébergement introuvable"));
+
+        // 6. Vérifier que l'hébergement est libre avant réservation
+        if (hebergementCarhos.getEtatHebergement() == HebergementCarhosStatut.OCCUPE) {
+            throw new IllegalStateException("Cet hébergement est déjà occupé.");
+        }
+
+        // 7. Mettre à jour l'état de l'hébergement à OCCUPE
+        hebergementCarhos.setEtatHebergement(HebergementCarhosStatut.OCCUPE);
+        hebergementCarhosRepository.save(hebergementCarhos);
+
+        // 8. Associer l'hébergement mis à jour à la location
+        locationCarhos.setHebergementCarhos(hebergementCarhos);
+
+        // 9. Sauvegarder la location
         locationCarhosRepository.save(locationCarhos);
     }
 
@@ -89,6 +104,13 @@ public class LocationServiceImpl implements LocationService {
     public void supprimerLocation(Long id) {
         LocationCarhos locationCarhos = locationCarhosRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("location introuvable avec l'ID : " + id));
+
+        HebergementCarhos hebergementCarhos = locationCarhos.getHebergementCarhos();
+        if (hebergementCarhos != null) {
+            hebergementCarhos.setEtatHebergement(HebergementCarhosStatut.LIBRE);
+            hebergementCarhosRepository.save(hebergementCarhos);
+        }
+
         locationCarhosRepository.delete(locationCarhos);
     }
 

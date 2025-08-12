@@ -495,8 +495,8 @@ h3, .p-info{
     flex-direction: column; 
     height: auto;
     width: 100%;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     display: flex;
     justify-content: left; 
 }
@@ -610,8 +610,8 @@ h3, .p-info{
 @media screen and (max-width:600px){
 
     *{
-        padding:0px;
-        margin: 0px;
+        padding:0;
+        margin: 0;
         align-items: center;
     }
     
@@ -666,86 +666,91 @@ h3, .p-info{
     .section__principale--hebergement,.div__principale--hebergement{
         display: flex;
         flex-direction: column-reverse;
-        gap: 10px;
+        gap: 10px 0;
         width: 100%;
         height: auto;
     }
 
 
-    .section__hebergement--droite,.section__hebergement--gauche{
-    width: 100%;
-    height: auto;
-    flex-direction: column;
-   
-   }
-
-    .div__hebergement--gauche,.div__hebergement--droite{
+    .section__hebergement--droite, .div__hebergement--droite{
         width: 100%;
         height: auto;
         flex-direction: column;
-       
     }
 
-
-
-    .ahd,.ahg{
+    .ahd, .d-ahd{
         width: 100%;
-        height:20%;
-        display: block;
-        flex-direction: column;
-    }
-
-    .d-ahg{
-        width: 95%;
-        height:15%;
-    }
-
-
-    .imag, .d-imag{
-        width: 100%;
-    }
-
-    .sp-am,.dp-am{
-        width: 100%;
-        height: 80%;
-        flex-direction: column;
-        flex-wrap: wrap;
-        display:inline-block;
-    }
-
-    .d-imad{
-        width:50%;
-    }
-
-    .d-infod{
-        width: 40%;
-
-    }
-
-    .imad{
-        width: 100%;
-    }
-
-    .foot{
-        width: 100%;
-        height: 100%;
-        display: block;
-        flex-direction: column;
-
-    }
-
-    .col1,.col2, .col3{
-        display: inline-block;
-        width: 90%;
         height: 100px;
-        flex-direction: column;
+        display: flex;
+
     }
 
-   .publicite{
-    display: inline-flex;
-   }
+        .div__hebergement--gauche, .div__hebergement--droite {
+            width: 100%;
+            height: auto;
+            flex-direction: column;
 
-}
+        }
+
+
+        .ahd, .ahg {
+            width: 100%;
+            height: 20%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .d-ahg {
+            width: 95%;
+            height: 15%;
+        }
+
+
+        .imag, .d-imag {
+            width: 100%;
+        }
+
+        /*.sp-am, .dp-am {*/
+        /*    width: 100%;*/
+        /*    height: 80%;*/
+        /*    flex-direction: column;*/
+        /*    flex-wrap: wrap;*/
+        /*    display: inline-block;*/
+        /*}*/
+
+        /*.d-imad {*/
+        /*    width: 50%;*/
+        /*}*/
+
+        /*.d-infod {*/
+        /*    width: 40%;*/
+
+        /*}*/
+
+        /*.imad {*/
+        /*    width: 100%;*/
+        /*}*/
+
+        .foot {
+            width: 100%;
+            height: 100%;
+            display: block;
+            flex-direction: column;
+
+        }
+
+        .col1, .col2, .col3 {
+            display: inline-block;
+            width: 90%;
+            height: 100px;
+            flex-direction: column;
+        }
+
+        .publicite {
+            display: inline-flex;
+        }
+
+    }
 
 
 

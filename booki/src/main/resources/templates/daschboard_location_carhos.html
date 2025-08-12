@@ -43,7 +43,6 @@
                     <th>Date de fin reservation</th>
                     <th>Nom du client</th>
                     <th>Nom de l'hébergement</th>
-                    <th>Statut de l'hébergement</th>
                     <th>Actions</th>
                 </tr>
                 </thead>
@@ -55,7 +54,7 @@
                     <td th:text="${#temporals.format(location.dateFin, 'dd/MM/yyyy')}"></td>
                     <td th:text="${location.utilisateurCarhos.nomUtilisateur + ' ' + location.utilisateurCarhos.prenomUtilisateur }"></td>
                     <td th:text="${location.hebergementCarhos.nom}"></td>    <!--implementation des fonctions dans thymeleaf(exple:location.utilisateurCarhos.prenomUtilisateur <=> afficher dans location le prenom de l'utilisateur -->
-                    <td th:text="${location.statutHebergement}"></td>
+
                     <td>
                         <a th:href="@{/locations-carhos/détail/{id}(id=${location.idLocation})}" class="btn btn-secondary btn-sm" title="Détail">
                             <i class="fa fa-book" style="font-size:24px"></i>

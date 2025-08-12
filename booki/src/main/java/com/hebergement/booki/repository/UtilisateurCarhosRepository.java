@@ -1,5 +1,6 @@
 package com.hebergement.booki.repository;
 
+import com.hebergement.booki.model.HebergementCarhosStatut;
 import com.hebergement.booki.model.UtilisateurCarhos;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

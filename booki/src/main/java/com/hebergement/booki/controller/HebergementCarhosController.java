@@ -2,6 +2,7 @@ package com.hebergement.booki.controller;
 
 import com.hebergement.booki.model.HebergementCarhos;
 import com.hebergement.booki.model.HebergementCarhosSpecificite;
+import com.hebergement.booki.model.HebergementCarhosStatut;
 import com.hebergement.booki.model.HebergementCarhosType;
 import com.hebergement.booki.repository.HebergementCarhosRepository;
 import com.hebergement.booki.services.inter.HebergementService;
@@ -74,6 +75,7 @@ public class HebergementCarhosController {
         model.addAttribute("hebergementCarhos", new HebergementCarhos());
         model.addAttribute("type", HebergementCarhosType.values());
         model.addAttribute("specificite", HebergementCarhosSpecificite.values());
+        model.addAttribute("etat", HebergementCarhosStatut.values());
         return "formulaire_enregistrement_hebergement_carhos";
     }
 
@@ -103,6 +105,7 @@ public class HebergementCarhosController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("type", HebergementCarhosType.values());
             model.addAttribute("specificite", HebergementCarhosSpecificite.values());
+            model.addAttribute("etat", HebergementCarhosStatut.values());
             return "formulaire_enregistrement_hebergement_carhos";
         }
 
@@ -112,7 +115,7 @@ public class HebergementCarhosController {
             model.addAttribute("uploadError", e.getMessage());
             model.addAttribute("type", HebergementCarhosType.values());
             model.addAttribute("specificite", HebergementCarhosSpecificite.values());
-
+            model.addAttribute("etat", HebergementCarhosStatut.values());
             e.printStackTrace();
             return "formulaire_enregistrement_hebergement_carhos";
         }
@@ -130,6 +133,7 @@ public class HebergementCarhosController {
         model.addAttribute("hebergementCarhos", hebergementCarhos);
         model.addAttribute("type", HebergementCarhosType.values()) ;
         model.addAttribute("specificite", HebergementCarhosSpecificite.values());
+        model.addAttribute("etat", HebergementCarhosStatut.values());
         return "formulaire_enregistrement_hebergement_carhos";
     }
 
@@ -142,6 +146,7 @@ public class HebergementCarhosController {
         if (bindingResult.hasErrors()) {
             model.addAttribute("type", HebergementCarhosType.values());
             model.addAttribute("specificite", HebergementCarhosSpecificite.values());
+            model.addAttribute("etat", HebergementCarhosStatut.values());
             return "formulaire_enregistrement_hebergement_carhos";
         }
         hebergementService.getHebergementCarhosById(id);

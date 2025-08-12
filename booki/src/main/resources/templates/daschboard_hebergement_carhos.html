@@ -44,6 +44,7 @@
             <th>Prix</th>
             <th>Image</th>
             <th>Nombre Étoiles</th>
+            <th>Statut</th>
             <th>Actions</th>
         </tr>
         </thead>
@@ -55,6 +56,8 @@
             <td th:text="${hebergementCarhos.prix}"></td>
             <td th:text="${hebergementCarhos.image}"></td>
             <td th:text="${hebergementCarhos.nbreEtoile}"></td>
+            <td th:text="${hebergementCarhos.hebergementCarhosStatut}"></td>
+
             <td>
                 <a th:href="@{/hebergement-carhos/détail/{id}(id=${hebergementCarhos.id})}" class="btn btn-secondary btn-sm" title="Détail">
                     <i class="fa fa-book" style="font-size:24px"></i>

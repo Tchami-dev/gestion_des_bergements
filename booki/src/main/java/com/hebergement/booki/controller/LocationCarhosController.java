@@ -56,8 +56,14 @@ public class LocationCarhosController {
     @PostMapping("/locations-carhos/delete/{id}")
     public String supprimerLocation(@PathVariable Long id,
                                 RedirectAttributes redirectAttributes) {
-        locationService.supprimerLocation(id);
-        redirectAttributes.addFlashAttribute("errorMessage", "réservation introuvable.");
+
+        try {
+            locationService.supprimerLocation(id);
+            redirectAttributes.addFlashAttribute("successMessage", "Réservation supprimée et hébergement libéré.");
+        } catch (RuntimeException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", "Réservation introuvable.");
+        }
+
         return "redirect:/daschboard_location_carhos";
     }
 

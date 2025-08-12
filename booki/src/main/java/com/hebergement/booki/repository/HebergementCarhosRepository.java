@@ -2,6 +2,7 @@ package com.hebergement.booki.repository;
 
 import com.hebergement.booki.model.HebergementCarhos;
 import com.hebergement.booki.model.HebergementCarhosSpecificite;
+import com.hebergement.booki.model.HebergementCarhosStatut;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -47,4 +48,7 @@ public interface HebergementCarhosRepository extends JpaRepository<HebergementCa
             @Param("filtre") HebergementCarhosSpecificite filtre,
             Pageable pageable);
 
+    long count(); // pour cmpter tout les total
+
+    long countByHebergementCarhosStatut(HebergementCarhosStatut hebergementCarhosStatut);
 }
