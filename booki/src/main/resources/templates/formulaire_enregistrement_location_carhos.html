@@ -75,17 +75,14 @@
                 Nom de l'hébergement <span class="obligation">*</span>
             </label>
 
-            <!-- Affichage direct du nom (lecture seule) -->
             <input type="text" class="form-control"
                    id="nomHebergement"
-                   th:value="${location.hebergementCarhos.nom}"
-                   readonly />
+                   th:value="*{hebergementCarhos.nom}" readonly />
 
-            <!-- Champ caché pour envoyer l'ID -->
+            <!-- Champ caché pour binder l'ID de l'hébergement -->
             <input type="hidden" th:field="*{hebergementCarhos}" />
+
         </div>
-
-
 
 
         <div class="d-flex justify-content-between">

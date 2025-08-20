@@ -1,9 +1,6 @@
 package com.hebergement.booki.services.impl;
 
-import com.hebergement.booki.model.HebergementCarhos;
-import com.hebergement.booki.model.HebergementCarhosStatut;
-import com.hebergement.booki.model.LocationCarhos;
-import com.hebergement.booki.model.UtilisateurCarhos;
+import com.hebergement.booki.model.*;
 import com.hebergement.booki.repository.HebergementCarhosRepository;
 import com.hebergement.booki.repository.LocationCarhosRepository;
 import com.hebergement.booki.repository.UtilisateurCarhosRepository;
@@ -20,19 +17,20 @@ import java.util.Optional;
 @Service
 public class LocationServiceImpl implements LocationService {
 
-    @Autowired
+
     private final LocationCarhosRepository locationCarhosRepository;
 
-    @Autowired
+    private final LocationCarhosMapper locationCarhosMapper;
+
     private final UtilisateurCarhosRepository utilisateurCarhosRepository;
 
-    @Autowired
     private final HebergementCarhosRepository hebergementCarhosRepository;
 
-    public LocationServiceImpl(LocationCarhosRepository locationCarhosRepository,
+    public LocationServiceImpl(LocationCarhosRepository locationCarhosRepository, LocationCarhosMapper locationCarhosMapper,
                                UtilisateurCarhosRepository utilisateurCarhosRepository,
                                HebergementCarhosRepository hebergementCarhosRepository) {
         this.locationCarhosRepository = locationCarhosRepository;
+        this.locationCarhosMapper = locationCarhosMapper;
         this.utilisateurCarhosRepository = utilisateurCarhosRepository;
         this.hebergementCarhosRepository = hebergementCarhosRepository;
     }
@@ -115,16 +113,38 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
+    public List<HebergementCarhos> getAllHebergement() {
+        return hebergementCarhosRepository.findAll();
+    }
+
+    @Override
     public Page<LocationCarhos> getPageLocation(Pageable page) {
         return locationCarhosRepository.findAll(page);
     }
 
+    /********* DTO ********/
+
     @Override
-    public List<HebergementCarhos> getAllHebergement() {
-        return hebergementCarhosRepository.findAll()
-                /*.stream().map(HebergementCarhos::getNom)
-                .collect(Collectors.toList())*/ ; //pour obtenir uniquement les noms
+    public LocationCarhosDTO getLocationDTOById(Long id) {
+        return locationCarhosRepository.findById(id)
+        .map(locationCarhosMapper::toDTO)
+                .orElseThrow(() -> new RuntimeException("Location introuvable"));
     }
 
+    @Override
+    public void enregistrerLocation(LocationCarhosDTO locationDTO) {
+        LocationCarhos locationCarhos = locationCarhosMapper.toEntity(locationDTO);
+        locationCarhosRepository.save(locationCarhos);
+    }
+
+    @Override
+    public Page<LocationCarhosDTO> getPageLocationDTO(Pageable page) {
+        return locationCarhosRepository.findAll(page)
+                .map(locationCarhosMapper::toDTO);
+    }
 
 }
+
+ /*.stream().map(HebergementCarhos::getNom)
+                .collect(Collectors.toList())*/ ; //pour obtenir uniquement les noms
+

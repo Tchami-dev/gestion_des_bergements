@@ -2,6 +2,7 @@ package com.hebergement.booki.services.inter;
 
 import com.hebergement.booki.model.HebergementCarhos;
 import com.hebergement.booki.model.LocationCarhos;
+import com.hebergement.booki.model.LocationCarhosDTO;
 import com.hebergement.booki.model.UtilisateurCarhos;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,5 +21,11 @@ public interface LocationService {
 
     List<HebergementCarhos> getAllHebergement();
 
+    /*******surcharge et DTO *****/
+
+    // Nouvelles signatures basées sur le DTO
+    LocationCarhosDTO getLocationDTOById(Long id);
+    void enregistrerLocation(LocationCarhosDTO locationDTO);
+    Page<LocationCarhosDTO> getPageLocationDTO(Pageable page);
 
 }

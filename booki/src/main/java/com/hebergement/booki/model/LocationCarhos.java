@@ -48,7 +48,6 @@ public class LocationCarhos {
     /**plusieurs locations peuvent être effectuées pour le même hébergement **/
     @ManyToOne
     @JoinColumn(name = "id_heberg")
-
     private HebergementCarhos hebergementCarhos;
 
     @OneToMany(mappedBy = "locationCarhos")

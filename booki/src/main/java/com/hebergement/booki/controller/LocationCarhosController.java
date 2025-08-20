@@ -1,9 +1,6 @@
 package com.hebergement.booki.controller;
 
-import com.hebergement.booki.model.HebergementCarhos;
-import com.hebergement.booki.model.LocationCarhos;
-import com.hebergement.booki.model.RoleUtilisateurCarhos;
-import com.hebergement.booki.model.UtilisateurCarhos;
+import com.hebergement.booki.model.*;
 import com.hebergement.booki.repository.HebergementCarhosRepository;
 import com.hebergement.booki.services.inter.HebergementService;
 import com.hebergement.booki.services.inter.LocationService;
@@ -24,7 +21,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class LocationCarhosController {
 
     @Autowired
-    private  final LocationService locationService;
+    private LocationService locationService;
 
     @Autowired
     private HebergementService hebergementService;
@@ -41,13 +38,13 @@ public class LocationCarhosController {
 
     // 👉 Affichage du formulaire réservation avec préchargement d’un hébergement
     @GetMapping("/location-carhos/nouveau")
-    public String creationLocation(@RequestParam(name = "hebergementId", required = false) Long hebergementId,
+    public String creationLocation(@RequestParam(name = "id", required = false) Long hebergementId,
                                    Model model) {
 
-        HebergementCarhos hebergementCarhos = hebergementService.getHebergementCarhosById(hebergementId);
+        HebergementCarhos hebergementCarhos = hebergementService.getHebergementCarhosById(hebergementId); // On passe aussi l’hébergement pour affichage (nom, prix, etc.)
         LocationCarhos locationCarhos = new LocationCarhos();
-            // Préremplit l’hébergement dans la réservation
-            locationCarhos.setHebergementCarhos(hebergementCarhos);
+        locationCarhos.setHebergementCarhos(hebergementCarhos);// Préremplit l’hébergement dans la réservation
+        //model.addAttribute("hebergementdto", locationCarhosDTO);
         model.addAttribute("location", locationCarhos);
         return "formulaire_enregistrement_location_carhos";
     }
@@ -55,31 +52,29 @@ public class LocationCarhosController {
     // 👉 Enregistrement de la réservation
     @PostMapping("/location-carhos")
     public String enregistrementCreation(@Valid @ModelAttribute("location") LocationCarhos locationCarhos,
-                                         BindingResult bindingResult) {
+                                         BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
+
+            // Recharge l’hébergement complet via l’ID envoyé en hidden
+            if (locationCarhos.getHebergementCarhos() != null) {
+
+                HebergementCarhos hebergementCarhos = hebergementService
+                        .getHebergementCarhosById(locationCarhos.getHebergementCarhos().getId());
+                model.addAttribute("hebergement", hebergementCarhos);
+            }
             return "formulaire_enregistrement_location_carhos";
-        }
-
-        // Recharge l’hébergement complet via l’ID envoyé en hidden
-        if (locationCarhos.getHebergementCarhos() != null &&
-                locationCarhos.getHebergementCarhos().getId() != null) {
-
-            HebergementCarhos hebergement = hebergementService
-                    .getHebergementCarhosById(locationCarhos.getHebergementCarhos().getId());
-
-            locationCarhos.setHebergementCarhos(hebergement);
         }
 
         // Sauvegarde la réservation
         locationService.enregistrerLocation(locationCarhos);
 
-        return "redirect:/index";
+        return "redirect:/";
     }
 
     @PostMapping("/locations-carhos/delete/{id}")
     public String supprimerLocation(@PathVariable Long id,
-                                RedirectAttributes redirectAttributes) {
+                                    RedirectAttributes redirectAttributes) {
 
         try {
             locationService.supprimerLocation(id);
