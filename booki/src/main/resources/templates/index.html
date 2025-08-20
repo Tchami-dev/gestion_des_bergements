@@ -148,22 +148,24 @@
                         </a>
 
                         <div class="pagination">
-            <span th:if="${currentPageGauche > 0}">
-                <a th:href="@{/(pageGauche=${currentPageGauche - 1}, pageDroite=${currentPageDroite}, keyword=${keyword})}">Précédent</a>
-            </span>
+    <span th:if="${currentPageGauche > 0}">
+        <a th:href="@{/(pageGauche=${currentPageGauche - 1}, pageDroite=${currentPageDroite}, keyword=${keyword})}">
+            Précédent
+        </a>
+    </span>
 
                             <span th:each="i : ${#numbers.sequence(0, totalPagesGauche - 1)}">
-                <a th:href="@{/(pageGauche=${i}, pageDroite=${currentPageDroite}, keyword=${keyword})}"
-                   th:text="${i + 1}"
-                   th:class="${i == currentPageGauche} ? 'active' : ''"></a>
-            </span>
+        <a th:href="@{/(pageGauche=${i}, pageDroite=${currentPageDroite}, keyword=${keyword})}"
+           th:text="${i + 1}"
+           th:class="${i == currentPageGauche} ? 'active' : ''"></a>
+    </span>
 
                             <span th:if="${currentPageGauche < totalPagesGauche - 1}">
-                <a th:href="@{/(pageGauche=${currentPageGauche + 1}, pageDroite=${currentPageDroite}, keyword=${keyword})}">Suivant</a>
-            </span>
+        <a th:href="@{/(pageGauche=${currentPageGauche + 1}, pageDroite=${currentPageDroite}, keyword=${keyword})}">
+            Suivant
+        </a>
+    </span>
                         </div>
-
-                        <h3>Afficher plus</h3><br>
 
                     </div>
                 </section>
@@ -195,23 +197,35 @@
                             </article>
                         </a>
 
+
                         <div class="pagination">
-            <span th:if="${currentPageDroite > 0}">
-                <a th:href="@{/(pageGauche=${currentPageGauche}, pageDroite=${currentPageDroite - 1}, keyword=${keyword})}">Précédent</a>
-            </span>
+                            <!-- Bouton précédent -->
+                            <span th:if="${currentPageDroite > 0}">
+        <a th:href="@{/(pageGauche=${currentPageGauche}, pageDroite=${currentPageDroite - 1}, keyword=${keyword})}"
+           class="page-btn prev">
+            Précédent
+        </a>
+    </span>
 
+                            <!-- Numéros de page -->
                             <span th:each="i : ${#numbers.sequence(0, totalPagesDroite - 1)}">
-                <a th:href="@{/(pageGauche=${currentPageGauche}, pageDroite=${i}, keyword=${keyword})}"
-                   th:text="${i + 1}"
-                   th:class="${i == currentPageDroite} ? 'active' : ''"></a>
-            </span>
+        <a th:href="@{/(pageGauche=${currentPageGauche}, pageDroite=${i}, keyword=${keyword})}"
+           th:text="${i + 1}"
+           th:class="${i == currentPageDroite} ? 'page-link active' : 'page-link'">
+        </a>
+    </span>
 
+                            <!-- Bouton suivant -->
                             <span th:if="${currentPageDroite < totalPagesDroite - 1}">
-                <a th:href="@{/(pageGauche=${currentPageGauche}, pageDroite=${currentPageDroite + 1}, keyword=${keyword})}">Suivant</a>
-            </span>
+        <a th:href="@{/(pageGauche=${currentPageGauche}, pageDroite=${currentPageDroite + 1}, keyword=${keyword})}"
+           class="page-btn next">
+            Suivant
+        </a>
+    </span>
                         </div>
 
-                        <br>
+
+                        <br><br>
                     </div>
                 </section>
 

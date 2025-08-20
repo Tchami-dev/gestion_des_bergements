@@ -19,6 +19,15 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.List;
+
+import static com.hebergement.booki.utils.GeneralUtils.DOSSIER_DU_PROJET;
+
 
 @Controller
 @RequiredArgsConstructor
@@ -100,7 +109,8 @@ public class HebergementCarhosController {
             @Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos,
             BindingResult bindingResult,
             Model model,
-            @RequestParam("fichier_image") MultipartFile fichierImage) {
+            @RequestParam("fichier_image") MultipartFile fichierImage
+            ) {
 
         if (bindingResult.hasErrors()) {
             model.addAttribute("type", HebergementCarhosType.values());
@@ -140,7 +150,11 @@ public class HebergementCarhosController {
 
     /*mise à jour*/
     @PostMapping("/hebergement-carhos/{id}")
-    public String actualiserHebergementCarhos(@PathVariable Long id, @Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos, BindingResult bindingResult, Model model){
+    public String actualiserHebergementCarhos(@PathVariable Long id, @Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos,
+                                              BindingResult bindingResult, Model model,
+                                              @RequestParam("fichier_image") MultipartFile fichierImage,
+                                              @RequestParam("ancienne_image") String ancienneImage
+                                              ) throws IOException{
 
         // Gestion des erreurs de validation
         if (bindingResult.hasErrors()) {
@@ -149,7 +163,22 @@ public class HebergementCarhosController {
             model.addAttribute("etat", HebergementCarhosStatut.values());
             return "formulaire_enregistrement_hebergement_carhos";
         }
-        hebergementService.getHebergementCarhosById(id);
+        // Vérifie s'il y a une nouvelle image
+        if (fichierImage != null && !fichierImage.isEmpty()) {
+            // ⚡ Nouvelle image → upload et remplace
+            String nomImage = fichierImage.getOriginalFilename();
+            Path chemin = Paths.get(DOSSIER_DU_PROJET, nomImage);
+            Files.copy(fichierImage.getInputStream(), chemin, StandardCopyOption.REPLACE_EXISTING);
+
+            hebergementCarhos.setImage(nomImage);
+        } else {
+            // Pas de nouvelle → garde l’ancienne
+            hebergementCarhos.setImage(ancienneImage);
+        }
+
+        //Sauvegarde l’hébergement mis à jour
+        hebergementService.updateHebergementCarhos(id, hebergementCarhos);
+
         return "redirect:/";
     }
 

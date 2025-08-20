@@ -16,51 +16,61 @@
 <header th:insert="~{header_carhos::en_tete}"></header>
 
 <main>
-    <div class="contenair-principal">
+    <div class="hebergement-detail">
 
-       <section class="contenair-image">
-<!--          <div class="contenair-image">-->
-            <img th:src="@{'/images_upload/' + ${hebergementCarhos.image}}" alt="Image" class="image">
-<!--          </div>-->
-       </section>
+        <!-- ===== Image principale ===== -->
+        <section class="image-section">
+            <img th:src="@{'/images_upload/' + ${hebergementCarhos.image}}"
+                 alt="Image de l'hébergement"
+                 class="main-img">
+        </section>
 
-       <section class="detail">
-             <h1 th:text="${hebergementCarhos.nom}"></h1><br>
-           <p th:text="${hebergementCarhos.nbreEtoile}"></p>
-           <ul>
-               <li th:each="capacite : ${hebergementCarhos.capacite}" th:text="${hebergementCarhos.capacite}"> </li>    <!-- #strings.split, pour découper du texte en tyhmeleaf avec saut de page--->
-           </ul>
-           <br>
-           <p>Prix: <span th:text="${hebergementCarhos.prix}"></span> <i class="fa fa-eur"></i> /Nuit</p>
+        <!-- ===== Infos principales ===== -->
+        <section class="info-section">
+            <h1 th:text="${hebergementCarhos.nom}"></h1>
 
+            <!-- Statut -->
+            <span class="status"
+                  th:classappend="${hebergementCarhos.etatHebergement.name() == 'LIBRE'} ? 'libre' : 'occupe'"
+                  th:text="${hebergementCarhos.etatHebergement.name()}"></span>
 
-           <div class="div-btn">
-               <!-- Cas LIBRE -->
-               <button class="btn" type="button"
-                       th:if="${hebergementCarhos.etatHebergement.name() == 'LIBRE'}"
-                       th:onclick="'window.location.href=\'/location-carhos/nouveau?id=' + ${hebergementCarhos.id} + '\''">
-                   Réserver
-               </button>
+            <!-- Capacités / Équipements -->
+            <div class="equipements">
+                <ul>
+                    <li th:each="capacite : ${hebergementCarhos.capacite}" th:text="${capacite}"></li>
+                </ul>
+            </div>
 
-               <!-- Cas OCCUPE -->
-               <button class="btn" type="button" disabled
-                       th:if="${hebergementCarhos.etatHebergement.name() == 'OCCUPE'}">
-                   Occupé
-               </button>
-           </div>
+            <!-- Prix -->
+            <p class="price">Prix: <span th:text="${hebergementCarhos.prix}"></span> <i class="fa fa-eur"></i> /Nuit</p>
 
-       </section>
+            <!-- Bouton Réserver -->
+            <div class="div-btn">
+                <button class="btn-reserver"
+                        th:if="${hebergementCarhos.etatHebergement.name() == 'LIBRE'}"
+                        th:onclick="|window.location.href='/location-carhos/nouveau?id=${hebergementCarhos.id}'|">
+                    Réserver
+                </button>
 
+                <button class="btn-reserver" disabled
+                        th:if="${hebergementCarhos.etatHebergement.name() == 'OCCUPE'}">
+                    Occupé
+                </button>
+            </div>
+        </section>
 
+        <!-- ===== Description ===== -->
         <section class="description">
+            <h2>Description</h2>
             <div class="div_description">
-                <p><span th:text="${hebergementCarhos.description}"></span> </p><br>
+                <p><span th:text="${hebergementCarhos.description}"></span></p>
             </div>
         </section>
 
     </div>
-
 </main>
+
+
 <br>
 
 <footer th:insert="~{footer_carhos::footer}"></footer>

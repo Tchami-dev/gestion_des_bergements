@@ -52,9 +52,23 @@
         </div>
 
         <div class="mb-3">
-            <label for="image" class="form-label">Image de l'hébergement  <span class="obligation">*</span></label>
+            <label for="image" class="form-label">Image de l'hébergement <span class="obligation">*</span></label>
+
+            <!-- Affiche l’image actuelle si elle existe -->
+            <div th:if="${hebergementCarhos.image != null}">
+                <img th:src="@{'/images_upload/' + ${hebergementCarhos.image}}"
+                     alt="Image actuelle" width="150" class="img-thumbnail mb-2"/>
+
+                <!-- Champ caché qui garde le nom de l’ancienne image -->
+                <input type="hidden" name="ancienne_image" th:value="${hebergementCarhos.image}" />
+            </div>
+
+            <!-- Champ file pour choisir une nouvelle image -->
             <input type="file" name="fichier_image" class="form-control" id="image">
         </div>
+
+
+        <!---accept="image/* : permet de n'autoriser que les fichiers imges de natures différentes-->
 
         <div class="mb-3">
             <label for="nbreEtoile" class="form-label">Nombre d'Etoile  <span class="obligation">*</span></label>
@@ -105,3 +119,5 @@
 
 </body>
 </html>
+
+<!--- les images ne peuvent pas être préremplis en html--->

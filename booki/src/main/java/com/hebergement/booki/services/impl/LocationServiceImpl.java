@@ -27,7 +27,7 @@ public class LocationServiceImpl implements LocationService {
     private final UtilisateurCarhosRepository utilisateurCarhosRepository;
 
     @Autowired
-    private HebergementCarhosRepository hebergementCarhosRepository;
+    private final HebergementCarhosRepository hebergementCarhosRepository;
 
     public LocationServiceImpl(LocationCarhosRepository locationCarhosRepository,
                                UtilisateurCarhosRepository utilisateurCarhosRepository,

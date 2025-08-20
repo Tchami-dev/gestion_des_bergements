@@ -55,8 +55,10 @@ public class HebergementCarhos {
     private HebergementCarhosStatut hebergementCarhosStatut;
 
     @Enumerated(EnumType.STRING)
-    private HebergementCarhosStatut etatHebergement = HebergementCarhosStatut.LIBRE
-            ;
+    private HebergementCarhosStatut etatHebergement = HebergementCarhosStatut.LIBRE;
+
+
+
 
 
 

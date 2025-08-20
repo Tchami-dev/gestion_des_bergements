@@ -9,6 +9,7 @@
 </head>
 <body>
 
+<header th:insert="~{header_carhos::en_tete}"></header>
 
 <main>
 
@@ -21,7 +22,7 @@
                     🏠
                 </div>
                 <div class="information">
-                    <h2 th:text="${stats.hebergementTotal}">75</h2>
+                    <h2 th:text="${stats.hebergementTotal}"></h2>
                     <p>Hébergements disponibles</p>
                 </div>
             </div>
@@ -33,7 +34,7 @@
                     🔒
                 </div>
                 <div class="information">
-                    <h2 th:text="${stats.hebergementOccupe}">45</h2>
+                    <h2 th:text="${stats.hebergementOccupe}"></h2>
                     <p>Hébergements occupés</p>
                 </div>
             </div>
@@ -45,7 +46,7 @@
                     ⏳
                 </div>
                 <div class="information">
-                    <h2 th:text="${stats.hebergementLibre}">20</h2>
+                    <h2 th:text="${stats.hebergementLibre}"></h2>
                     <p>Réservations en attente</p>
                 </div>
             </div>
@@ -53,6 +54,8 @@
 
     </section>
 </main>
+
+<footer th:insert="~{footer_carhos::footer}"></footer>
 
 </body>
 </html>

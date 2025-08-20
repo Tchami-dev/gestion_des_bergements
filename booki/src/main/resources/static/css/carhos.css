@@ -1,9 +1,28 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
 *{
     margin: 0;
     padding: 0;
     font-family: "raleway", sans-serif;
-    
+    box-sizing: border-box;
 }
+
+body{
+
+    display: flex;
+    margin: 0;
+    flex-direction: column;
+    min-height: 100vh; /*prend toute la hauteur de la fénêtre*/
+}
+
+main{
+    flex: 1;
+}
+
+
+
 
 .obligation{
     color: #dc3545;
@@ -42,7 +61,7 @@ a{
  /****************************** css lié au header *********************************************/
 header, .div__header{
      height: 100px; 
-     width:98%;
+     width:100%;
     background-color: #fff;
 }
 
@@ -62,7 +81,7 @@ header, .div__header{
    display: flex;
     float: right;
     height: 90%;
-    width: auto;
+    width: 15%;
 }
 
 nav ul{
@@ -235,9 +254,9 @@ nav a:hover{
 footer{
     height: auto;
     background-color: #deebffa4;
-    padding: 0px;
-    margin: 0px;
-    width: 99.8%;
+    padding: 0;
+    margin-top: auto; /** pousse le footer en bas*/
+    width: 100%;
 }
 
 .foot{
@@ -602,6 +621,74 @@ h3, .p-info{
      gap: 40px; 
 
 }
+
+/*****pagination****/
+
+:root {
+    --pg-accent: #3bb8f5;     /* bleu ciel */
+    --pg-fg: #374151;         /* gris foncé */
+    --pg-bg: #fff;            /* blanc */
+    --pg-border: #d1d5db;
+    --pg-hover: #f0f9ff;      /* bleu très pâle */
+    --pg-radius: 999px;
+    --pg-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.pagination {
+    top:90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+.pagination span {
+    display: flex;
+    gap: .5rem;
+}
+
+.pagination a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .6rem 1.1rem;
+    border: 1px solid var(--pg-border);
+    border-radius: var(--pg-radius);
+    background: var(--pg-bg);
+    color: var(--pg-fg);
+    font-size: 15px;
+    text-decoration: none;
+    min-width: 2.4rem;
+    transition: all .25s ease;
+    box-shadow: var(--pg-shadow);
+}
+
+.pagination a:hover {
+    background: var(--pg-hover);
+    border-color: var(--pg-accent);
+    color: var(--pg-accent);
+    transform: translateY(-2px);
+}
+
+.pagination a.active {
+    background: var(--pg-accent);
+    color: #fff;
+    border-color: var(--pg-accent);
+    font-weight: bold;
+    cursor: default;
+    transform: scale(1.05);
+}
+
+.pagination a:first-child::before {
+    content: "← ";
+}
+
+.pagination a:last-child::after {
+    content: " →";
+}
+
 
 /**************************** partie-responsive-du-projet ***************************/
 

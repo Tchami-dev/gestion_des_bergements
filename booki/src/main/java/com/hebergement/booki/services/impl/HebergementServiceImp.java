@@ -2,11 +2,8 @@ package com.hebergement.booki.services.impl;
 
 import com.hebergement.booki.model.HebergementCarhos;
 import com.hebergement.booki.model.HebergementCarhosSpecificite;
-import com.hebergement.booki.model.HebergementCarhosStatut;
 import com.hebergement.booki.repository.HebergementCarhosRepository;
 import com.hebergement.booki.services.inter.HebergementService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -14,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 import static com.hebergement.booki.utils.GeneralUtils.DOSSIER_DU_PROJET;
 
@@ -33,6 +31,18 @@ public class HebergementServiceImp implements HebergementService {
         return hebergementCarhosRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Hébergement introuvable avec l'ID : " + id));
     }
+    public void updateHebergementCarhos(Long id, HebergementCarhos hebergementCarhosModifie) {
+        HebergementCarhos hebergementCarhos = getHebergementCarhosById(id);
+
+        hebergementCarhos.setNom(hebergementCarhosModifie.getNom());
+        hebergementCarhos.setDescription(hebergementCarhosModifie.getDescription());
+        hebergementCarhos.setHebergementCarhosType(hebergementCarhosModifie.getHebergementCarhosType());
+        hebergementCarhos.setHebergementCarhosSpecificite(hebergementCarhosModifie.getHebergementCarhosSpecificite());
+        hebergementCarhos.setHebergementCarhosStatut(hebergementCarhosModifie.getHebergementCarhosStatut());
+        hebergementCarhos.setImage(hebergementCarhosModifie.getImage());
+
+        hebergementCarhosRepository.save(hebergementCarhos);
+    }
 
     @Override
     public void supprimerHebergementCarhos(Long id) {
@@ -41,6 +51,8 @@ public class HebergementServiceImp implements HebergementService {
 
         hebergementCarhosRepository.delete(hebergement);
     }
+
+
 
     @Override
     public void enregistrerHebergement(HebergementCarhos hebergementCarhos, MultipartFile fichierImage) {

@@ -52,8 +52,6 @@
             <div th:if="${#fields.hasErrors('utilisateurCarhos.numTelUtilisateur')}" th:errors="*{utilisateurCarhos.numTelUtilisateur}" class="text-danger"></div>
         </div>
 
-
-
         <div class="mb-3">
             <label for="emailClient" class="form-label">Boîte mail   <span class="obligation">*</span> </label>
             <input type="email" class="form-control" id="emailClient" th:field="*{utilisateurCarhos.emailUtilisateur}" required>
@@ -73,23 +71,22 @@
         </div>
 
         <div class="mb-3">
-            <label for="hebergement" class="form-label">
+            <label for="nomHebergement" class="form-label">
                 Nom de l'hébergement <span class="obligation">*</span>
             </label>
 
-            <select class="form-control" id="hebergement" th:field="*{hebergementCarhos.id}" required>
-                <option value="">-- Sélectionner l'hôtel de l'hébergement --</option>
-                <option th:each="home : ${listeHebergement}"
-                        th:value="${home.id}"
-                        th:text="${home.nom}">
-                </option>
-            </select>
+            <!-- Affichage direct du nom (lecture seule) -->
+            <input type="text" class="form-control"
+                   id="nomHebergement"
+                   th:value="${location.hebergementCarhos.nom}"
+                   readonly />
 
-            <div th:if="${#fields.hasErrors('hebergementCarhos')}"
-                 th:errors="*{hebergementCarhos}"
-                 class="text-danger">
-            </div>
+            <!-- Champ caché pour envoyer l'ID -->
+            <input type="hidden" th:field="*{hebergementCarhos}" />
         </div>
+
+
+
 
         <div class="d-flex justify-content-between">
             <button type="submit" class="btn btn-primary"
