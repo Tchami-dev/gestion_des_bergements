@@ -25,6 +25,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.UUID;
 
 import static com.hebergement.booki.utils.GeneralUtils.DOSSIER_DU_PROJET;
 
@@ -152,8 +153,8 @@ public class HebergementCarhosController {
     @PostMapping("/hebergement-carhos/{id}")
     public String actualiserHebergementCarhos(@PathVariable Long id, @Valid @ModelAttribute("hebergementCarhos") HebergementCarhos hebergementCarhos,
                                               BindingResult bindingResult, Model model,
-                                              @RequestParam("fichier_image") MultipartFile fichierImage,
-                                              @RequestParam("ancienne_image") String ancienneImage
+                                              @RequestParam("fichier_image") MultipartFile fichierImage
+//                                             // @RequestParam("ancienne_image") String ancienneImage
                                               ) throws IOException{
 
         // Gestion des erreurs de validation
@@ -163,17 +164,26 @@ public class HebergementCarhosController {
             model.addAttribute("etat", HebergementCarhosStatut.values());
             return "formulaire_enregistrement_hebergement_carhos";
         }
+
         // Vérifie s'il y a une nouvelle image
         if (fichierImage != null && !fichierImage.isEmpty()) {
-            // ⚡ Nouvelle image → upload et remplace
-            String nomImage = fichierImage.getOriginalFilename();
+
+//            // ⚡ Supprime l’ancienne image si elle existe
+//            if (ancienneImage != null && !ancienneImage.isBlank()) {
+//                Path ancienChemin = Paths.get(DOSSIER_DU_PROJET, ancienneImage);
+//                Files.deleteIfExists(ancienChemin);
+//            }
+
+            // ⚡ Sauvegarde la nouvelle image
+            String nomImage = UUID.randomUUID() + "_" + fichierImage.getOriginalFilename();
             Path chemin = Paths.get(DOSSIER_DU_PROJET, nomImage);
             Files.copy(fichierImage.getInputStream(), chemin, StandardCopyOption.REPLACE_EXISTING);
 
             hebergementCarhos.setImage(nomImage);
+
         } else {
             // Pas de nouvelle → garde l’ancienne
-            hebergementCarhos.setImage(ancienneImage);
+            hebergementCarhos.setImage(fichierImage.getOriginalFilename());
         }
 
         //Sauvegarde l’hébergement mis à jour
@@ -207,3 +217,9 @@ public class HebergementCarhosController {
     }
 
 }
+
+//UUID = Universally Unique Identifier → c’est une chaîne de caractères générée automatiquement pour être unique dans le monde entier.
+
+//@RequestParam → pour un champ précis du formulaire ou de l’URL
+//
+//@ModelAttribute → pour remplir un objet complet à partir du formulaire

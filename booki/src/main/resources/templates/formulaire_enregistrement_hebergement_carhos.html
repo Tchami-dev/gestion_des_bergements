@@ -57,14 +57,14 @@
             <!-- Affiche l’image actuelle si elle existe -->
             <div th:if="${hebergementCarhos.image != null}">
                 <img th:src="@{'/images_upload/' + ${hebergementCarhos.image}}"
-                     alt="Image actuelle" width="150" class="img-thumbnail mb-2"/>
+                     alt="Image actuelle" width="150" class="img-thumbnail mb-2" accept="image/*" />
 
                 <!-- Champ caché qui garde le nom de l’ancienne image -->
-                <input type="hidden" name="ancienne_image" th:value="${hebergementCarhos.image}" />
+<!--                <input type="hidden" name="ancienne_image" th:value="${hebergementCarhos.image}" accept="image/*" />-->
             </div>
 
             <!-- Champ file pour choisir une nouvelle image -->
-            <input type="file" name="fichier_image" class="form-control" id="image">
+            <input type="file" name="fichier_image" class="form-control" id="image" accept="image/*">
         </div>
 
 
