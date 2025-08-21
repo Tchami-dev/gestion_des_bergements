@@ -81,12 +81,12 @@ public class LocationServiceImpl implements LocationService {
                 .orElseThrow(() -> new RuntimeException("Hébergement introuvable"));
 
         // 6. Vérifier que l'hébergement est libre avant réservation
-        if (hebergementCarhos.getEtatHebergement() == HebergementCarhosStatut.OCCUPE) {
+        if (hebergementCarhos.getHebergementCarhosStatut() == HebergementCarhosStatut.OCCUPE) {
             throw new IllegalStateException("Cet hébergement est déjà occupé.");
         }
 
         // 7. Mettre à jour l'état de l'hébergement à OCCUPE
-        hebergementCarhos.setEtatHebergement(HebergementCarhosStatut.OCCUPE);
+        hebergementCarhos.setHebergementCarhosStatut(HebergementCarhosStatut.OCCUPE);
         hebergementCarhosRepository.save(hebergementCarhos);
 
         // 8. Associer l'hébergement mis à jour à la location
@@ -105,7 +105,7 @@ public class LocationServiceImpl implements LocationService {
 
         HebergementCarhos hebergementCarhos = locationCarhos.getHebergementCarhos();
         if (hebergementCarhos != null) {
-            hebergementCarhos.setEtatHebergement(HebergementCarhosStatut.LIBRE);
+            hebergementCarhos.setHebergementCarhosStatut(HebergementCarhosStatut.LIBRE);
             hebergementCarhosRepository.save(hebergementCarhos);
         }
 

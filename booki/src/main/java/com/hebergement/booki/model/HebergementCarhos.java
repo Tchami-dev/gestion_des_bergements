@@ -54,12 +54,8 @@ public class HebergementCarhos {
     @NotNull(message = "Merci de renseigner l'état actuel de l'hébergement")
     private HebergementCarhosStatut hebergementCarhosStatut;
 
-    @Enumerated(EnumType.STRING)
-    private HebergementCarhosStatut etatHebergement = HebergementCarhosStatut.LIBRE;
-
-
-
-
+//    @Enumerated(EnumType.STRING)
+//    private HebergementCarhosStatut etatHebergement = HebergementCarhosStatut.LIBRE;
 
 
      @Column(name = "localisation_heberg")

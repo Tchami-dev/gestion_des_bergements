@@ -1,6 +1,7 @@
 package com.hebergement.booki.controller;
 
 
+import com.hebergement.booki.services.inter.HebergementService;
 import com.hebergement.booki.services.inter.StatisquesService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,9 @@ public class StatistiquesCarhosController {
 
         @Autowired
         private StatisquesService statistiquesService;
+
+        @Autowired
+        private HebergementService hebergementService;
 
         @GetMapping("/dashboard-universel-carhos")
         public String dashboardUniversel(Model model) {

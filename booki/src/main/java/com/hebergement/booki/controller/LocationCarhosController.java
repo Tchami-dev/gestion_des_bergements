@@ -44,7 +44,6 @@ public class LocationCarhosController {
         HebergementCarhos hebergementCarhos = hebergementService.getHebergementCarhosById(hebergementId); // On passe aussi l’hébergement pour affichage (nom, prix, etc.)
         LocationCarhos locationCarhos = new LocationCarhos();
         locationCarhos.setHebergementCarhos(hebergementCarhos);// Préremplit l’hébergement dans la réservation
-        //model.addAttribute("hebergementdto", locationCarhosDTO);
         model.addAttribute("location", locationCarhos);
         return "formulaire_enregistrement_location_carhos";
     }

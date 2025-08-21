@@ -31,15 +31,19 @@
 
             <!-- Statut -->
             <span class="status"
-                  th:classappend="${hebergementCarhos.etatHebergement.name() == 'LIBRE'} ? 'libre' : 'occupe'"
-                  th:text="${hebergementCarhos.etatHebergement.name()}"></span>
+                  th:classappend="${hebergementCarhos.hebergementCarhosStatut.name() == 'LIBRE'} ? 'libre' : 'occupe'"
+                  th:text="${hebergementCarhos.hebergementCarhosStatut.name()}"></span>
 
             <!-- Capacités / Équipements -->
-            <div class="equipements">
-                <ul>
-                    <li th:each="capacite : ${hebergementCarhos.capacite}" th:text="${capacite}"></li>
-                </ul>
-            </div>
+
+            <section class="description">
+                <h2>Atouts Majeurs</h2>
+                <div class="equipements">
+                    <ul>
+                        <li th:each="capacite : ${hebergementCarhos.capacite}" th:text="${capacite}"></li>
+                    </ul>
+                </div>
+            </section>
 
             <!-- Prix -->
             <p class="price">Prix: <span th:text="${hebergementCarhos.prix}"></span> <i class="fa fa-eur"></i> /Nuit</p>
@@ -47,13 +51,13 @@
             <!-- Bouton Réserver -->
             <div class="div-btn">
                 <button class="btn-reserver"
-                        th:if="${hebergementCarhos.etatHebergement.name() == 'LIBRE'}"
+                        th:if="${hebergementCarhos.hebergementCarhosStatut.name() == 'LIBRE'}"
                         th:onclick="|window.location.href='/location-carhos/nouveau?id=${hebergementCarhos.id}'|">
                     Réserver
                 </button>
 
                 <button class="btn-reserver" disabled
-                        th:if="${hebergementCarhos.etatHebergement.name() == 'OCCUPE'}">
+                        th:if="${hebergementCarhos.hebergementCarhosStatut.name() == 'OCCUPE'}">
                     Occupé
                 </button>
             </div>
