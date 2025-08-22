@@ -17,7 +17,14 @@
 
 <main>
     <div class="hebergement-detail">
-
+<div class="div_only">
+        <button class="btn-reserver"
+                th:if="${hebergementCarhos.hebergementCarhosStatut.name() == 'LIBRE'}"
+                th:onclick="|window.location.href='/location-carhos/nouveau?id=${hebergementCarhos.id}'|">
+            Réserver
+        </button>
+</div>
+        <br>
         <!-- ===== Image principale ===== -->
         <section class="image-section">
             <img th:src="@{'/images_upload/' + ${hebergementCarhos.image}}"
@@ -36,26 +43,21 @@
 
             <!-- Capacités / Équipements -->
 
-            <section class="description">
+            <div class="description">
                 <h2>Atouts Majeurs</h2>
+            </div>
                 <div class="equipements">
                     <ul>
                         <li th:each="capacite : ${hebergementCarhos.capacite}" th:text="${capacite}"></li>
                     </ul>
                 </div>
-            </section>
+
 
             <!-- Prix -->
             <p class="price">Prix: <span th:text="${hebergementCarhos.prix}"></span> <i class="fa fa-eur"></i> /Nuit</p>
 
             <!-- Bouton Réserver -->
             <div class="div-btn">
-                <button class="btn-reserver"
-                        th:if="${hebergementCarhos.hebergementCarhosStatut.name() == 'LIBRE'}"
-                        th:onclick="|window.location.href='/location-carhos/nouveau?id=${hebergementCarhos.id}'|">
-                    Réserver
-                </button>
-
                 <button class="btn-reserver" disabled
                         th:if="${hebergementCarhos.hebergementCarhosStatut.name() == 'OCCUPE'}">
                     Occupé

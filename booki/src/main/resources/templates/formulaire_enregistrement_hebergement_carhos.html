@@ -46,10 +46,49 @@
         </div>
 
         <div class="mb-3">
-            <label for="prix" class="form-label">Prix de l'hébergement  <span class="obligation">*</span> </label>
-            <input type="number" class="form-control" id="prix" th:field="*{prix}" min="10" required>
+            <label for="prix" class="form-label">
+                Prix de l'hébergement <span class="obligation">*</span>
+            </label>
+
+            <!-- Champ affiché à l'utilisateur -->
+            <input type="text"
+                   class="form-control"
+                   id="prixAffiche"
+                   th:value="${hebergementCarhos.prix}"
+                   required>
+
+            <!-- Champ caché lié à l'entité -->
+            <input type="hidden" th:field="*{prix}" id="prix">
+
             <div th:if="${#fields.hasErrors('prix')}" th:errors="*{prix}" class="text-danger"></div>
         </div>
+
+        <script>
+            const inputAffiche = document.getElementById("prixAffiche");
+            const inputHidden  = document.getElementById("prix");
+
+            // Fonction de formatage avec points de milliers
+            function formatNombre(valeur) {
+                valeur = valeur.replace(/\D/g, ""); // garde seulement les chiffres
+                return valeur.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+            }
+
+            // Quand l’utilisateur tape
+            inputAffiche.addEventListener("input", function () {
+                let brut = this.value.replace(/\D/g, ""); // valeur brute sans séparateurs
+                this.value = formatNombre(this.value);    // affiche formaté
+                inputHidden.value = brut;                 // envoie brut à Spring
+            });
+
+            // Initialisation au chargement (utile quand on édite un hébergement)
+            window.addEventListener("load", function() {
+                if (inputAffiche.value) {
+                    let brut = inputAffiche.value.replace(/\D/g, "");
+                    inputAffiche.value = formatNombre(brut);
+                    inputHidden.value = brut;
+                }
+            });
+        </script>
 
         <div class="mb-3">
             <label for="image" class="form-label">Image de l'hébergement <span class="obligation">*</span></label>
@@ -63,7 +102,6 @@
             <!-- Champ file pour choisir une nouvelle image -->
             <input type="file" name="fichier_image" class="form-control" id="image" accept="image/*">
         </div>
-
 
         <!---accept="image/* : permet de n'autoriser que les fichiers imges de natures différentes-->
 
