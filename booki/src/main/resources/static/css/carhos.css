@@ -13,6 +13,7 @@ body{
 
     display: flex;
     margin: 0;
+    background-color: #fff;
     flex-direction: column;
     min-height: 100vh; /*prend toute la hauteur de la fénêtre*/
 }
@@ -60,14 +61,29 @@ a{
 
  /****************************** css lié au header *********************************************/
 header, .div__header{
+    padding-right: 30px;
      height: 100px; 
      width:100%;
-    background-color: #fff;
+    background-color: transparent;
 }
 
 .div__logo{
     display: flex;
-    float: left;   
+    float: left;
+    overflow: hidden;
+    height: 100%;
+    width: 20%;
+}
+
+.logo{
+    transition: .5s ease;
+    object-fit: cover;
+    width: 20em;
+    height: 100%;
+}
+
+.logo:hover{
+    transform: scale(1.2);
 }
 
 .div__navigation--liens{
@@ -82,6 +98,7 @@ header, .div__header{
     float: right;
     height: 90%;
     width: 15%;
+
 }
 
 nav ul{
@@ -94,6 +111,7 @@ nav ul{
 
 nav li{
     list-style-type: none;
+    transition: .3s ease;
     
 }
 
@@ -104,12 +122,20 @@ nav a{
 }
 
 .div__navigation--liens:hover{
-    border-top: 3px solid #0065fc;   
+    /*border-top: 3px solid #0065fc;*/
+
+
 }
 
+li:hover{
+    padding: 3px;
+    background-color: #0065fc;
+    opacity: 0.8;
+    border-radius: 5px;
+}
 
 nav a:hover{
-    color:#0065fc;
+    color:#fff;
 }
 
 

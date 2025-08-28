@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 public class UtilisateurServiceImp implements UtilisateurService {
 
-    @Autowired
+
     private final UtilisateurCarhosRepository utilisateurCarhosRepository;
 
     /** le constructeur de ton service d’implémentation qui permet de faire l’injection de dépendances par constructeur**/
@@ -28,7 +28,9 @@ public class UtilisateurServiceImp implements UtilisateurService {
 
     @Override
     public void enregistrerUtilisateur(UtilisateurCarhos utilisateurCarhos) {
-        utilisateurCarhosRepository.save(utilisateurCarhos);
+//        String password = utilisateurCarhos.getMotDePasseUtilisateur();
+//        utilisateurCarhos.setMotDePasseUtilisateur(passwordEncoder.encode(password));
+          utilisateurCarhosRepository.save(utilisateurCarhos);
     }
 
     @Override

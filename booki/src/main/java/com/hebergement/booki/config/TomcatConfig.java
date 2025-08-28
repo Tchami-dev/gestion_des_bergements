@@ -11,7 +11,7 @@ import org.springframework.util.unit.DataSize;
 @Configuration
 public class TomcatConfig {
 
-    //Réduit la limite au nombres de fooichiers imaages
+    //Réduit la limite aux nombres de fichiers images
     @Bean
     public WebServerFactoryCustomizer<TomcatServletWebServerFactory> tomcatCustomizer() {
         return factory -> factory.addContextCustomizers(context -> {
