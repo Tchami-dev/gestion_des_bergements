@@ -68,6 +68,7 @@ public class HebergementCarhos {
     @OneToMany (mappedBy = "hebergementCarhos") /**  indication de la multiplicitée **/
     private List<LocationCarhos> locationCarhos ;
 
+
     @ManyToOne
     @JoinColumn(name = "id_type")
     private  TypesHebergementCarhos typesHebergementCarhos;
