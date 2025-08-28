@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>test_dashboard_universel</title>
+    <link rel="stylesheet" th:href="@{/css/dashboard_universel.css}">
+    <link rel="stylesheet" th:href="@{/css/carhos.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/images relatives aux hébergements/logo du projet/favicon_carhos.png}">
+
+</head>
+<body>
+
+<header th:insert="~{header_carhos::en_tete}"></header>
+
+<main>
+
+    <h1>Tableau de bord Général </h1>
+    <section>
+
+        <article>
+            <div class="contenair">
+                <div class="image">
+                    🏠
+                </div>
+                <div class="information">
+                    <h2 th:text="${stats.hebergementTotal}"></h2>
+                    <p>Nombres total d'hébergements</p>
+                </div>
+            </div>
+        </article>
+
+        <article>
+            <div class="contenair">
+                <div class="image">
+                    🔒
+                </div>
+                <div class="information">
+                    <h2 th:text="${stats.hebergementOccupe}"></h2>
+                    <p>Hébergements occupés</p>
+                </div>
+            </div>
+        </article>
+
+        <article>
+            <div class="contenair">
+                <div class="image">
+                    ⏳
+                </div>
+                <div class="information">
+                    <h2 th:text="${stats.hebergementLibre}"></h2>
+                    <p>Hébergements disponibles</p>
+                </div>
+            </div>
+        </article>
+
+    </section>
+</main>
+
+<footer th:insert="~{footer_carhos::footer}"></footer>
+
+</body>
+</html>

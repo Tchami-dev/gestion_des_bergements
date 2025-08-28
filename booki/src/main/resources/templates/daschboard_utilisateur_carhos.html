@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>utilisateurs_carhos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/carhos.css}">
+    <link rel="stylesheet" th:href="@{/css/style_dashboard.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/images relatives aux hébergements/logo du projet/favicon_carhos.png}">
+
+</head>
+
+<body>
+<!-- en-tete-de-la-page -->
+<header th:insert="header_carhos::en_tete">
+
+</header>
+
+<section class="section_container">
+    <div class="container container-custom">
+        <h2 class="information_gestion">Gestion des utilisateurs</h2>
+
+        <div class="header-btn">
+            <a href="/utilisateurs-carhos/nouveau" class="btn btn-success">Ajouter un utilisateurs</a>
+        </div>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Numéro de Téléphone</th>
+                <th>Numéro de la CNI/Passeport</th>
+                <th>Boîte Email</th>
+                <th>Mot de passe</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="utilisateur, status : ${utilisateurs}">   <!--- th:each, permet de définir le principe des boucle en thymeleaf--->
+                <!-- Compteur global tenant compte de la page -->
+                <td th:text="${status.index + 1 + currentPage * 4}"></td>   <!---numérotation des page et identification du nombre d'élément/page--->
+                <td th:text="${utilisateur.nomUtilisateur}"></td>
+                <td th:text="${utilisateur.prenomUtilisateur}"></td>
+                <td th:text="${utilisateur.numTelUtilisateur}"></td>
+                <td th:text="${utilisateur.numCniUtilisateur}"></td>
+                <td th:text="${utilisateur.emailUtilisateur}"></td>
+                <td th:text="${utilisateur.motDePasseUtilisateur}"></td>
+                <td>
+                    <a th:href="@{/utilisateurs-carhos/détail/{id}(id=${utilisateur.idUtilisateur})}" class="btn btn-secondary btn-sm" title="Détail">
+                        <i class="fa fa-book" style="font-size:24px"></i>
+                    </a>
+                    <a th:href="@{/utilisateurs-carhos/edit/{id}(id=${utilisateur.idUtilisateur})}" class="btn btn-primary btn-sm" title="Modifier">
+                        <i class="fa fa-edit" style="font-size:24px"></i>
+                    </a>
+
+                    <form th:action="@{/utilisateurs-carhos/delete/{id}(id=${utilisateur.idUtilisateur})}" method="post"
+                          onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?');"
+                          style="display:inline">
+                        <input type="hidden" name="_method" value="delete"/>
+                        <button type="submit" class="btn btn-danger btn-sm" title="Supprimer">
+                            <i class="fa fa-trash" style="font-size:24px"></i>
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!-- Pagination -->
+        <div class="pagination" style="text-align:center; margin-top:20px;">
+            <ul style="list-style:none; display:inline-flex; gap:10px; padding-left:0;">
+                <li th:if="${currentPage > 0}">   <!---- currentPage permet de savoir où on est et d’afficher les bons liens---->
+                    <a th:href="@{/daschboard_utilisateur_carhos(page=${currentPage - 1})}" class="btn btn-outline-secondary">Précédent</a>
+                </li>
+
+                <li th:each="i : ${#numbers.sequence(0, totalPages - 1)}">  <!--- gére la numérotation des pages --->
+                    <a th:href="@{/daschboard_utilisateur_carhos(page=${i})}"
+                       th:text="${i + 1}"
+                       th:classappend="${i == currentPage} ? 'btn btn-primary' : 'btn btn-outline-primary'">
+                    </a>
+                </li>
+
+                <li th:if="${currentPage < totalPages - 1}">
+                    <a th:href="@{/daschboard_utilisateur_carhos(page=${currentPage + 1})}" class="btn btn-outline-secondary">Suivant</a>
+                </li>
+            </ul>
+        </div>
+
+
+    </div>
+</section>
+<br><br>
+<!--------------------- pied-de-page -------------------->
+
+<footer th:insert="footer_carhos::footer">
+
+</footer>
+
+</body>
+</html>

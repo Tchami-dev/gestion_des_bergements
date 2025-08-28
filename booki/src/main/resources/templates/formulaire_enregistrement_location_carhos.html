@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulaire_location_carhos </title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/carhos.css}">
+    <link rel="icon" type="image/png" th:href="@{/images/images relatives aux hébergements/logo du projet/favicon_carhos.png}">
+    <link rel="stylesheet" th:href="@{/css/style_formulaire_carhos.css}">
+</head>
+<body>
+
+<!-- en-tete-de-la-page -->
+<header th:insert="~{header_carhos::en_tete}">
+</header>
+
+<div class="form-container">
+    <h2 th:text="${location.idLocation} != null ? 'Modifier la reservation' : 'Ajouter une reservation'"></h2>
+    <form th:action="@{/location-carhos}" th:object="${location}" method="post" >
+
+        <input type="hidden" th:field="*{idLocation}"/>
+
+        <div class="mb-3">
+            <label for="dateDebutReserv" class="form-label">Date début réservation  <span class="obligation">*</span> </label>
+            <input type="date" class="form-control" id="dateDebutReserv" th:field="*{dateDebut}" required>
+            <div th:if="${#fields.hasErrors('dateDebut')}" th:errors="*{dateDebut}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="dateFinReserv" class="form-label">Date de fin réservation  <span class="obligation">*</span> </label>
+            <input type="date" class="form-control" id="dateFinReserv" th:field="*{dateFin}"  required>
+            <div th:if="${#fields.hasErrors('dateFin')}" th:errors="*{dateFin}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="nomClient" class="form-label">Nom   <span class="obligation">*</span> </label>
+            <input type="text" class="form-control" id="nomClient" th:field="*{utilisateurCarhos.nomUtilisateur}" required>
+            <div th:if="${#fields.hasErrors('utilisateurCarhos.nomUtilisateur')}" th:errors="*{utilisateurCarhos.nomUtilisateur}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="prenomClient" class="form-label">Prénom   <span class="obligation">*</span> </label>
+            <input type="text" class="form-control" id="prenomClient" th:field="*{utilisateurCarhos.prenomUtilisateur}" required>
+            <div th:if="${#fields.hasErrors('utilisateurCarhos.prenomUtilisateur')}" th:errors="*{utilisateurCarhos.prenomUtilisateur}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="numtelClient" class="form-label">Numéro de téléphone   <span class="obligation">*</span> </label>
+            <input type="tel" class="form-control" id="numtelClient" name="numTelClient"
+                   pattern="^\\+237[\\s\\-]?[0-9]{9}$" placeholder="+237 691 234 567" th:field="*{utilisateurCarhos.numTelUtilisateur}" required>
+            <div class="invalid-feedback">Numéro de téléphone invalide. Assurez-vous qu'il commence par +237 suivi de 9 chiffres.</div>
+            <div th:if="${#fields.hasErrors('utilisateurCarhos.numTelUtilisateur')}" th:errors="*{utilisateurCarhos.numTelUtilisateur}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="emailClient" class="form-label">Boîte mail   <span class="obligation">*</span> </label>
+            <input type="email" class="form-control" id="emailClient" th:field="*{utilisateurCarhos.emailUtilisateur}" required>
+            <div th:if="${#fields.hasErrors('utilisateurCarhos.emailUtilisateur')}" th:errors="*{utilisateurCarhos.emailUtilisateur}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="numCni-PasseportClient" class="form-label">Numéro de la CNI ou du Passeport   <span class="obligation">*</span> </label>
+            <input type="text" class="form-control" id="numCni-PasseportClient" th:field="*{utilisateurCarhos.numCniUtilisateur}" required>
+            <div th:if="${#fields.hasErrors('utilisateurCarhos.numCniUtilisateur')}" th:errors="*{utilisateurCarhos.numCniUtilisateur}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="motDePasseClient" class="form-label">Mot de passe   <span class="obligation">*</span> </label>
+            <input type="password" class="form-control" id="motDePasseClient" th:field="*{utilisateurCarhos.motDePasseUtilisateur}" required>
+            <div th:if="${#fields.hasErrors('utilisateurCarhos.motDePasseUtilisateur')}" th:errors="*{utilisateurCarhos.motDePasseUtilisateur}" class="text-danger"></div>
+        </div>
+
+        <div class="mb-3">
+            <label for="nomHebergement" class="form-label">
+                Nom de l'hébergement <span class="obligation">*</span>
+            </label>
+
+            <input type="text" class="form-control"
+                   id="nomHebergement"
+                   th:value="*{hebergementCarhos.nom}" readonly />
+
+            <!-- Champ caché pour binder l'ID de l'hébergement -->
+            <input type="hidden" th:field="*{hebergementCarhos}" />
+
+        </div>
+
+
+        <div class="d-flex justify-content-between">
+            <button type="submit" class="btn btn-primary"
+                    th:text="${location.idLocation} != null ? 'Mettre à jour' : 'Enregistrer'"></button>
+            <a href="/" class="btn btn-secondary">Retour à l'accueil</a>
+        </div>
+    </form>
+</div>
+
+<!--------------------- pied-de-page -------------------->
+
+<footer th:insert="footer_carhos::footer">
+
+</footer>
+
+</body>
+</html>
+
+
+<!-----------------
+L’attribut list="utilisateurs" dans la balise "<input> lui associe une liste de suggestions;
+
+Quand l’utilisateur commence à taper, le navigateur propose les options du datalist lié.
+
+ <datalist id="utilisateurs">
+C’est une liste de données suggérées pour un <input>.
+Les <option> à l’intérieur fournissent les valeurs suggérées.
+
+L’utilisateur commence à taper → le navigateur affiche la liste correspondante
+
+Lorsqu’il choisit un nom, la valeur de value (ex: 1) est envoyée au serveur
+
+Ça fonctionne comme un <select>, mais avec auto-complétion
+
+    --------------------------
+
+<select>
+
+ Avantages :
+Liste déroulante fixe : l’utilisateur choisit obligatoirement une option existante
+
+Empêche de saisir une valeur inexistante
+
+Compatible avec tous les navigateurs
+
+Parfait pour listes courtes ou moyennes (quelques dizaines d’options)
+
+Inconvénients :
+Pas de saisie libre
+
+Pas pratique si la liste contient des centaines d’éléments
+
+               ########################################
+               <input list=" "> & <datalist>
+
+               Auto-complétion : l’utilisateur commence à taper → suggestions apparaissent
+
+Peut gérer de grandes listes plus facilement qu’un <select>
+
+Permet la saisie libre si besoin
+
+ Inconvénients :
+L’utilisateur peut taper une valeur qui ne correspond à rien si tu ne fais pas de vérification côté serveur
+
+Moins contrôlé qu’un <select>
+
+Support moins universel sur vieux navigateurs
+
+
+------------------------>

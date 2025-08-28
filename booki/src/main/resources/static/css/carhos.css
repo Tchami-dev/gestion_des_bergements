@@ -1,8 +1,33 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');
+
 *{
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
     font-family: "raleway", sans-serif;
-    
+    box-sizing: border-box;
+}
+
+body{
+
+    display: flex;
+    margin: 0;
+    background-color: #fff;
+    flex-direction: column;
+    min-height: 100vh; /*prend toute la hauteur de la fénêtre*/
+}
+
+main{
+    flex: 1;
+}
+
+
+
+
+.obligation{
+    color: #dc3545;
+    font-weight: bolder;
 }
 
 .obligation{
@@ -41,14 +66,29 @@ a{
 
  /****************************** css lié au header *********************************************/
 header, .div__header{
+    padding-right: 30px;
      height: 100px; 
-     width:98%;
-    background-color: #fff;
+     width:100%;
+    background-color: transparent;
 }
 
 .div__logo{
     display: flex;
-    float: left;   
+    float: left;
+    overflow: hidden;
+    height: 100%;
+    width: 20%;
+}
+
+.logo{
+    transition: .5s ease;
+    object-fit: cover;
+    width: 20em;
+    height: 100%;
+}
+
+.logo:hover{
+    transform: scale(1.2);
 }
 
 .div__navigation--liens{
@@ -62,7 +102,8 @@ header, .div__header{
    display: flex;
     float: right;
     height: 90%;
-    width: auto;
+    width: 15%;
+
 }
 
 nav ul{
@@ -75,6 +116,7 @@ nav ul{
 
 nav li{
     list-style-type: none;
+    transition: .3s ease;
     
 }
 
@@ -85,12 +127,20 @@ nav a{
 }
 
 .div__navigation--liens:hover{
-    border-top: 3px solid #0065fc;   
+    /*border-top: 3px solid #0065fc;*/
+
+
 }
 
+li:hover{
+    padding: 3px;
+    background-color: #0065fc;
+    opacity: 0.8;
+    border-radius: 5px;
+}
 
 nav a:hover{
-    color:#0065fc;
+    color:#fff;
 }
 
 
@@ -235,9 +285,9 @@ nav a:hover{
 footer{
     height: auto;
     background-color: #deebffa4;
-    padding: 0px;
-    margin: 0px;
-    width: 99.8%;
+    padding: 0;
+    margin-top: auto; /** pousse le footer en bas*/
+    width: 100%;
 }
 
 .foot{
@@ -495,8 +545,8 @@ h3, .p-info{
     flex-direction: column; 
     height: auto;
     width: 100%;
-    padding: 0px;
-    margin: 0px;
+    padding: 0;
+    margin: 0;
     display: flex;
     justify-content: left; 
 }
@@ -603,6 +653,74 @@ h3, .p-info{
 
 }
 
+/*****pagination****/
+
+:root {
+    --pg-accent: #3bb8f5;     /* bleu ciel */
+    --pg-fg: #374151;         /* gris foncé */
+    --pg-bg: #fff;            /* blanc */
+    --pg-border: #d1d5db;
+    --pg-hover: #f0f9ff;      /* bleu très pâle */
+    --pg-radius: 999px;
+    --pg-shadow: 0 2px 6px rgba(0,0,0,0.08);
+}
+
+.pagination {
+    top:90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: .6rem;
+    padding: 1rem;
+    margin-top: 2rem;
+}
+
+.pagination span {
+    display: flex;
+    gap: .5rem;
+}
+
+.pagination a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: .6rem 1.1rem;
+    border: 1px solid var(--pg-border);
+    border-radius: var(--pg-radius);
+    background: var(--pg-bg);
+    color: var(--pg-fg);
+    font-size: 15px;
+    text-decoration: none;
+    min-width: 2.4rem;
+    transition: all .25s ease;
+    box-shadow: var(--pg-shadow);
+}
+
+.pagination a:hover {
+    background: var(--pg-hover);
+    border-color: var(--pg-accent);
+    color: var(--pg-accent);
+    transform: translateY(-2px);
+}
+
+.pagination a.active {
+    background: var(--pg-accent);
+    color: #fff;
+    border-color: var(--pg-accent);
+    font-weight: bold;
+    cursor: default;
+    transform: scale(1.05);
+}
+
+.pagination a:first-child::before {
+    content: "← ";
+}
+
+.pagination a:last-child::after {
+    content: " →";
+}
+
+
 /**************************** partie-responsive-du-projet ***************************/
 
 /*********** mobiles  *******/
@@ -610,8 +728,8 @@ h3, .p-info{
 @media screen and (max-width:600px){
 
     *{
-        padding:0px;
-        margin: 0px;
+        padding:0;
+        margin: 0;
         align-items: center;
     }
     
@@ -666,86 +784,91 @@ h3, .p-info{
     .section__principale--hebergement,.div__principale--hebergement{
         display: flex;
         flex-direction: column-reverse;
-        gap: 10px;
+        gap: 10px 0;
         width: 100%;
         height: auto;
     }
 
 
-    .section__hebergement--droite,.section__hebergement--gauche{
-    width: 100%;
-    height: auto;
-    flex-direction: column;
-   
-   }
-
-    .div__hebergement--gauche,.div__hebergement--droite{
+    .section__hebergement--droite, .div__hebergement--droite{
         width: 100%;
         height: auto;
         flex-direction: column;
-       
     }
 
-
-
-    .ahd,.ahg{
+    .ahd, .d-ahd{
         width: 100%;
-        height:20%;
-        display: block;
-        flex-direction: column;
-    }
-
-    .d-ahg{
-        width: 95%;
-        height:15%;
-    }
-
-
-    .imag, .d-imag{
-        width: 100%;
-    }
-
-    .sp-am,.dp-am{
-        width: 100%;
-        height: 80%;
-        flex-direction: column;
-        flex-wrap: wrap;
-        display:inline-block;
-    }
-
-    .d-imad{
-        width:50%;
-    }
-
-    .d-infod{
-        width: 40%;
-
-    }
-
-    .imad{
-        width: 100%;
-    }
-
-    .foot{
-        width: 100%;
-        height: 100%;
-        display: block;
-        flex-direction: column;
-
-    }
-
-    .col1,.col2, .col3{
-        display: inline-block;
-        width: 90%;
         height: 100px;
-        flex-direction: column;
+        display: flex;
+
     }
 
-   .publicite{
-    display: inline-flex;
-   }
+        .div__hebergement--gauche, .div__hebergement--droite {
+            width: 100%;
+            height: auto;
+            flex-direction: column;
 
-}
+        }
+
+
+        .ahd, .ahg {
+            width: 100%;
+            height: 20%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .d-ahg {
+            width: 95%;
+            height: 15%;
+        }
+
+
+        .imag, .d-imag {
+            width: 100%;
+        }
+
+        /*.sp-am, .dp-am {*/
+        /*    width: 100%;*/
+        /*    height: 80%;*/
+        /*    flex-direction: column;*/
+        /*    flex-wrap: wrap;*/
+        /*    display: inline-block;*/
+        /*}*/
+
+        /*.d-imad {*/
+        /*    width: 50%;*/
+        /*}*/
+
+        /*.d-infod {*/
+        /*    width: 40%;*/
+
+        /*}*/
+
+        /*.imad {*/
+        /*    width: 100%;*/
+        /*}*/
+
+        .foot {
+            width: 100%;
+            height: 100%;
+            display: block;
+            flex-direction: column;
+
+        }
+
+        .col1, .col2, .col3 {
+            display: inline-block;
+            width: 90%;
+            height: 100px;
+            flex-direction: column;
+        }
+
+        .publicite {
+            display: inline-flex;
+        }
+
+    }
 
 
 
